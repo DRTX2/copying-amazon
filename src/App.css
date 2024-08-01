@@ -1,0 +1,498 @@
+.root{
+  border: 3px solid red;
+}
+
+:root {
+  --primary-color: rgb(19, 26, 34);
+  --secondary-color: rgb(35, 47, 62);
+  --background-color: #eee;
+  --dorade-color: rgb(255, 224, 147);
+  --padding: 10px;
+}
+html {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card img {
+  height: 25vh;
+  object-fit: cover;
+}
+
+.main-menu {
+  /* para poder usar flexbox */
+  display: flex;
+  /* distribuir espacio entre elementos hijos con el primero a la izq y el ultimo a la der */
+  justify-content: space-between;
+  /* alinear hijos en el centro */
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 1rem;
+  color: var(--background-color);
+}
+
+.items-main-menu {
+  /*  Elimina los puntos o números de la lista.*/
+  list-style: none;
+  margin: 0;
+  /* quitar relleno q viene por defecto en listas */
+  padding: 0;
+  /* para alinearlos horizontalmente */
+  display: flex;
+}
+
+.items-main-menu li {
+  margin-left: 1rem;
+}
+
+.items-main-menu a {
+  color: var(--background-color);
+  /* Añade relleno interno alrededor de los enlaces. */
+  padding: 0.5rem 1rem;
+}
+
+.icon-toggle-main-menu {
+  /* ocultarlo en ventanas grandes */
+  display: none;
+  /* elimina cualquier fondo del boton */
+  background: none;
+  border: none;
+  color: var(--background-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.icon-toggle-main-menu.more {
+  display: block;
+}
+
+/* para las .card */
+
+.cards {
+  display: grid;
+  /* espacio entre tarjetas */
+  gap: 0;
+  grid-template-columns: repeat(auto-fill, minmax(2rem, 25%));
+  /* para q se vea centrado y no tan lleno */
+  width: 90%;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  /* Centra verticalmente el contenido dentro de cada tarjeta */
+  justify-content: center;
+  /* Centra horizontalmente el contenido dentro de cada tarjeta */
+  align-items: center;
+  background-color: #eee;
+  margin: 1vw;
+  padding: 0.25rem;
+  box-shadow: 0 0.25rem 0.3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .items-main-menu {
+    flex-direction: column;
+    display: none;
+    width: 100%;
+  }
+
+  .items-main-menu li {
+    margin: 0;
+  }
+
+  .icon-toggle-main-menu {
+    display: block;
+    position: absolute;
+    right: 1rem;
+  }
+
+  .items-main-menu.active {
+    display: flex;
+  }
+
+  .card img {
+    height: auto;
+    margin: 0.25rem;
+  }
+  .card {
+    margin: 0;
+    vertical-align: center;
+    font-size: 1.5rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5rem, 45%));
+    gap: 1.5rem;
+    height: auto;
+  }
+}
+
+/*  
+.recomendations button{
+    width: 7rem;
+    color: var(--secondary-color);
+    border-radius: 10%;
+}
+*/
+
+.recomendations {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Añade para centrar horizontalmente el contenido */
+  text-align: center; /* Alinea el texto dentro del contenedor */
+  margin: 1vw;
+  padding: 0.25rem;
+}
+
+#identificate {
+  font-size: initial;
+  width: 10rem;
+  color: rgb(0, 113, 133);
+  /* Para poder darle ancho y alto y tambien pueda centrarse con los estilos de su padre*/
+  display: inline-block;
+  /* Centrar texto del btn */
+  text-align: center;
+  /* Ajusta el espaciado vertical del texto según el tamaño del botón */
+  /* line-height: 2.5rem;  */
+  border: 2px solid rgb(0, 113, 133); /* Añade un borde para resaltar el botón */
+  padding: 0.5rem 1rem; /* Ajusta el espaciado interno del botón */
+  border-radius: 4px; /* Añade bordes redondeados al botón */
+}
+
+.link {
+  color: rgb(0, 113, 133);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.come-back-home,
+.columns-footer {
+  padding: 0;
+}
+
+.come-back-home {
+  text-align: center;
+  background-color: #2d414b;
+  color: var(--background-color);
+  height: 3rem;
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.come-back-home:hover {
+  opacity: 0.8;
+}
+
+.columns-footer-container,
+.configuring {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--secondary-color);
+}
+
+.columns-footer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  display: grid;
+  gap: 10vw;
+  grid-template-columns: repeat(auto-fill, minmax(1rem, 15%));
+  /* para q se vea centrado y no tan lleno */
+  align-content: center;
+  justify-content: center;
+}
+
+.column-footer h2,
+.extra-content a {
+  color: #fff;
+}
+
+.column-footer p,
+.extra-content span,
+.announcements {
+  color: #ccc;
+}
+
+.about-service {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  position: relative;
+
+  padding-bottom: 2vmin;
+}
+
+.about-service div {
+  width: 13vw;
+  object-fit: contain;
+  height: 5%;
+  margin-left: 1rem;
+  padding: 0.5rem 0.5rem;
+  overflow-x: hidden;
+}
+.img-logo {
+  width: 20vmin;
+}
+.img-logo img {
+  width: 100%;
+  height: 8vmin;
+}
+
+.box-language,
+.icon-configurate {
+  color: #ccc;
+  background-color: var(--secondary-color);
+  padding: 0.5rem;
+  border-radius: 3px;
+  border: thin solid var(--background-color); /* Borde */
+}
+
+.box-language:hover,
+.icon-configurate:hover {
+  /* Color del borde al pasar el mouse */
+  border-color: var(--primary-color);
+  /* Sombra iluminada */
+  box-shadow: 0 0 5px var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  footer {
+    overflow-x: hidden;
+  }
+  .columns-footer {
+    gap: 20vw;
+    grid-template-columns: repeat(auto-fill, minmax(1rem, 25%));
+  }
+  .column-footer {
+    padding: 0;
+  }
+
+  .about-service {
+    width: 90%;
+    justify-content: first baseline;
+  }
+  .about-service div {
+    width: 18vw;
+  }
+  .about-service:nth-child(2) {
+    overflow-x: visible;
+    margin: 0 10px;
+  }
+}
+
+/* para la part d abajo abajo */
+
+.configuring {
+  background-color: var(--primary-color);
+}
+.extra-content {
+  display: grid;
+  flex-direction: column;
+  /* gap: 10vw; */
+  grid-template-columns: repeat(auto-fill, minmax(9.5em, 17%));
+  margin: 0 auto;
+  align-content: center;
+  justify-content: center;
+  padding-top: 5vmin;
+}
+.extra-content span {
+  display: block;
+  margin-bottom: 3vmin;
+}
+
+.extra-content div {
+  /* width:95%; */
+  /* margin-right: 1rem; */
+  font-size: 0.7rem;
+  /* align-items: center; */
+  vertical-align: center;
+  margin-right: 3vw;
+}
+
+.announcements {
+  list-style: none;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow-wrap: break-word;
+  font-size: 14px;
+  width: 76%;
+  margin: 5vmin auto;
+}
+
+.announcements-list li {
+  display: block;
+  width: auto;
+}
+
+.announcements span {
+  position: relative;
+  bottom: 3vmin;
+  left: 40%;
+}
+
+@media (max-width: 768px) {
+  .configuring {
+    padding-bottom: 25vh;
+  }
+
+  .extra-content *,
+  .extra-content div {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+  }
+  .extra-content {
+    grid-template-columns: repeat(auto-fill, minmax(25%, 40%));
+    margin: 0 auto;
+    align-content: center;
+    justify-content: center;
+    padding-top: 5vmin;
+    gap: 0;
+  }
+
+  .announcements-list {
+    gap: 0;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    padding: 3em 0;
+    justify-content: space-evenly;
+  }
+  .announcements span {
+    left: 25%;
+  }
+}
+
+/* cambiando la franja por bordes*/
+.recomendations {
+  margin: 3vh 0;
+  border-top: thin solid slategray;
+}
+
+.extra-content {
+  border-top: thin solid slategray;
+  padding-top: 3vmin;
+}
+
+/* ahora para cambiar el borde del menu */
+.items-main-menu li {
+  padding: 0.15rem;
+}
+.items-main-menu li:hover {
+  outline: thin solid var(--background-color);
+}
+
+/* agregando el submenu */
+
+.submenu {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  overflow: hidden;
+  transition: opacity 400ms ease-in;
+}
+
+.submenu.active {
+  display: block;
+  z-index: 50;
+}
+.main-menu-more {
+  width: 35%;
+  height: 100vh;
+  padding-left: 1rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  align-items: center;
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.main-menu-more span {
+  background-color: var(--background-color);
+  padding: 1rem;
+}
+
+.main-menu-more-items {
+  padding-bottom: 1rem;
+  border-bottom: thin solid var(--primary-color);
+  /* padding: 1rem; */
+}
+.main-menu-more-items p {
+  display: block;
+  padding: 0.5rem;
+}
+.main-menu-more-items p:hover {
+  background-color: #ccc;
+}
+
+#close-menu-more {
+  position: absolute;
+  left: 37vw;
+  top: 1rem;
+  background-color: transparent;
+  color: var(--dorade-color);
+
+  /* gpt */
+
+  background: var(--secondary-color);
+  border: none;
+  padding: 0.3rem 0.4rem;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 2px 0.1rem var(--dorade-color);
+  border-radius: 30%;
+  /* los q siguen aseguran que el botón no tenga ningún estilo predeterminado específico del navegador. */
+  appearance: none;
+}
+
+
+
+
