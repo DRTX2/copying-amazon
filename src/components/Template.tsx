@@ -1,73 +1,16 @@
-import { useState } from "react";
-import { Card } from "./Card";
+import { ReactNode, useState } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import Recomendations from "./SectionRecomendation";
 import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
 import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
-import "./Template.css";
 
-//  this simulate the response of an api
-const cardData = [
-  {
-    title: "Chaqueta",
-    img: "src/assets/img/chaqueta.jpg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Chaqueta de cuero",
-    img: "src/assets/img/chaqueta-cuero.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Equipo de entrenamiento",
-    img: "src/assets/img/equipo.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Laptop ASUS",
-    img: "src/assets/img/laptop.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Laptop HP",
-    img: "src/assets/img/laptop2.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Libros interesantes",
-    img: "src/assets/img/new-books.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Libros en oferta",
-    img: "src/assets/img/offert-book.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Pantalon dama",
-    img: "src/assets/img/pantalon.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Tablet",
-    img: "src/assets/img/talbet.jpg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Libro: Liberando la bestia",
-    img: "src/assets/img/training-book.jpeg",
-    altImg: "Producto en oferta",
-  },
-  {
-    title: "Xbox 360",
-    img: "src/assets/img/xbox.jpeg",
-    altImg: "Producto en oferta",
-  },
-];
+type content= {
+  children:React.ReactNode
+}
 
-function Template() {
+const Template:React.FC<content> = ({children}:content)=>{
   return (
     <>
       <header>
@@ -96,16 +39,7 @@ function Template() {
           </button>
         </nav>
       </header>
-      <div className="cards">
-        {cardData.map((card, index) => (
-          <Card
-            key={index}
-            title={card.title}
-            img={card.img}
-            altImg={card.altImg}
-          />
-        ))}
-      </div>
+      {children}
       <Recomendations/>
       <footer>
         <div className="come-back-home">

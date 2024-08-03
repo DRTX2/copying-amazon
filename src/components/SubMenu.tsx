@@ -31,10 +31,10 @@ const SubMenu = () => {
               <ItemSubmenu title="Ayuda y configuracion">
                 <p>Tu cuenta</p>
                 <p>
-                  <span>Español</span>
+                  Español
                 </p>
                 <p>
-                  <span>Estados Unidos</span>
+                  Estados Unidos
                 </p>
                 <p>Identificate</p>
               </ItemSubmenu>
