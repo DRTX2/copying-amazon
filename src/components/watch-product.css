@@ -1,3 +1,14 @@
 .current-product{
     width: 60vw;
 }
+
+.current-product img{
+    width: 40vw;
+}
+
+.current-product figcaption{
+    position: absolute;
+    left: 60vw;
+    size: 2em;
+    font-weight: bold;
+}

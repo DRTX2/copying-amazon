@@ -1,67 +1,234 @@
-[{
-    "id":1,
+[
+  {
+    "id": 1,
     "title": "Chaqueta",
     "img": "src/assets/img/chaqueta.jpg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["clothes"],
+    "description": [
+      "Material: poliéster",
+      "ligero, cortavientos, transpirable.",
+      "Chaqueta bomber con cuello alto y cremallera completa. La cabeza de la cremallera está a la izquierda.",
+      "Características: puños, pretina y cuello de punto acanalado para mayor comodidad, dos bolsillos para bolígrafos en la manga.",
+      "Múltiples bolsillos: 1 bolsillo con cremallera en la manga, 2 bolsillos inclinados para las manos, 1 bolsillo interior.",
+      "Adecuadas para: usar al aire libre, estilo informal, ropa deportiva, trabajo, vida cotidiana, senderismo, ropa de club, deportes, primavera, otoño u otras actividades al aire libre."
+    ],
+    "marca": "Genérica",
+    "color": "Negro",
+    "estilo": "Casual",
+    "usos": ["Uso diario", "salidas informales"],
+    "precio": 50,
+    "descuento": 0.1,
+    "cantidadDisponible": 20,
+    "origenEnvio": "Desde Ciudad de México, incluye envío gratis."
   },
   {
-    "id":2,
+    "id": 2,
     "title": "Chaqueta de cuero",
     "img": "src/assets/img/chaqueta-cuero.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["clothes"],
+    "description": [
+      "Material: cuero",
+      "Resistente y duradero",
+      "Chaqueta de motociclista con cremalleras y detalles metálicos",
+      "Características: cremalleras en puños y bolsillos, cierre frontal completo",
+      "Adecuadas para: salidas nocturnas, eventos casuales"
+    ],
+    "marca": "Premium",
+    "color": "Marrón",
+    "estilo": "Elegante, Motociclista",
+    "usos": ["Salidas nocturnas", "eventos casuales"],
+    "precio": 120,
+    "descuento": 0.15,
+    "cantidadDisponible": 15,
+    "origenEnvio": "Desde Ciudad de México, costo de envío $10"
   },
   {
-    "id":3,
+    "id": 3,
     "title": "Equipo de entrenamiento",
     "img": "src/assets/img/equipo.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["sports", "health"],
+    "description": [
+      "Material: acero inoxidable y plástico",
+      "Incluye: mancuernas, bandas de resistencia, y esterilla de yoga",
+      "Características: durable, portátil, multifuncional",
+      "Adecuadas para: ejercicio en casa, entrenamiento personal"
+    ],
+    "marca": "FitPro",
+    "color": "Negro",
+    "estilo": "Deportivo",
+    "usos": ["Ejercicio en casa", "entrenamiento personal"],
+    "precio": 200,
+    "descuento": 0.2,
+    "cantidadDisponible": 10,
+    "origenEnvio": "Desde Monterrey, incluye envío gratis"
   },
   {
-    "id":4,
+    "id": 4,
     "title": "Laptop ASUS",
     "img": "src/assets/img/laptop.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["technology", "laptop","best seller"],
+    "description": [
+      "Procesador: Intel Core i7",
+      "Pantalla: 15.6 pulgadas Full HD",
+      "Almacenamiento: 512GB SSD",
+      "RAM: 16GB",
+      "Adecuadas para: trabajo, estudio, entretenimiento"
+    ],
+    "marca": "ASUS",
+    "color": "Gris",
+    "estilo": "Moderno, portátil",
+    "usos": ["Trabajo", "estudio", "entretenimiento"],
+    "precio": 800,
+    "descuento": 0.05,
+    "cantidadDisponible": 5,
+    "origenEnvio": "Desde Guadalajara, costo de envío $20"
   },
   {
-    "id":5,
+    "id": 5,
     "title": "Laptop HP",
     "img": "src/assets/img/laptop2.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["technology", "laptop","best seller"],
+    "description": [
+      "Procesador: AMD Ryzen 5",
+      "Pantalla: 14 pulgadas Full HD",
+      "Almacenamiento: 256GB SSD",
+      "RAM: 8GB",
+      "Adecuadas para: trabajo, estudio, entretenimiento"
+    ],
+    "marca": "HP",
+    "color": "Plata",
+    "estilo": "Moderno, portátil",
+    "usos": ["Trabajo", "estudio", "entretenimiento"],
+    "precio": 750,
+    "descuento": 0.1,
+    "cantidadDisponible": 8,
+    "origenEnvio": "Desde Guadalajara, incluye envío gratis"
   },
   {
-    "id":6,
+    "id": 6,
     "title": "Libros interesantes",
     "img": "src/assets/img/new-books.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["books","entertaiment"],
+    "description": [
+      "Variedad de títulos y géneros",
+      "Incluye: novelas, ciencia ficción, autoayuda",
+      "Adecuadas para: lectura, entretenimiento"
+    ],
+    "marca": "Variada",
+    "color": "Multicolor",
+    "estilo": "Literario",
+    "usos": ["Lectura", "entretenimiento"],
+    "precio": 30,
+    "descuento": 0.2,
+    "cantidadDisponible": 50,
+    "origenEnvio": "Desde Ciudad de México, costo de envío $5"
   },
   {
-    "id":7,
+    "id": 7,
     "title": "Libros en oferta",
     "img": "src/assets/img/offert-book.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["books","entertaiment"],
+    "description": [
+      "Colección de libros en descuento",
+      "Incluye: bestsellers, clásicos, novedades",
+      "Adecuadas para: lectura, entretenimiento"
+    ],
+    "marca": "Variada",
+    "color": "Multicolor",
+    "estilo": "Literario",
+    "usos": ["Lectura", "entretenimiento"],
+    "precio": 20,
+    "descuento": 0.25,
+    "cantidadDisponible": 40,
+    "origenEnvio": "Desde Ciudad de México, incluye envío gratis"
   },
   {
-    "id":8,
-    "title": "Pantalon dama",
+    "id": 8,
+    "title": "Pantalón dama",
     "img": "src/assets/img/pantalon.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["clothes","girls"],
+    "description": [
+      "Material: mezclilla",
+      "Características: cintura alta, ajuste ceñido",
+      "Adecuadas para: oficina, eventos casuales"
+    ],
+    "marca": "FashionLine",
+    "color": "Azul",
+    "estilo": "Casual, formal",
+    "usos": ["Oficina", "eventos casuales"],
+    "precio": 40,
+    "descuento": 0.15,
+    "cantidadDisponible": 30,
+    "origenEnvio": "Desde Puebla, costo de envío $8"
   },
   {
-    "id":9,
+    "id": 9,
     "title": "Tablet",
     "img": "src/assets/img/talbet.jpg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["technology","entertaiment", "education", "tablet"],
+    "description": [
+      "Pantalla: 10.1 pulgadas",
+      "Almacenamiento: 64GB",
+      "Batería: 6000mAh",
+      "Adecuadas para: lectura, entretenimiento, trabajo"
+    ],
+    "marca": "Samsung",
+    "color": "Negro",
+    "estilo": "Moderno, portátil",
+    "usos": ["Lectura", "entretenimiento", "trabajo"],
+    "precio": 300,
+    "descuento": 0.1,
+    "cantidadDisponible": 12,
+    "origenEnvio": "Desde Monterrey, incluye envío gratis"
   },
   {
-    "id":10,
+    "id": 10,
     "title": "Libro: Liberando la bestia",
     "img": "src/assets/img/training-book.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["book","entertaiment", "health", "sport", "excercise"],
+    "description": [
+      "Autor: John Doe",
+      "Género: Motivacional",
+      "Páginas: 300",
+      "Adecuadas para: lectura, autoayuda"
+    ],
+    "marca": "Editorial XYZ",
+    "color": "N/A",
+    "estilo": "Literario, motivacional",
+    "usos": ["Lectura", "autoayuda"],
+    "precio": 25,
+    "descuento": 0.1,
+    "cantidadDisponible": 100,
+    "origenEnvio": "Desde Ciudad de México, costo de envío $3"
   },
   {
-    "id":11,
+    "id": 11,
     "title": "Xbox 360",
     "img": "src/assets/img/xbox.jpeg",
-    "altImg": "Producto en oferta"
+    "altImg": "Producto en oferta",
+    "category":["technology","entertaiment", "console"],
+    "description": [
+      "Incluye: consola, 2 controles, 1 juego",
+      "Características: gráficos HD, conexión a internet",
+      "Adecuadas para: entretenimiento, juegos"
+    ],
+    "marca": "Microsoft",
+    "color": "Blanco",
+    "estilo": "Consola de videojuegos",
+    "usos": ["Entretenimiento", "juegos"],
+    "precio": 150,
+    "descuento": 0.05,
+    "cantidadDisponible": 20,
+    "origenEnvio": "Desde Monterrey, incluye envío gratis"
   }
 ]
