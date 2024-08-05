@@ -2,6 +2,7 @@ import React from "react";
 import CardData from "./Card";
 import "./watch-product.css";
 import "../pages/products.json";
+import {concatString, LinksCategorysProduct} from "./LinksCategorysProduct";
 
 export type ProductData = CardData & {
   category: string[];
@@ -16,17 +17,15 @@ export type ProductData = CardData & {
   origenEnvio: string;
 };
 
-// type cardDataAndFunction=ProductData & {searchProd:({...rest}:ProductData) => void;}
-
-const concatString = (array: string[]): string => {
-  const concatCategorys: string = array.join(", ");
-  return concatCategorys.substring(0, concatCategorys.length - 2);
-};
 
 const Product = ({ ...product }: ProductData) => {
   return (
+    <>
+    <section className="current-selection">
+      {LinksCategorysProduct(product, " - ")}
+    </section>
     <section className="current-product" id={product.id as string}>
-      <figure>
+      <figure className="img-box">
         <img src={product.img} alt={product.altImg} />
       </figure>
       <article className="informationProduct">
@@ -42,7 +41,7 @@ const Product = ({ ...product }: ProductData) => {
         <p>Color: {product.color}</p>
         <p>Estilo: {product.estilo}</p>
         <p>Usos: {concatString(product.usos)}</p>
-        {/* <p>{product.description}</p> */}
+        
       </article>
       <article className="more-about-product">
         <p>Precio: {product.precio}</p>
@@ -51,6 +50,7 @@ const Product = ({ ...product }: ProductData) => {
         <p>Enviado desde {product.origenEnvio}</p>
       </article>
     </section>
+    </>
   );
 };
 
