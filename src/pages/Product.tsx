@@ -3,7 +3,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 
-export default function Home() {
+export default function Product() {
 const { id } = useParams();
 //   return (
     
