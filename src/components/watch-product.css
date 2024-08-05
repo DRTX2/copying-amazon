@@ -1,9 +1,18 @@
+.current-selection{
+    margin-left: 1rem;
+}
 .current-product{
-    width: 60vw;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-content: space-evenly;
+}
+.img-box {
+    width: 30vw;
 }
 
-.current-product img{
-    width: 40vw;
+.img-box img{
+    width: 100%;
 }
 
 .current-product figcaption{
@@ -11,4 +20,13 @@
     left: 60vw;
     size: 2em;
     font-weight: bold;
+}
+
+.current-product > *{
+    border: thin solid brown;
+    padding: 1rem;
+}
+
+.current-product > :not(figure){
+    
 }

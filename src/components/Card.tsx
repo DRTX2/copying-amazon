@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import data from "./../pages/products.json";
 
 type CardData = {
   title: string;
@@ -29,7 +28,6 @@ export const Card: React.FC<CardProps> = ({
       className="card"
       onClick={() => {
         handleClick(id as number);
-        console.log("ya taaaa" + id);
       }}
     >
       <img src={img} alt={altImg} />

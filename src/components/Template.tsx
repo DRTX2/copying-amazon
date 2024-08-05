@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import Recomendations from "./SectionRecomendation";
 import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
@@ -10,7 +10,22 @@ type content= {
   children:React.ReactNode
 }
 
+function enableSubMenu(event:React.MouseEvent<HTMLButtonElement>){
+  
+  const target = event.currentTarget;
+  target.classList.toggle("active");
+console.log(target);
+  const parentElement = target.parentElement as HTMLElement;
+  if (parentElement.classList.contains("size")) {
+    parentElement.classList.add("size");
+    parentElement.style.height = document.documentElement.scrollHeight + 'px';
+  }
+}
+
+
 const Template:React.FC<content> = ({children}:content)=>{
+  const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);
+  const navLinks = useRef<HTMLUListElement|null>(null);
   return (
     <>
       <header>
@@ -19,11 +34,12 @@ const Template:React.FC<content> = ({children}:content)=>{
             className="icon-toggle-main-menu more"
             aria-label="Toggle navigation"
             id="btn-menu-more"
+            onClick={()=>SetMenuIsOpen(!MenuIsOpen)}
           >
             &#9776;
           </button>
-          <SubMenu/>
-          <ul className="items-main-menu">
+          <SubMenu MenuIsOpen={MenuIsOpen} SetMenuIsOpen={SetMenuIsOpen}/>
+          <ul className="items-main-menu" ref={navLinks}>
             <ItemBarMenu title='Ofertas del dia'/>
             <ItemBarMenu title='Servicio al cliente'/>
             <ItemBarMenu title='Listas'/>
@@ -34,6 +50,7 @@ const Template:React.FC<content> = ({children}:content)=>{
             className="icon-toggle-main-menu"
             aria-label="Toggle navigation"
             id="btn-toggle-menu"
+            onClick={()=>{navLinks.current?.classList.toggle("active")}}
           >
             &#9776;
           </button>
