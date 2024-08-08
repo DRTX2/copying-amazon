@@ -5,6 +5,7 @@ import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
 import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
+import "../App.css";
 
 type content= {
   children:React.ReactNode
