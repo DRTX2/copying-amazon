@@ -1,0 +1,13 @@
+.select-quantity{
+    display: inline-block;
+    min-width: 20%;
+    margin-left: 3%;
+    background-color: #eee;
+    color: #333;
+    max-height: 6rem;
+    overflow-y: hidden;
+}
+
+.select-quantity option{
+    cursor: pointer;
+}

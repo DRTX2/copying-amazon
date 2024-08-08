@@ -23,10 +23,37 @@
 }
 
 .current-product > *{
-    border: thin solid brown;
+    /* border: thin solid brown; */
     padding: 1rem;
 }
 
 .current-product > :not(figure){
     
+}
+
+.informationProduct h3{
+    border-bottom: thin solid #222;
+}
+
+.product-cost{
+    font-weight: bold;
+}
+
+.product-cost span {
+    font-weight: normal;
+}
+
+
+.more-about-product{
+    border: thin solid #444444;
+    border-radius: 5%;
+    width: 20vw;
+    position: relative;
+    top: 5vh;
+}
+
+.more-about-product button{
+    width: 15rem;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
 }

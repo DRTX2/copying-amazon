@@ -3,6 +3,8 @@ import CardData from "./Card";
 import "./watch-product.css";
 import "../pages/products.json";
 import {concatString, LinksCategorysProduct} from "./LinksCategorysProduct";
+import {ProductCost} from "./Product-cost"
+import SelectProduct from "./selectQuantityProduct";
 
 export type ProductData = CardData & {
   category: string[];
@@ -30,23 +32,30 @@ const Product = ({ ...product }: ProductData) => {
       </figure>
       <article className="informationProduct">
         <h3 className="title">{product.title}</h3>
-        <p>Categoria: {concatString(product.category)}</p>
+        <ProductCost price={product.precio} discount={product.descuento}/>
         <ul>
           {product.description.map((desc, index) => (
             <li key={index}>{desc}</li>
           ))}
         </ul>
         <h3>Caracteristicas</h3>
-        <p>Marca: {product.marca}</p>
-        <p>Color: {product.color}</p>
-        <p>Estilo: {product.estilo}</p>
-        <p>Usos: {concatString(product.usos)}</p>
-        
+        <p><b>Marca:</b> {product.marca}</p>
+        <p><b>Color:</b> {product.color}</p>
+        <p><b>Estilo:</b> {product.estilo}</p>
+        <p><b>Usos:</b> {concatString(product.usos)}</p>
       </article>
       <article className="more-about-product">
-        <p>Precio: {product.precio}</p>
-        <p>Descuento: {product.descuento}</p>
-        <p>Cantidad Disponible: {product.cantidadDisponible}</p>
+        <p>Nuevo:</p>
+        <p>${product.precio}</p>
+        <p>Enviar a 'Pais Ejemplo'</p>
+        <p>
+        {
+          product.cantidadDisponible?"Disponible": "Agotado"
+        }
+        </p>
+        <p>Cantidad: <SelectProduct quantity={product.cantidadDisponible}/></p>
+        <button>Agregar al carrito</button>
+        <button>Comprar ahora</button>
         <p>Enviado desde {product.origenEnvio}</p>
       </article>
     </section>
