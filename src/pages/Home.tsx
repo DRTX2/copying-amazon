@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Template from "../components/Template";
 import CardData, { Card } from "../components/Card";
 import Product, { ProductData } from "../components/Product";

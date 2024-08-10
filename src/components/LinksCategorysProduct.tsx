@@ -1,4 +1,3 @@
-import React from "react";
 import { ProductData } from "./Product";
 
 export const concatString = (array: string[], separator = ", "): string => {

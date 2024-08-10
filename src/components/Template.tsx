@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from "react";
+import {useRef, useState } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import Recomendations from "./SectionRecomendation";
 import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
@@ -9,19 +9,6 @@ import SubMenu from "./SubMenu";
 type content= {
   children:React.ReactNode
 }
-
-function enableSubMenu(event:React.MouseEvent<HTMLButtonElement>){
-  
-  const target = event.currentTarget;
-  target.classList.toggle("active");
-console.log(target);
-  const parentElement = target.parentElement as HTMLElement;
-  if (parentElement.classList.contains("size")) {
-    parentElement.classList.add("size");
-    parentElement.style.height = document.documentElement.scrollHeight + 'px';
-  }
-}
-
 
 const Template:React.FC<content> = ({children}:content)=>{
   const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);

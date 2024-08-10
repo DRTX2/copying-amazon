@@ -1,4 +1,3 @@
-import React from "react";
 import CardData from "./Card";
 import "./watch-product.css";
 import "../pages/products.json";
