@@ -5,6 +5,7 @@ import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
 import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
+import SuperiorMenu from "./Superior-menu";
 
 type content= {
   children:React.ReactNode
@@ -16,6 +17,7 @@ const Template:React.FC<content> = ({children}:content)=>{
   return (
     <>
       <header>
+      <SuperiorMenu/>
         <nav className="main-menu" id="main-menu">
           <button
             className="icon-toggle-main-menu more"

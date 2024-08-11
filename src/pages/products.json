@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Chaqueta",
-    "img": "src/assets/img/chaqueta.jpg",
+    "img": "public/assets/img/chaqueta.jpg",
     "altImg": "Producto en oferta",
     "category":["clothes"],
     "description": [
@@ -25,7 +25,7 @@
   {
     "id": 2,
     "title": "Chaqueta de cuero",
-    "img": "src/assets/img/chaqueta-cuero.jpeg",
+    "img": "public/assets/img/chaqueta-cuero.jpeg",
     "altImg": "Producto en oferta",
     "category":["clothes"],
     "description": [
@@ -47,7 +47,7 @@
   {
     "id": 3,
     "title": "Equipo de entrenamiento",
-    "img": "src/assets/img/equipo.jpeg",
+    "img": "public/assets/img/equipo.jpeg",
     "altImg": "Producto en oferta",
     "category":["sports", "health"],
     "description": [
@@ -68,7 +68,7 @@
   {
     "id": 4,
     "title": "Laptop ASUS",
-    "img": "src/assets/img/laptop.jpeg",
+    "img": "public/assets/img/laptop.jpeg",
     "altImg": "Producto en oferta",
     "category":["technology", "laptop","best seller"],
     "description": [
@@ -90,7 +90,7 @@
   {
     "id": 5,
     "title": "Laptop HP",
-    "img": "src/assets/img/laptop2.jpeg",
+    "img": "public/assets/img/laptop2.jpeg",
     "altImg": "Producto en oferta",
     "category":["technology", "laptop","best seller"],
     "description": [
@@ -112,7 +112,7 @@
   {
     "id": 6,
     "title": "Libros interesantes",
-    "img": "src/assets/img/new-books.jpeg",
+    "img": "public/assets/img/new-books.jpeg",
     "altImg": "Producto en oferta",
     "category":["books","entertaiment"],
     "description": [
@@ -132,7 +132,7 @@
   {
     "id": 7,
     "title": "Libros en oferta",
-    "img": "src/assets/img/offert-book.jpeg",
+    "img": "public/assets/img/offert-book.jpeg",
     "altImg": "Producto en oferta",
     "category":["books","entertaiment"],
     "description": [
@@ -152,7 +152,7 @@
   {
     "id": 8,
     "title": "Pantalón dama",
-    "img": "src/assets/img/pantalon.jpeg",
+    "img": "public/assets/img/pantalon.jpeg",
     "altImg": "Producto en oferta",
     "category":["clothes","girls"],
     "description": [
@@ -172,7 +172,7 @@
   {
     "id": 9,
     "title": "Tablet",
-    "img": "src/assets/img/talbet.jpg",
+    "img": "public/assets/img/talbet.jpg",
     "altImg": "Producto en oferta",
     "category":["technology","entertaiment", "education", "tablet"],
     "description": [
@@ -193,7 +193,7 @@
   {
     "id": 10,
     "title": "Libro: Liberando la bestia",
-    "img": "src/assets/img/training-book.jpeg",
+    "img": "public/assets/img/training-book.jpeg",
     "altImg": "Producto en oferta",
     "category":["book","entertaiment", "health", "sport", "excercise"],
     "description": [
@@ -214,7 +214,7 @@
   {
     "id": 11,
     "title": "Xbox 360",
-    "img": "src/assets/img/xbox.jpeg",
+    "img": "public/assets/img/xbox.jpeg",
     "altImg": "Producto en oferta",
     "category":["technology","entertaiment", "console"],
     "description": [
