@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Template from "../components/Template";
-import CardData, { Card } from "../components/Card";
-import Product, { ProductData } from "../components/Product";
+import {CardData, ProductData} from "../types/products";
+import { Card } from "../components/Card";
+import Product from "../components/Product";
 import data from "./products.json";
 //  this simulate the response of an api
 

@@ -1,12 +1,5 @@
 import React from "react";
-
-type CardData = {
-  title: string;
-  img: string;
-  altImg: string;
-  id?: string | number;
-};
-export default CardData;
+import {CardData} from "../types/products";
 
 type CardProps = CardData & {
   handleClick: (id: number) => void;

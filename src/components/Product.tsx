@@ -1,23 +1,9 @@
-import CardData from "./Card";
+import {ProductData} from "../types/products";
 import "./watch-product.css";
 import "../pages/products.json";
 import {concatString, LinksCategorysProduct} from "./LinksCategorysProduct";
 import {ProductCost} from "./Product-cost"
 import SelectProduct from "./selectQuantityProduct";
-
-export type ProductData = CardData & {
-  category: string[];
-  description: string[];
-  marca: string;
-  color: string;
-  estilo: string;
-  usos: string[];
-  precio: number;
-  descuento: number;
-  cantidadDisponible: number;
-  origenEnvio: string;
-};
-
 
 const Product = ({ ...product }: ProductData) => {
   return (
