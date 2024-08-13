@@ -1,6 +1,9 @@
-// import {  useState } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import SearchField from "./SearchField";
+import ClickableItemBarMenu from "./ClickableItemBarMenu";
+import {useCart} from "../context/CartContext";
+// import  from "../context/CartProvider";
+
 const SuperiorMenuStyles = {
   margin: 0,
   padding: 0,
@@ -18,6 +21,8 @@ const imgStyle = {
 
 const SuperiorMenu = () => {
   // const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const {cart}= useCart();
+
   return (
     <>
     <div className="main-menu" id="main-menu" style={SuperiorMenuStyles}>
@@ -31,10 +36,16 @@ const SuperiorMenu = () => {
       <ul className="items-main-menu">
         <ItemBarMenu title="">
           <i className="fas fa-search"></i>
-        </ItemBarMenu>
+          </ItemBarMenu>
         <ItemBarMenu title="Enviar a Ecuador" />
         <ItemBarMenu title="Cuenta y Listas" />
-        <ItemBarMenu title="Ver Carrito" />
+        <ClickableItemBarMenu title="Carrito" onClick={()=>{
+          if(!cart) return;
+          
+
+        }}>
+          <i className="fa-solid fa-cart-shopping"></i>
+        </ClickableItemBarMenu>
       </ul>
     </div>
     

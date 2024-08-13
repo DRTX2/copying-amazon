@@ -5,7 +5,6 @@ type itemPropertys={
     link?: string,
     myClass?: string,
     children?:React.ReactNode,
-    
 }
 
 const ItemBarMenu = ({title,link="#", myClass="item-menu", children=null}:itemPropertys) => {

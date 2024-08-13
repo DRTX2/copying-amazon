@@ -1,7 +1,11 @@
+import { useAuth } from "../context/AuthContext";
 
-const Recomendations = () => {
-  return (
-    <div className="recomendations">
+const Recomendations: React.FC = () => {
+  const { user, login,logout } = useAuth();
+
+  if (!user) {
+    return (
+      <div className="recomendations">
         <p>Ver recomendaciones personalizadas</p>
         <div>
           <a href="#" id="identificate" className="button">
@@ -11,11 +15,19 @@ const Recomendations = () => {
         <p>
           ¿Eres un cliente nuevo?{" "}
           <a href="#" className="link">
-            Epieza aquí.
+            Empieza aquí.
           </a>
         </p>
       </div>
-  )
-}
+    );
+  }
 
-export default Recomendations
+  return (
+    <div>
+      <h2>Welcome, {user.name}</h2>
+      <button onClick={logout}>Logout</button>
+    </div>
+  );
+};
+
+export default Recomendations;

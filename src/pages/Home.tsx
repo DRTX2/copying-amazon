@@ -30,6 +30,7 @@ export default function Home() {
   const searchProductId = (id: number): void => {
     const api: ProductData[] = data;
     const product = api.find((prod) => prod.id === id);
+    
     if (product) {
       setproduct(product);
     }

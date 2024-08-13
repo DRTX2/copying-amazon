@@ -6,6 +6,8 @@ import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
 import SuperiorMenu from "./Superior-menu";
+import {AuthProvider} from "../context/AuthProvider";
+import { CartProvider } from "../context/CartProvider";
 
 type content= {
   children:React.ReactNode
@@ -13,9 +15,12 @@ type content= {
 
 const Template:React.FC<content> = ({children}:content)=>{
   const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);
+  const [CartIsIpen, setCartIsIpen] = useState<boolean>(second);
   const navLinks = useRef<HTMLUListElement|null>(null);
+  
   return (
-    <>
+    <AuthProvider>
+      <CartProvider>
       <header>
       <SuperiorMenu/>
         <nav className="main-menu" id="main-menu">
@@ -70,7 +75,8 @@ const Template:React.FC<content> = ({children}:content)=>{
           </div>
         </div>
       </footer>
-    </>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
