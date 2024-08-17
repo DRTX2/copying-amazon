@@ -15,14 +15,14 @@ type content= {
 
 const Template:React.FC<content> = ({children}:content)=>{
   const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);
-  const [CartIsIpen, setCartIsIpen] = useState<boolean>(second);
+  const [isSearchOpen, SetSearchOpen] = useState<boolean>(false);
   const navLinks = useRef<HTMLUListElement|null>(null);
   
   return (
     <AuthProvider>
       <CartProvider>
       <header>
-      <SuperiorMenu/>
+      <SuperiorMenu MenuIsOpen={isSearchOpen} SetMenuIsOpen={SetSearchOpen}/>
         <nav className="main-menu" id="main-menu">
           <button
             className="icon-toggle-main-menu more"
