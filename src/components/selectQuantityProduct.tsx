@@ -1,13 +1,14 @@
-import React from "react";
+import React, { RefObject } from "react";
 import "./selectQuantity.css";
-// Definir la interfaz de las props
+
 type SelectProductProps = {
-  quantity: number; // quantity es opcional y tiene un valor por defecto
+  refInput:React.RefObject<HTMLSelectElement> 
+  quantity: number;
 };
 
 // Definir el componente funcional con React.FC
 const SelectProduct: React.FC<SelectProductProps> = ({
-  quantity,
+  quantity, refInput
 }: SelectProductProps) => {
   if (quantity < 1) return;
   const items = [];
@@ -17,7 +18,7 @@ const SelectProduct: React.FC<SelectProductProps> = ({
 
   return (
     <>
-      <select className="select-quantity">{items}</select>;
+      <select className="select-quantity" ref={refInput}>{items}</select>
     </>
   );
 };

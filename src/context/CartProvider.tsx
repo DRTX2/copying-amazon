@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import CartContext, { CartContextType } from "./CartContext";
-import { Cart } from "../types/cart";
+import useCartHandler from "../hooks/useCartHandler";
 
 interface CartProviderProps {
     children: React.ReactNode;
 }
 
-const initialCart: Cart = new Cart("Ecuador", "Ecuador");
-
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-    const [cart, setCart] = useState(initialCart);
+    // Usamos el hook para obtener el carrito y sus métodos
+    const cartHandler = useCartHandler("Ecuador", "Ecuador");
 
+    // El contextValue debe contener directamente todas las propiedades y métodos de cartHandler
     const contextValue: CartContextType = {
-        cart,
-        setCart,
+        ...cartHandler, // Pasamos todo lo que retorna el hook useCartHandler
     };
 
     return (

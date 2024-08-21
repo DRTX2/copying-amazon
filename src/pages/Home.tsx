@@ -1,15 +1,14 @@
 import { useReducer } from "react";
 import Template from "../components/Template";
-import { CardData, ProductData } from "../types/products";
-import { Card } from "../components/Card";
 import Product from "../components/Product";
-import data from "./products.json";
+import { RenderProductsInBox } from "../components/common";
 import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
+import SelectedProducts from "../selectedProducts";
 
+// agregar al carrito es distinto de comprar ahora, lo d comprar ahora es para 1 unico articulo, mientras que con el carrito se cargan mas a la compra, se muestran, puede editarse y luego ahi si pagar por los mismos
 export default function Home() {
-  const myCarData: CardData[] = data;
-
+  
   const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
     reducer,
     initialState
@@ -18,20 +17,7 @@ export default function Home() {
   const fragment = () => {
     switch (state.view) {
       case "home":
-        return (
-          <div className="cards">
-            {myCarData!.map((card) => (
-              <Card
-                key={card.id}
-                title={card.title}
-                img={card.img}
-                altImg={card.altImg}
-                id={card.id}
-                handleClick={searchProductId}
-              />
-            ))}
-          </div>
-        );
+        return RenderProductsInBox({dispatch})
       case "product":
         if (!state.selectedProduct) return null;
         const { selectedProduct } = state;
@@ -51,20 +37,13 @@ export default function Home() {
             descuento={selectedProduct.descuento}
             cantidadDisponible={selectedProduct.cantidadDisponible}
             origenEnvio={selectedProduct.origenEnvio}
+            dispatch={dispatch}
           />
         );
       case "cart":
-        return <div>Carrito de Compras</div>;
+        return <SelectedProducts dispatch={dispatch}/>
       default:
         return null;
-    }
-  };
-
-  const searchProductId = (id: number): void => {
-    const api: ProductData[] = data;
-    const prod = api.find((prod) => prod.id === id);
-    if (prod) {
-      dispatch({ type: "SHOW_PRODUCT", payload: prod });
     }
   };
 
