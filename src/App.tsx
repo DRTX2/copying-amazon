@@ -1,8 +1,12 @@
 import Home from "./pages/Home";
+import AppProvider from "./components/AppProvider";
 import "./App.css";
+
 function App() {
   return (
-        <Home/>
+    <AppProvider needProducts={true}>
+      <Home/>
+    </AppProvider>
   );
 }
 

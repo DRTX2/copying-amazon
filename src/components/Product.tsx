@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import Message, { MessageData } from "./Message/Message";
 import { Action } from "../types/reducer";
 import {useProducts} from "../context/ProductContext";
+import { searchProductById } from "./common";
 
 import "./watch-product.css";
 
@@ -14,13 +15,11 @@ const selectProduct = (
   quantity: number,
   product: ProductData,
   isOnlyProduct: boolean = false,
+  products:ProductData[],
   addProduct: (product: ProductData) => void
 ): MessageData => {
-  const { products } = useProducts();
 
-  const updatedProd: ProductData | undefined = products.find(
-    (prod) => (prod.id = product.id)
-  );
+  const updatedProd: ProductData | undefined = searchProductById(product.id as number, products);
 
   if (!updatedProd)
     return {
@@ -33,7 +32,6 @@ const selectProduct = (
   const prod = { ...product, cantidadDisponible: quantity };
   product.cantidadDisponible -= quantity;
   updatedProd.cantidadDisponible = quantity;
-
   addProduct(prod);
 
   return {
@@ -54,16 +52,18 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
   const [message, setMessage] = useState<MessageData | null>(null);
   const { addProduct } = useCart();
   const quantityProd = useRef<HTMLSelectElement>(null);
-
+  const { products } = useProducts();
   const handleAddToCart = (
     addProduct: (product: ProductData) => void,
     onlyProduct: boolean = false
   ) => {
+    
     if (quantityProd.current) {
       const msg: MessageData = selectProduct(
         parseInt(quantityProd.current.value),
         product,
         onlyProduct,
+        products,
         addProduct
       );
       setMessage(msg);

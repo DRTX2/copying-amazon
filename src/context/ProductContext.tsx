@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { ProductData } from '../types/products';
 
 interface ProductContextType {
     products: ProductData[];
     setProducts: React.Dispatch<React.SetStateAction<ProductData[]>>;
+    loading: boolean;
+    error: string | null;
 }
 
 // Creación del contexto

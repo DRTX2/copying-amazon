@@ -13,7 +13,6 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Simulando la petición a una API, usando el archivo JSON local
         const data: ProductData[] = productsPetition;
         setProducts(data);
       } catch (error) {
@@ -26,16 +25,8 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <div>Loading products...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
-    <ProductsContext.Provider value={{ products, setProducts }}>
+    <ProductsContext.Provider value={{ products, setProducts, loading, error }}>
       {children}
     </ProductsContext.Provider>
   );

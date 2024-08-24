@@ -6,9 +6,6 @@ import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
 import SuperiorMenu from "./Superior-menu";
-import { AuthProvider } from "../context/AuthProvider";
-import { CartProvider } from "../context/CartProvider";
-import { ProductsProvider } from "../context/ProductProvider";
 
 type content = {
   children: React.ReactNode;
@@ -20,9 +17,7 @@ const Template: React.FC<content> = ({ children }: content) => {
   const navLinks = useRef<HTMLUListElement | null>(null);
 
   return (
-    <ProductsProvider>
-      <AuthProvider>
-        <CartProvider>
+      <>
           <header>
             <SuperiorMenu
               MenuIsOpen={isSearchOpen}
@@ -88,9 +83,7 @@ const Template: React.FC<content> = ({ children }: content) => {
               </div>
             </div>
           </footer>
-        </CartProvider>
-      </AuthProvider>
-    </ProductsProvider>
+      </>
   );
 };
 

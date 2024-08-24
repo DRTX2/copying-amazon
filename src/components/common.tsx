@@ -2,11 +2,10 @@ import { ProductData } from "../types/products";
 import { Card } from "./Card";
 import { changeView } from "../hooks/pageHandler";
 import { Action } from "../types/reducer";
-import {useProducts} from "../context/ProductContext";
+import { useProducts } from "../context/ProductContext";
+import { useCart } from "../context/CartContext";
 
-// const {products} = useProducts();
-
-export interface productHandler {
+export interface ProductHandler {
   dispatch: (action: Action, payload?: ProductData) => void;
 }
 
@@ -20,7 +19,7 @@ export const searchProductById = (id: number, products:ProductData[]): ProductDa
 
 export const clickProductHandler = (
   products:ProductData[],
-  { dispatch }: productHandler,
+  { dispatch }: ProductHandler,
   { idCard }: idCard
 ) => {
   const prod = searchProductById(idCard,products);
@@ -29,16 +28,13 @@ export const clickProductHandler = (
 };
 
 const renderProducts = (
-  { dispatch }: productHandler,
+  { dispatch }: ProductHandler,
   prods?: ProductData[]
 ): JSX.Element[] => {
-
-  if(!prods){
-    const {products} = useProducts();
-    prods=products;
-  }
+  const {products} = useProducts();
+  const productsToRender = (prods && prods.length>0)?prods : products;
   
-  return prods!.map((card) => (
+  return productsToRender.map((card) => (
     <Card
       key={card.id}
       title={card.title}
@@ -46,13 +42,18 @@ const renderProducts = (
       altImg={card.altImg}
       id={card.id}
       handleClick={() => {
-        clickProductHandler(products,{ dispatch }, { idCard: card.id as number });
+        clickProductHandler(productsToRender, { dispatch }, { idCard: card.id as number });
       }}
     />
   ));
 };
 
-export const RenderProductsInBox: React.FC<productHandler & { prods?: ProductData[] }> = ({ dispatch, prods }) => {
+export const RenderProductsInBox: React.FC<ProductHandler & { existsCartProducts:boolean }> = ({ dispatch, existsCartProducts}) => {
+  console.log(useCart().products);
+  let prods: ProductData[] = existsCartProducts
+  ? useCart().products
+  : useProducts().products;
+  console.log(`Estoy desde common.tsx`, prods)
   return (
     <div className="cards">
       {renderProducts({ dispatch }, prods)}

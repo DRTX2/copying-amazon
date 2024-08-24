@@ -1,23 +1,21 @@
 import { useReducer } from "react";
-import Template from "../components/Template";
 import Product from "../components/Product";
 import { RenderProductsInBox } from "../components/common";
 import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
-import SelectedProducts from "../selectedProducts";
 
 // agregar al carrito es distinto de comprar ahora, lo d comprar ahora es para 1 unico articulo, mientras que con el carrito se cargan mas a la compra, se muestran, puede editarse y luego ahi si pagar por los mismos
 export default function Home() {
-  
   const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
     reducer,
     initialState
   );
-
+  
   const fragment = () => {
     switch (state.view) {
       case "home":
-        return RenderProductsInBox({dispatch})
+        return RenderProductsInBox({ dispatch,existsCartProducts:false });
+        break;
       case "product":
         if (!state.selectedProduct) return null;
         const { selectedProduct } = state;
@@ -40,12 +38,15 @@ export default function Home() {
             dispatch={dispatch}
           />
         );
+        break;
       case "cart":
-        return <SelectedProducts dispatch={dispatch}/>
+        return RenderProductsInBox({ dispatch,existsCartProducts:true });
+        break;
       default:
         return null;
+        break;
     }
   };
 
-  return <Template>{fragment()}</Template>;
+  return fragment()
 }
