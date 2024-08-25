@@ -32,8 +32,10 @@ const renderProducts = (
   prods?: ProductData[]
 ): JSX.Element[] => {
   const {products} = useProducts();
-  const productsToRender = (prods && prods.length>0)?prods : products;
-  
+  let productsToRender = (prods && prods.length>0)?prods : products;
+  console.log('productos sin filter',productsToRender);
+  productsToRender=productsToRender.filter(prod=>prod.cantidadDisponible>0);
+  console.log('productos con filter',productsToRender);
   return productsToRender.map((card) => (
     <Card
       key={card.id}
@@ -49,11 +51,9 @@ const renderProducts = (
 };
 
 export const RenderProductsInBox: React.FC<ProductHandler & { existsCartProducts:boolean }> = ({ dispatch, existsCartProducts}) => {
-  console.log(useCart().products);
   let prods: ProductData[] = existsCartProducts
   ? useCart().products
   : useProducts().products;
-  console.log(`Estoy desde common.tsx`, prods)
   return (
     <div className="cards">
       {renderProducts({ dispatch }, prods)}

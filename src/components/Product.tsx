@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 import { useRef, useState } from "react";
 import Message, { MessageData } from "./Message/Message";
 import { Action } from "../types/reducer";
-import {useProducts} from "../context/ProductContext";
+import { useProducts } from "../context/ProductContext";
 import { searchProductById } from "./common";
 
 import "./watch-product.css";
@@ -15,11 +15,13 @@ const selectProduct = (
   quantity: number,
   product: ProductData,
   isOnlyProduct: boolean = false,
-  products:ProductData[],
+  products: ProductData[],
   addProduct: (product: ProductData) => void
 ): MessageData => {
-
-  const updatedProd: ProductData | undefined = searchProductById(product.id as number, products);
+  const updatedProd: ProductData | undefined = searchProductById(
+    product.id as number,
+    products
+  );
 
   if (!updatedProd)
     return {
@@ -30,7 +32,6 @@ const selectProduct = (
     };
 
   const prod = { ...product, cantidadDisponible: quantity };
-  product.cantidadDisponible -= quantity;
   updatedProd.cantidadDisponible = quantity;
   addProduct(prod);
 
@@ -52,12 +53,11 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
   const [message, setMessage] = useState<MessageData | null>(null);
   const { addProduct } = useCart();
   const quantityProd = useRef<HTMLSelectElement>(null);
-  const { products } = useProducts();
+  const { products, setProducts } = useProducts();
   const handleAddToCart = (
     addProduct: (product: ProductData) => void,
     onlyProduct: boolean = false
   ) => {
-    
     if (quantityProd.current) {
       const msg: MessageData = selectProduct(
         parseInt(quantityProd.current.value),
@@ -68,6 +68,18 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
       );
       setMessage(msg);
       if (onlyProduct) dispatch({ type: "SHOW_CART" });
+      setProducts(
+        products.map((prod) =>
+          prod.id === product.id
+            ? {
+                ...prod,
+                cantidadDisponible:
+                  prod.cantidadDisponible -
+                  parseInt(quantityProd.current!.value),
+              }
+            : prod
+        )
+      );
     }
   };
 
@@ -75,6 +87,16 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
     <>
       <section className="current-selection">
         {LinksCategorysProduct(product, " - ")}
+        <div className="btnSection-container">
+          <button
+            className="btnSection"
+            onClick={() => {
+              dispatch({ type: "SHOW_CATALOG" });
+            }}
+          >
+            Go back
+          </button>
+        </div>
       </section>
       <section className="current-product" id={product.id as string}>
         <figure className="img-box">
@@ -126,7 +148,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
               </button>
               <button
                 onClick={() => {
-                  handleAddToCart(addProduct,true);
+                  handleAddToCart(addProduct, true);
                 }}
               >
                 Comprar ahora
@@ -137,7 +159,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
               <p>"Agotado"</p>
               <button
                 onClick={() => {
-                  handleAddToCart(addProduct,true);
+                  handleAddToCart(addProduct, true);
                 }}
               >
                 Agregar a lista de deseos

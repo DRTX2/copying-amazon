@@ -1,0 +1,10 @@
+.btnSection-container {
+  display: flex;
+  justify-content: flex-end; 
+  padding: 0.5rem; 
+  padding-right: 1rem;
+}
+
+.btnSection-container button {
+  margin-left: 1rem; 
+}
