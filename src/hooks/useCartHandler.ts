@@ -52,7 +52,7 @@ const useCartHandler = (
   };
 
   const calculateTotalPrice = (products: ProductData[]): number => {
-    return products.reduce((sum, product) => sum + product.precio, 0);
+    return products.reduce((sum, product) => sum + (product.cantidadDisponible*product.precio), 0);
   };
 
   return {

@@ -31,8 +31,8 @@ const selectProduct = (
       type: "dangerous",
     };
 
-  const prod = { ...product, cantidadDisponible: quantity };
-  updatedProd.cantidadDisponible = quantity;
+  const prod = { ...updatedProd, cantidadDisponible: quantity };
+  // prod.cantidadDisponible = quantity;
   addProduct(prod);
 
   return {

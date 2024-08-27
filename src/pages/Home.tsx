@@ -27,6 +27,7 @@ export default function Home() {
       case "product":
         if (!state.selectedProduct) return null;
         const { selectedProduct } = state;
+        console.log(selectedProduct);
         return (
           <Product
             id={selectedProduct.id}
