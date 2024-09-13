@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import Recomendations from "./SectionRecomendation";
 import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
@@ -6,6 +6,7 @@ import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import SubMenu from "./SubMenu";
 import SuperiorMenu from "./Superior-menu";
+import SearchField from "./SearchField";
 
 type content = {
   children: React.ReactNode;
@@ -15,20 +16,24 @@ const Template: React.FC<content> = ({ children }: content) => {
   const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);
   const [isSearchOpen, SetSearchOpen] = useState<boolean>(false);
   const navLinks = useRef<HTMLUListElement | null>(null);
+  const btnSearchField=useRef<HTMLInputElement|null>(null);
+
+  useEffect(() => {
+    if (isSearchOpen && btnSearchField.current)   btnSearchField.current.focus(); 
+  }, [isSearchOpen]);
 
   return (
       <>
           <header>
-            <SuperiorMenu
-              MenuIsOpen={isSearchOpen}
-              SetMenuIsOpen={SetSearchOpen}
-            />
+            <SuperiorMenu SetMenuIsOpen={SetSearchOpen}/>
             <nav className="main-menu" id="main-menu">
               <button
                 className="icon-toggle-main-menu more"
                 aria-label="Toggle navigation"
                 id="btn-menu-more"
-                onClick={() => SetMenuIsOpen(!MenuIsOpen)}
+                onClick={() => {
+                  SetMenuIsOpen(!MenuIsOpen);
+                }}
               >
                 &#9776;
               </button>
@@ -51,6 +56,7 @@ const Template: React.FC<content> = ({ children }: content) => {
                 &#9776;
               </button>
             </nav>
+            {isSearchOpen && <SearchField ref={btnSearchField}/>}
           </header>
           {children}
           <Recomendations />

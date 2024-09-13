@@ -1,5 +1,4 @@
 import ItemBarMenu from "./ItemBarMenu";
-import SearchField from "./SearchField";
 import ClickableItemBarMenu from "./ClickableItemBarMenu";
 import { useCart } from "../context/CartContext";
 
@@ -16,17 +15,13 @@ const imgStyle = {
   width: "100%",
 };
 
-// el plan es el siguiente, como necesitamos el carrito usar useContext para guardar una variable con un array con los productos y el total, en esta parte de aqui en cambio vamos a manejar un onClick para que cuando se pulse el simbolo de buscar nos muestre/oculte el espacio de navegacion para la busqueda, tambien añadiremos un boton para cerrar ese espacio de navegacion pasando un setState; El contenido del templete debe ser llenado por campo de busqueda, yo que se una factura. Entonces vamos a dejarlo en pasos de lo facil a lo dificil, 2. funcionalidad añadir y comprar productos, para lo que tendre que hacer 2.1 un contexto para los datos locales, 2.2 funcionalidad que reduzca/aumente productos  2.3 mostrarlos en un carrito de compras, 2.4 falsear una pasarela de pago; 3.register+login, para lo q se necesita un contexto con el usuario,
-
 type MenuData = {
-  MenuIsOpen: boolean;
   SetMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SuperiorMenu = ({ MenuIsOpen, SetMenuIsOpen }: MenuData) => {
-
+const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   const { products } = useCart();
-
+  
   return (
     <>
       <div className="main-menu" id="main-menu" style={SuperiorMenuStyles}>
@@ -43,7 +38,7 @@ const SuperiorMenu = ({ MenuIsOpen, SetMenuIsOpen }: MenuData) => {
           <ClickableItemBarMenu
             title=""
             onClick={() => {
-              SetMenuIsOpen(!MenuIsOpen);
+              SetMenuIsOpen(prev=>!prev);
             }}
           >
             <i className="fas fa-search"></i>
@@ -54,14 +49,13 @@ const SuperiorMenu = ({ MenuIsOpen, SetMenuIsOpen }: MenuData) => {
             title="Carrito"
             onClick={() => {
               if (!products) return;
+
             }}
           >
             <i className="fa-solid fa-cart-shopping"></i>
           </ClickableItemBarMenu>
         </ul>
       </div>
-      {MenuIsOpen && <SearchField/>}
-      {/* <Message time={200} title="Esto es una prueba" content="Lorem ipsum dolorem lasjfb añisfb aisifb ais" type="dangerous"/> */}
     </>
   );
 };

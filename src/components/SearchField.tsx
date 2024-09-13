@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 
 const SearchFieldStyles = {
   width: '100%',
@@ -38,15 +39,27 @@ const inputStyles={
     }
 };
 
-const SearchField = () => {
+const SearchField = forwardRef<HTMLInputElement, {}>((props, ref) => {
   return (
     <div className="container" style={SearchFieldStyles}>
       <form style={searchBarStyles}>
-        <input type="text" placeholder='search anyhing' name='serach' style={inputStyles}/>
-        <button type="submit" onClick={event=>event.preventDefault()} className='searchBtn'><i className="fas fa-search"></i></button>
+        <input
+          ref={ref}
+          type="text"
+          placeholder="search anything"
+          name="search"
+          style={inputStyles}
+        />
+        <button
+          type="submit"
+          onClick={event => event.preventDefault()}
+          className="searchBtn"
+        >
+          <i className="fas fa-search"></i>
+        </button>
       </form>
     </div>
   );
-}
+});
 
 export default SearchField;

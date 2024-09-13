@@ -32,9 +32,8 @@ const selectProduct = (
     };
 
   const prod = { ...updatedProd, cantidadDisponible: quantity };
-  // prod.cantidadDisponible = quantity;
   addProduct(prod);
-
+  
   return {
     time: 20,
     title: isOnlyProduct ? "Compra realizada" : "Producto agregado al carrito",
@@ -59,6 +58,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
     onlyProduct: boolean = false
   ) => {
     if (quantityProd.current) {
+
       const msg: MessageData = selectProduct(
         parseInt(quantityProd.current.value),
         product,
@@ -67,6 +67,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
         addProduct
       );
       setMessage(msg);
+      
       if (onlyProduct) dispatch({ type: "SHOW_CART" });
       setProducts(
         products.map((prod) =>

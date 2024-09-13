@@ -50,7 +50,7 @@ const renderProducts = (
   ));
 };
 
-export const RenderProductsInBox: React.FC<ProductHandler & { existsCartProducts:boolean }> = ({ dispatch, existsCartProducts}) => {
+export const RenderProductsInBox: React.FC<ProductHandler & { existsCartProducts:boolean, expecifyContent?:string}> = ({ dispatch, existsCartProducts}) => {
   let prods: ProductData[] = existsCartProducts
   ? useCart().products
   : useProducts().products;
