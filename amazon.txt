@@ -1,0 +1,17 @@
+bd
+	marca
+	color
+	tipos en producto
+//	vendedor
+js
+
+	rango precio
+	mejores marcas
+	con descuento
+	nuevo/renovado
+
+	//	lugar publicidad
+
+	
+
+
