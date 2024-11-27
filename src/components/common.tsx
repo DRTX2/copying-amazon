@@ -4,6 +4,7 @@ import { changeView } from "../hooks/pageHandler";
 import { Action } from "../types/reducer";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
+import { useMemo } from "react";
 
 export interface ProductHandler {
   dispatch: (action: Action, payload?: ProductData) => void;
@@ -32,10 +33,14 @@ const renderProducts = (
   prods?: ProductData[]
 ): JSX.Element[] => {
   const {products} = useProducts();
-  let productsToRender = (prods && prods.length>0)?prods : products;
-  console.log('productos sin filter',productsToRender);
-  productsToRender=productsToRender.filter(prod=>prod.cantidadDisponible>0);
-  console.log('productos con filter',productsToRender);
+
+  let productsToRender:ProductData[] = useMemo(()=>{
+    const prodList= (prods && prods.length>0)?prods : products;
+    console.log(`Productos sin filter`, prodList);
+    return prodList.filter(prod=>prod.cantidadDisponible>0);
+  },[products, prods]);
+
+
   return productsToRender.map((card) => (
     <Card
       key={card.id}

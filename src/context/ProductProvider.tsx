@@ -13,7 +13,10 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data: ProductData[] = productsPetition;
+
+        const simulatePetition=new Promise<ProductData[]>(resolve=>setTimeout(()=>resolve(productsPetition),1500));
+
+        const data: ProductData[] = await simulatePetition;
         setProducts(data);
       } catch (error) {
         setError("Failed to load products");

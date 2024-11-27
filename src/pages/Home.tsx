@@ -12,6 +12,8 @@ export default function Home() {
     initialState
   );
   
+  const {totalPrice}=useCart();
+
   const fragment = () => {
     switch (state.view) {
       case "home":
@@ -23,9 +25,9 @@ export default function Home() {
           {RenderProductsInBox({ dispatch,existsCartProducts:false })}
         </>
         )
-        break;
       case "product":
         if (!state.selectedProduct) return null;
+
         const { selectedProduct } = state;
         console.log(selectedProduct);
         return (
@@ -47,9 +49,8 @@ export default function Home() {
             dispatch={dispatch}
           />
         );
-        break;
       case "cart":
-        const {totalPrice}=useCart();
+        
         return (
           <>
             <div className="btnSection-container">
@@ -59,10 +60,8 @@ export default function Home() {
             {RenderProductsInBox({ dispatch,existsCartProducts:true })}
           </>
         )
-        break;
       default:
         return null;
-        break;
     }
   };
 
