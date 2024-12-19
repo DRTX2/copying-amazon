@@ -3,10 +3,12 @@ import Product from "../components/Product";
 import { RenderProductsInBox } from "../components/common";
 import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
-import "./home.css"
 import { useCart } from "../context/CartContext";
+import { pageReducer } from "../context/pageReducer";
+import "./home.css"
 
 export default function Home() {
+  // Una función que recibe un estado de tipo State y una acción de tipo Action, y devuelve un nuevo estado de tipo State.
   const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
     reducer,
     initialState
