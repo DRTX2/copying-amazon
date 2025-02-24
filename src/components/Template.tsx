@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import ItemBarMenu from "./ItemBarMenu";
+import ItemBarMenu from "./Menu/ItemBarMenu";
 import Recomendations from "./SectionRecomendation";
-import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
-import LanguageCurrencies from "./SectionLanguageCurrencies";
-import MoreServices from "./MoreServices";
-import SubMenu from "./SubMenu";
-import SuperiorMenu from "./Superior-menu";
+import SubMenu from "./Menu/SubMenu";
+import SuperiorMenu from "./Menu/Superior-menu";
 import SearchField from "./SearchField";
+import Footer from "./Footer";
 
 type content = {
   children: React.ReactNode;
@@ -60,35 +58,7 @@ const Template: React.FC<content> = ({ children }: content) => {
           </header>
           {children}
           <Recomendations />
-          <footer>
-            <div className="come-back-home">
-              <a href="#main-menu">Inicio de página</a>
-            </div>
-            <div className="columns-footer-container">
-              <ColumnsFooterOtherProducts />
-              <LanguageCurrencies />
-            </div>
-            <div className="configuring">
-              <MoreServices />
-              <div className="announcements">
-                <ul className="announcements-list">
-                  <ItemBarMenu title="Condiciones de uso" myClass="" />
-                  <ItemBarMenu title="Aviso de privacidad" myClass="" />
-                  <ItemBarMenu
-                    title="Aviso de Privacidad de Datos de Salud del Consumidor"
-                    myClass=""
-                  />
-                  <ItemBarMenu
-                    title="Tus opciones de privacidad de los anuncios"
-                    myClass=""
-                  />
-                </ul>
-                <li>
-                  <span>© 1996-2024 Amazon.com, Inc. o sus afiliados</span>
-                </li>
-              </div>
-            </div>
-          </footer>
+          <Footer/>
       </>
   );
 };

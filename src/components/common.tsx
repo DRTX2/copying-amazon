@@ -1,5 +1,5 @@
 import { ProductData } from "../types/products";
-import { Card } from "./Card";
+import { Card } from "./Card/Card";
 import { changeView } from "../hooks/pageHandler";
 import { Action } from "../types/reducer";
 import { useProducts } from "../context/ProductContext";

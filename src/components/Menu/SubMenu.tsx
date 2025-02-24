@@ -18,11 +18,10 @@ function enableSubMenu(SubMenuContainer: React.RefObject<HTMLDivElement>) {
 }
 
 const SubMenu = ({ MenuIsOpen, SetMenuIsOpen }: SubMenuAtt) => {
-  
   const SubMenuContainer = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if(MenuIsOpen){  
+    if (MenuIsOpen) {
       enableSubMenu(SubMenuContainer);
       SetMenuIsOpen(!MenuIsOpen);
     }
@@ -34,7 +33,7 @@ const SubMenu = ({ MenuIsOpen, SetMenuIsOpen }: SubMenuAtt) => {
         <button
           id="close-menu-more"
           aria-label="Toggle navigation"
-          onClick={()=>SetMenuIsOpen(!MenuIsOpen)}
+          onClick={() => SetMenuIsOpen(!MenuIsOpen)}
         >
           X
         </button>
@@ -68,7 +67,6 @@ const SubMenu = ({ MenuIsOpen, SetMenuIsOpen }: SubMenuAtt) => {
       </article>
     </div>
   );
-
 };
 
 export default SubMenu;

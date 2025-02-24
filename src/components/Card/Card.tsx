@@ -1,5 +1,5 @@
 import React from "react";
-import {CardData} from "../types/products";
+import { CardData } from "../../types/products";
 
 type CardProps = CardData & {
   handleClick: (id: number) => void;

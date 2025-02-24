@@ -1,6 +1,6 @@
 import ItemBarMenu from "./ItemBarMenu";
 import ClickableItemBarMenu from "./ClickableItemBarMenu";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 const SuperiorMenuStyles = {
   margin: 0,
@@ -21,7 +21,7 @@ type MenuData = {
 
 const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   const { products } = useCart();
-  
+
   return (
     <>
       <div className="main-menu" id="main-menu" style={SuperiorMenuStyles}>
@@ -38,7 +38,7 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
           <ClickableItemBarMenu
             title=""
             onClick={() => {
-              SetMenuIsOpen(prev=>!prev);
+              SetMenuIsOpen((prev) => !prev);
             }}
           >
             <i className="fas fa-search"></i>
@@ -49,7 +49,6 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
             title="Carrito"
             onClick={() => {
               if (!products) return;
-
             }}
           >
             <i className="fa-solid fa-cart-shopping"></i>

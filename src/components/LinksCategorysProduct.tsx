@@ -22,7 +22,6 @@ export const LinksCategorysProduct = (
   separator = ", "
 ) => {
   const data: string =
-    createContentLinks(product.category, separator) +
-    product.title;
+    createContentLinks(product.category, separator) + product.title;
   return <p dangerouslySetInnerHTML={{ __html: data }}></p>;
 };

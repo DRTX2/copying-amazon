@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 
 const Recomendations: React.FC = () => {
-  const { user,logout } = useAuth();
+  const { user, logout } = useAuth();
 
   if (!user) {
     return (

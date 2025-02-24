@@ -1,13 +1,13 @@
-import { ProductData } from "../types/products";
-import { concatString, LinksCategorysProduct } from "./LinksCategorysProduct";
+import { ProductData } from "./../../types/products";
+import { concatString, LinksCategorysProduct } from "./../LinksCategorysProduct";
 import { ProductCost } from "./Product-cost";
 import SelectProduct from "./selectQuantityProduct";
-import { useCart } from "../context/CartContext";
+import { useCart } from "./../../context/CartContext";
 import { useRef, useState } from "react";
-import Message, { MessageData } from "./Message/Message";
-import { Action } from "../types/reducer";
-import { useProducts } from "../context/ProductContext";
-import { searchProductById } from "./common";
+import Message, { MessageData } from "./../Message/Message";
+import { Action } from "./../../types/reducer";
+import { useProducts } from "./../../context/ProductContext";
+import { searchProductById } from "./../common";
 
 import "./watch-product.css";
 
