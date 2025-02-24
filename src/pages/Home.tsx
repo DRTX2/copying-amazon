@@ -1,9 +1,9 @@
 import { useReducer } from "react";
-import Product from "../components/Product";
+import Product from "../components/Product/Product";
 import { RenderProductsInBox } from "../components/common";
 import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
-import "./home.css"
+import "./home.css";
 import { useCart } from "../context/CartContext";
 
 export default function Home() {
@@ -11,18 +11,25 @@ export default function Home() {
     reducer,
     initialState
   );
-  
+
   const fragment = () => {
     switch (state.view) {
       case "home":
         return (
-        <>
-          <div className="btnSection-container">
-            <button className="btnSection" onClick={()=>{dispatch({ type: "SHOW_CART" })}}>Cart</button>
-          </div>
-          {RenderProductsInBox({ dispatch,existsCartProducts:false })}
-        </>
-        )
+          <>
+            <div className="btnSection-container">
+              <button
+                className="btnSection"
+                onClick={() => {
+                  dispatch({ type: "SHOW_CART" });
+                }}
+              >
+                Cart
+              </button>
+            </div>
+            {RenderProductsInBox({ dispatch, existsCartProducts: false })}
+          </>
+        );
         break;
       case "product":
         if (!state.selectedProduct) return null;
@@ -49,16 +56,23 @@ export default function Home() {
         );
         break;
       case "cart":
-        const {totalPrice}=useCart();
+        const { totalPrice } = useCart();
         return (
           <>
             <div className="btnSection-container">
-              <button className="btnSection" onClick={()=>{dispatch({ type: "SHOW_CATALOG" })}}>Mas productos</button>
-              {totalPrice &&<button>Confirmar compra(${totalPrice})</button>}
+              <button
+                className="btnSection"
+                onClick={() => {
+                  dispatch({ type: "SHOW_CATALOG" });
+                }}
+              >
+                Mas productos
+              </button>
+              {totalPrice && <button>Confirmar compra(${totalPrice})</button>}
             </div>
-            {RenderProductsInBox({ dispatch,existsCartProducts:true })}
+            {RenderProductsInBox({ dispatch, existsCartProducts: true })}
           </>
-        )
+        );
         break;
       default:
         return null;
@@ -66,5 +80,5 @@ export default function Home() {
     }
   };
 
-  return fragment()
+  return fragment();
 }

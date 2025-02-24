@@ -1,8 +1,8 @@
 import React from "react";
-import { AuthProvider } from "../context/AuthProvider";
-import { CartProvider } from "../context/CartProvider";
-import { ProductsProvider } from "../context/ProductProvider";
-import Template from "./Template";
+import { AuthProvider } from "./AuthProvider";
+import { CartProvider } from "./CartProvider";
+import { ProductsProvider } from "./ProductProvider";
+import Template from "../components/Template";
 
 interface AppProviderProps {
   needProducts: boolean;

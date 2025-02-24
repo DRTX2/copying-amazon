@@ -21,7 +21,7 @@ export const changeView = (
 ) => {
   if (typeAction.type === "SHOW_PRODUCT" && payload) {
     dispatch({ type: "SHOW_PRODUCT", payload });
-    // no funcionaria dispatch({...typeAction,payload}); Esto debido a que si bien el tipo que se usa tiene payload lo lleva, el resto no lo hace, asi que hay q especificarlo mas 
+    // no funcionaria dispatch({...typeAction,payload}); Esto debido a que si bien el tipo que se usa tiene payload lo lleva, el resto no lo hace, asi que hay q especificarlo mas
   } else {
     dispatch(typeAction);
   }

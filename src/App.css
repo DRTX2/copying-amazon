@@ -1,4 +1,4 @@
-.root{
+.root {
   border: 3px solid red;
 }
 
@@ -492,4 +492,3 @@ a {
   /* los q siguen aseguran que el botón no tenga ningún estilo predeterminado específico del navegador. */
   appearance: none;
 }
-

@@ -1,6 +1,6 @@
 import { ProductData } from "./products";
 
-type View =  "home" | "product" | "cart" | "product_filter";
+type View = "home" | "product" | "cart" | "product_filter";
 
 export interface State {
   view: View;

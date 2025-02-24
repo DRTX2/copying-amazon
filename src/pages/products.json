@@ -4,7 +4,7 @@
     "title": "Chaqueta",
     "img": "./assets/img/chaqueta.jpg",
     "altImg": "Producto en oferta",
-    "category":["clothes"],
+    "category": ["clothes"],
     "description": [
       "Material: poliéster",
       "ligero, cortavientos, transpirable.",
@@ -27,7 +27,7 @@
     "title": "Chaqueta de cuero",
     "img": "./assets/img/chaqueta-cuero.jpeg",
     "altImg": "Producto en oferta",
-    "category":["clothes"],
+    "category": ["clothes"],
     "description": [
       "Material: cuero",
       "Resistente y duradero",
@@ -49,7 +49,7 @@
     "title": "Equipo de entrenamiento",
     "img": "./assets/img/equipo.jpeg",
     "altImg": "Producto en oferta",
-    "category":["sports", "health"],
+    "category": ["sports", "health"],
     "description": [
       "Material: acero inoxidable y plástico",
       "Incluye: mancuernas, bandas de resistencia, y esterilla de yoga",
@@ -70,7 +70,7 @@
     "title": "Laptop ASUS",
     "img": "./assets/img/laptop.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology", "laptop","best seller"],
+    "category": ["technology", "laptop", "best seller"],
     "description": [
       "Procesador: Intel Core i7",
       "Pantalla: 15.6 pulgadas Full HD",
@@ -92,7 +92,7 @@
     "title": "Laptop HP",
     "img": "./assets/img/laptop2.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology", "laptop","best seller"],
+    "category": ["technology", "laptop", "best seller"],
     "description": [
       "Procesador: AMD Ryzen 5",
       "Pantalla: 14 pulgadas Full HD",
@@ -114,7 +114,7 @@
     "title": "Libros interesantes",
     "img": "./assets/img/new-books.jpeg",
     "altImg": "Producto en oferta",
-    "category":["books","entertaiment"],
+    "category": ["books", "entertaiment"],
     "description": [
       "Variedad de títulos y géneros",
       "Incluye: novelas, ciencia ficción, autoayuda",
@@ -134,7 +134,7 @@
     "title": "Libros en oferta",
     "img": "./assets/img/offert-book.jpeg",
     "altImg": "Producto en oferta",
-    "category":["books","entertaiment"],
+    "category": ["books", "entertaiment"],
     "description": [
       "Colección de libros en descuento",
       "Incluye: bestsellers, clásicos, novedades",
@@ -154,7 +154,7 @@
     "title": "Pantalón dama",
     "img": "./assets/img/pantalon.jpeg",
     "altImg": "Producto en oferta",
-    "category":["clothes","girls"],
+    "category": ["clothes", "girls"],
     "description": [
       "Material: mezclilla",
       "Características: cintura alta, ajuste ceñido",
@@ -174,7 +174,7 @@
     "title": "Tablet",
     "img": "./assets/img/talbet.jpg",
     "altImg": "Producto en oferta",
-    "category":["technology","entertaiment", "education", "tablet"],
+    "category": ["technology", "entertaiment", "education", "tablet"],
     "description": [
       "Pantalla: 10.1 pulgadas",
       "Almacenamiento: 64GB",
@@ -195,7 +195,7 @@
     "title": "Libro: Liberando la bestia",
     "img": "./assets/img/training-book.jpeg",
     "altImg": "Producto en oferta",
-    "category":["book","entertaiment", "health", "sport", "excercise"],
+    "category": ["book", "entertaiment", "health", "sport", "excercise"],
     "description": [
       "Autor: John Doe",
       "Género: Motivacional",
@@ -216,7 +216,7 @@
     "title": "Xbox 360",
     "img": "./assets/img/xbox.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology","entertaiment", "console"],
+    "category": ["technology", "entertaiment", "console"],
     "description": [
       "Incluye: consola, 2 controles, 1 juego",
       "Características: gráficos HD, conexión a internet",
