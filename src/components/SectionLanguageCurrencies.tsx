@@ -3,7 +3,7 @@ const LanguageCurrencies = () => {
     <div className="about-service">
       <div className="img-logo">
         <img
-          src="/copying-amazon/assets/img/png-transparent-amazon-dark-hd-logo.png"
+          src="./assets/img/png-transparent-amazon-dark-hd-logo.png"
           alt="logo de amazon"
         />
       </div>

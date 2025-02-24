@@ -126,7 +126,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
           </p>
         </article>
         <article className="more-about-product">
-          <p>Nuevo:</p>
+          <p> <b>Nuevo:</b></p>
           <p>${product.precio}</p>
           <p>Enviar a 'País Ejemplo'</p>
 
