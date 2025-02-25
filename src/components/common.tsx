@@ -67,3 +67,10 @@ export const RenderProductsInBox: React.FC<
     : useProducts().products;
   return <div className="cards">{renderProducts({ dispatch }, prods)}</div>;
 };
+
+export const ShowProductsInCart=({dispatch}:ProductHandler):JSX.Element[]=>{
+  const {products}= useCart();
+  return products.map(prod=> {
+    
+  });
+}

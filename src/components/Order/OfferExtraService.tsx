@@ -17,14 +17,19 @@ export default function OfferExtraService() {
             <h4>Detalles de la entrega:</h4>
             <div className="img-btn-promotion">
               <h5>Sin Prime</h5>
-              {/* <img src="" alt="" /> */}
+              <figure>
+                <i className="fa-solid fa-truck"></i>
+              </figure>
               <p>Requisitos mínimos de pedido para envío gratis.</p>
             </div>
             <div>
               <h5>Beneficios de Prime</h5>
+              {/* <img src="" alt="Beneficios de Prime" /> */}
               <p>Envío rápido y gratis en productos elegibles con Prime.</p>
             </div>
             <p><span>Ahorra $6.99</span> en tus artículos elegibles de Prime con entrega en un día GRATIS en este pedido. Después de tu prueba GRATUITA, Prime se renueva automáticamente por solo <b>$14.99/mes</b>.</p>
+            <button>Obten Entrega en un día GRATIS con Prime</button>
+            <span className="separate-content">Disfruta de Prime por 30 dias GRATIS</span>
           </article>
         </section>
       </>

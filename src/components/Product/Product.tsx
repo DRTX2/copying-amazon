@@ -30,7 +30,7 @@ const selectProduct = (
       content: "El producto no pudo agregarse a su pedido.",
       type: "dangerous",
     };
-
+    // esto deberia ser controlado por  otra wea
   const prod = { ...updatedProd, cantidadDisponible: quantity };
   addProduct(prod);
   
@@ -53,35 +53,37 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
   const { addProduct } = useCart();
   const quantityProd = useRef<HTMLSelectElement>(null);
   const { products, setProducts } = useProducts();
+
   const handleAddToCart = (
     addProduct: (product: ProductData) => void,
     onlyProduct: boolean = false
   ) => {
-    if (quantityProd.current) {
+    if (!quantityProd.current) return;
 
-      const msg: MessageData = selectProduct(
-        parseInt(quantityProd.current.value),
-        product,
-        onlyProduct,
-        products,
-        addProduct
-      );
-      setMessage(msg);
-      
-      if (onlyProduct) dispatch({ type: "SHOW_CART" });
-      setProducts(
-        products.map((prod) =>
-          prod.id === product.id
-            ? {
-                ...prod,
-                cantidadDisponible:
-                  prod.cantidadDisponible -
-                  parseInt(quantityProd.current!.value),
-              }
-            : prod
-        )
-      );
-    }
+    const msg: MessageData = selectProduct(
+      parseInt(quantityProd.current.value),
+      product,
+      onlyProduct,
+      products,
+      addProduct
+    );
+    setMessage(msg);
+    
+    if (onlyProduct) dispatch({ type: "SHOW_CART" });
+    
+    setProducts(
+      products.map((prod) =>
+        prod.id === product.id
+          ? {
+              ...prod,
+              cantidadDisponible:
+                prod.cantidadDisponible -
+                parseInt(quantityProd.current!.value),
+            }
+          : prod
+      )
+    );
+    
   };
 
   return (
