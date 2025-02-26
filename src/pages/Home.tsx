@@ -5,14 +5,19 @@ import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
 import "./home.css";
 import { useCart } from "../context/CartContext";
+import OfferExtraService from "../components/Order/OfferExtraService";
 
 export default function Home() {
   const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
     reducer,
     initialState
   );
+  const {setShowCart}= useCart();
 
   const fragment = () => {
+
+    const needsShowCart:boolean= state.view==="product" || state.view==="product_filter";
+    setShowCart(needsShowCart);
     switch (state.view) {
       case "home":
         return (
@@ -36,23 +41,26 @@ export default function Home() {
         const { selectedProduct } = state;
         console.log(selectedProduct);
         return (
-          <Product
-            id={selectedProduct.id}
-            img={selectedProduct.img}
-            altImg={selectedProduct.altImg}
-            title={selectedProduct.title}
-            category={selectedProduct.category}
-            description={selectedProduct.description}
-            marca={selectedProduct.marca}
-            color={selectedProduct.color}
-            estilo={selectedProduct.estilo}
-            usos={selectedProduct.usos}
-            precio={selectedProduct.precio}
-            descuento={selectedProduct.descuento}
-            cantidadDisponible={selectedProduct.cantidadDisponible}
-            origenEnvio={selectedProduct.origenEnvio}
-            dispatch={dispatch}
-          />
+          <>
+            <Product
+              id={selectedProduct.id}
+              img={selectedProduct.img}
+              altImg={selectedProduct.altImg}
+              title={selectedProduct.title}
+              category={selectedProduct.category}
+              description={selectedProduct.description}
+              marca={selectedProduct.marca}
+              color={selectedProduct.color}
+              estilo={selectedProduct.estilo}
+              usos={selectedProduct.usos}
+              precio={selectedProduct.precio}
+              descuento={selectedProduct.descuento}
+              cantidadDisponible={selectedProduct.cantidadDisponible}
+              origenEnvio={selectedProduct.origenEnvio}
+              dispatch={dispatch}
+            />
+            
+          </>
         );
         break;
       case "cart":
@@ -73,6 +81,10 @@ export default function Home() {
             {RenderProductsInBox({ dispatch, existsCartProducts: true })}
           </>
         );
+        break;
+        // este se mostraria luego, en la seccion del carrito donde se listarian lo que pasaria es que tambien abria un boton proceder con el pago y con ello lo lleva a este
+      case "offer_extra_service":
+          return <OfferExtraService/>
         break;
       default:
         return null;

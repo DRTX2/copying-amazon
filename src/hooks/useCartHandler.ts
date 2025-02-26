@@ -22,10 +22,12 @@ const useCartHandler = (
   const [to] = useState<string>(initialTo);
   const [from] = useState<string>(initialFrom);
   const [currency] = useState<string>(initialCurrency);
+  const [showCart, setShowCart] = useState(false);
 
   const addProduct = (product: ProductData) => {
     setProducts((prevProducts) => {
       const existingProduct = prevProducts.find((p) => p.id === product.id);
+      
       const updatedProducts = existingProduct
         ? // Si ya existe, incrementa la cantidad
           prevProducts.map((p) =>
@@ -59,6 +61,7 @@ const useCartHandler = (
   };
 
   return {
+    showCart,
     to,
     from,
     currency,
@@ -68,6 +71,7 @@ const useCartHandler = (
     addProduct,
     removeProduct,
     setDiscount,
+    setShowCart,
   };
 };
 

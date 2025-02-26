@@ -1,5 +1,5 @@
 .current-selection{
-    margin-left: 1rem;
+    margin-left: 4rem;
 }
 .current-product{
     display: flex;
@@ -56,4 +56,17 @@
     width: 15rem;
     padding: 0.25rem;
     margin-bottom: 0.25rem;
+}
+
+.cart-items{
+    width: 25vw;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+.cart-item-img{
+    width: 100%;
+}
+
+.item{
+    border-bottom: 1px solid #eee;
 }

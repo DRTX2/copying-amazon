@@ -9,6 +9,8 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, view: "product", selectedProduct: action.payload };
     case "SHOW_CART":
       return { ...state, view: "cart" };
+    case "OFFER_EXTRA_SERVICE":
+      return {...state, view:"offer_extra_service"}
     default:
       throw new Error("This operation is not allow");
   }

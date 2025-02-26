@@ -5,16 +5,19 @@ import SubMenu from "./Menu/SubMenu";
 import SuperiorMenu from "./Menu/Superior-menu";
 import SearchField from "./SearchField";
 import Footer from "./Footer";
+import { CartItems } from "./Cart/CartItems";
+import { useCart } from "../context/CartContext";
 
-type content = {
+type templateProps = {
   children: React.ReactNode;
 };
 
-const Template: React.FC<content> = ({ children }: content) => {
+const Template: React.FC<templateProps> = ({ children }: templateProps) => {
   const [MenuIsOpen, SetMenuIsOpen] = useState<boolean>(false);
   const [isSearchOpen, SetSearchOpen] = useState<boolean>(false);
   const navLinks = useRef<HTMLUListElement | null>(null);
   const btnSearchField=useRef<HTMLInputElement|null>(null);
+  const {showCart}=useCart();
 
   useEffect(() => {
     if (isSearchOpen && btnSearchField.current)   btnSearchField.current.focus(); 
@@ -22,6 +25,7 @@ const Template: React.FC<content> = ({ children }: content) => {
 
   return (
       <>
+        <div className="page-wrapper">
           <header>
             <SuperiorMenu SetMenuIsOpen={SetSearchOpen}/>
             <nav className="main-menu" id="main-menu">
@@ -59,6 +63,8 @@ const Template: React.FC<content> = ({ children }: content) => {
           {children}
           <Recomendations />
           <Footer/>
+        </div>
+        { showCart && <CartItems/>}
       </>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthProvider } from "./AuthProvider";
 import { CartProvider } from "./CartProvider";
 import { ProductsProvider } from "./ProductProvider";
@@ -13,7 +13,10 @@ const AppProvider: React.FC<AppProviderProps> = ({
   needProducts,
   children,
 }) => {
-  const Content = () => <Template>{children}</Template>;
+  const Content = () => 
+  <Template>
+    {children}
+  </Template>;
 
   return (
     <AuthProvider>

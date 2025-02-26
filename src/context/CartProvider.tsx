@@ -14,7 +14,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const contextValue: CartContextType = {
     ...cartHandler, // Pasamos todo lo que retorna el hook useCartHandler
   };
-
+  // Usa <CartContext.Provider> para proporcionar contextValue a los componentes hijos
   return (
     <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );

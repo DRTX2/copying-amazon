@@ -10,6 +10,7 @@ import { useProducts } from "./../../context/ProductContext";
 import { searchProductById } from "./../common";
 
 import "./watch-product.css";
+import { CartItems } from "../Cart/CartItems";
 
 const selectProduct = (
   quantity: number,
@@ -179,6 +180,7 @@ const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
             type={message.type}
           />
         )}
+        
       </section>
     </>
   );
