@@ -8,3 +8,36 @@
 .btnSection-container button {
   margin-left: 1rem;
 }
+
+.page-container{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page-wrapper{
+  flex:1;
+  transition: flex 0.3s ease;
+}
+
+.cart-items{
+  width: 15%;
+  transition: width 0.3s ease;
+}
+
+.show-cart-side .page-wrapper{
+  flex: 0 0 85%;
+}
+
+.show-cart-side .cart-items{
+  flex: 0 0 15%;
+}
+
+@media(max-width:768px){
+  .show-cart-side{
+    display: none;
+  }
+  .show-cart-side .page-wrapper{
+    flex:1;
+  }
+}

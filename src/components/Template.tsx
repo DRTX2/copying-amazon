@@ -24,7 +24,7 @@ const Template: React.FC<templateProps> = ({ children }: templateProps) => {
   }, [isSearchOpen]);
 
   return (
-      <>
+      <div className={`page-container ${showCart? "show-cart-side":""}`}>
         <div className="page-wrapper">
           <header>
             <SuperiorMenu SetMenuIsOpen={SetSearchOpen}/>
@@ -65,7 +65,7 @@ const Template: React.FC<templateProps> = ({ children }: templateProps) => {
           <Footer/>
         </div>
         { showCart && <CartItems/>}
-      </>
+      </div>
   );
 };
 
