@@ -1,21 +1,45 @@
-# Simple sales products
+# Copying Amazon
 
-Deploy by this project: https://drtx2.github.io/copying-amazon/
+This project is a functional Amazon clone, designed to replicate the user experience, including product search, listings, comment section, purchasing items with specific quantities, price management in different currencies, and a payment gateway using microservices for backend and bank authorization (debit cards, gifts, etc.).
 
-Plan:
-- Busqueda
- - Tambien añadiremos un boton para cerrar ese espacio de navegacion pasando un setState; 
-- El contenido del templete debe ser llenado por campo de busqueda, yo que se una factura. 
-- Añadir y comprar productos, para lo que tendre que hacer 
-    - Contexto para los datos locales 
-    - reduzca/aumente productos  
-    - Carrito de compras
-    - Pasarela de pago 
-- Register+login
-    - contexto con el usuario,
-- Ver productos por categoria
-- Paginas solo de texto para ver más info
-- Activar zonas q dependen de autentificación
+## Main Features
+- Product search and filtering
+- Product listing with details
+- Comment section for each product
+- Shopping cart with quantity selection
+- Price management in multiple currencies
+- Payment gateway and bank authorization
+- International shipping and promotions
 
-No se como hacer una parte del proyecto, cuando se pulsa el boton de busqueda este deberia de mostrar un filtrado de los productos, entonces toca cambiar lo que tiene el contexto de page_handler para que este modifique el contenido de los productos, es decir que muestre lo q lo contiene, sino tambien se podria recorrer las cars para luego añadirle una clase que haga que se muestre o desaparezca, lo cual debo decir me llama mas la atencion y preferiria, no se, no se.
-Para hacer la segunda opcion creo que estaria d puta madre usar un useRef desde el template para asi poderlo comunicar con el campo de busqueda, luego ese campo de busqueda renderiza de nuevo el children dandole otro estilo, o eliminando elementos, a sus elementos hay que darles una animacion. si esta en /product o /cart tambien tocaria consultarlo de una mas bien, tambien toca usar un evento que detecte cuando ya se detuvo de escribir por un buen tiempo antes de efectuar ese proceso.
+## Current Limitations
+- Does not support purchases by multiple users
+- Does not include supplier presentation (clients adding their own products)
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/copying-amazon.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the application:
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+- Browse the product catalog
+- Add products to the cart and select quantity
+- Make purchases and test currency conversion
+
+## Contributions
+Contributions are welcome! If you have ideas, improvements, or find bugs, open an issue or submit a pull request.
+
+## Acknowledgements
+Thank you for visiting this project. If you find it useful or interesting, please star and share it! :D
+
+---
+
+> Educational and practice project. Not affiliated with Amazon nor using any real Amazon infrastructure.

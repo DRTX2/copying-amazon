@@ -1,10 +1,10 @@
 import { useReducer } from "react";
-import Product from "../components/Product";
 import { RenderProductsInBox } from "../components/common";
 import { reducer } from "../hooks/pageHandler";
 import { State, Action, initialState } from "../types/reducer";
 import "./home.css"
 import { useCart } from "../context/CartContext";
+import Product from "../components/Product/Product";
 
 export default function Home() {
   const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
