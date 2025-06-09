@@ -17,3 +17,29 @@ export type ProductData = CardData & {
   cantidadDisponible: number;
   origenEnvio: string;
 };
+
+
+
+// new types
+
+export interface Category{
+  id:number;
+  name:string;
+}
+
+export interface ProductImage{
+  id: number;
+  url: string;
+  alt?: string;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  category: Category;
+  averageRating: number;
+  images: ProductImage[];
+}
