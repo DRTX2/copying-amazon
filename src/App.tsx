@@ -1,12 +1,14 @@
-import Home from "./pages/Home";
+import { BrowserRouter as Router} from "react-router-dom";
 import AppProvider from "./components/AppProvider";
-import "./App.css";
-
+import "./App.css"
+import AppRoutes from "./routes/AppRoutes";
 function App() {
   return (
-    <AppProvider needProducts={true}>
-      <Home/>
-    </AppProvider>
+    <Router basename="/copying-amazon">
+      <AppProvider>
+        <AppRoutes/>
+      </AppProvider>
+    </Router>
   );
 }
 

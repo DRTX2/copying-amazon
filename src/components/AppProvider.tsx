@@ -2,29 +2,28 @@ import React from "react";
 import { AuthProvider } from "../context/AuthProvider";
 import { CartProvider } from "../context/CartProvider";
 import { ProductsProvider } from "../context/ProductProvider";
-import Template from "./Template";
 
-interface AppProviderProps {
-  needProducts: boolean;
+interface Props {
   children: React.ReactNode;
+  useProducts?: boolean;
 }
 
-const AppProvider: React.FC<AppProviderProps> = ({
-  needProducts,
+const AppProvider: React.FC<Props> = ({
   children,
-}) => {
-  const Content = () => <Template>{children}</Template>;
+  useProducts = true,
+}: Props) => {
+  
+  const Providers = useProducts ? (
+    <ProductsProvider>{children}</ProductsProvider>
+  ) : (
+    children
+  );
+
 
   return (
     <AuthProvider>
       <CartProvider>
-        {needProducts ? (
-          <ProductsProvider>
-            <Content />
-          </ProductsProvider>
-        ) : (
-          <Content />
-        )}
+        {Providers}
       </CartProvider>
     </AuthProvider>
   );

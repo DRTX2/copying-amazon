@@ -1,184 +1,94 @@
-import { ProductData } from "./../../types/products";
-import { concatString, LinksCategorysProduct } from "./../LinksCategorysProduct";
-import { ProductCost } from "./Product-cost";
-import SelectProduct from "./selectQuantityProduct";
-import { useCart } from "./../../context/CartContext";
 import { useRef, useState } from "react";
-import Message, { MessageData } from "./../Message/Message";
-import { Action } from "./../../types/reducer";
-import { useProducts } from "./../../context/ProductContext";
-import { searchProductById } from "./../common";
-
-import "./watch-product.css";
+import { useCart } from "../../context/CartContext";
+import { useProducts } from "../../context/ProductContext";
+import { useNavigate } from "react-router-dom";
+import { ProductData } from "../../types/products";
+import ProductDetails from "./ProductDetails";
+import ProductBuyBox from "./ProductBuyBox";
+import ProductImage from "./ProductImage";
+import Message, { MessageData } from "../Message/Message";
+import { searchProductById } from "../common";
+import { goToRoot } from "../../utils/navigation";
 
 const selectProduct = (
   quantity: number,
   product: ProductData,
-  isOnlyProduct: boolean = false,
   products: ProductData[],
   addProduct: (product: ProductData) => void
 ): MessageData => {
-  const updatedProd: ProductData | undefined = searchProductById(
-    product.id as number,
-    products
-  );
-
-  if (!updatedProd)
+  const updatedProd = searchProductById(product.id as number, products);
+  if (!updatedProd) {
     return {
       time: 20,
       title: "Producto no disponible",
       content: "El producto no pudo agregarse a su pedido.",
       type: "dangerous",
     };
+  }
 
   const prod = { ...updatedProd, cantidadDisponible: quantity };
   addProduct(prod);
-  
+
   return {
     time: 20,
-    title: isOnlyProduct ? "Compra realizada" : "Producto agregado al carrito",
-    content: isOnlyProduct
-      ? "Has comprado el producto exitosamente."
-      : "El producto ha sido agregado a tu carrito.",
-    type: isOnlyProduct ? "success" : "success",
+    title: "Producto agregado al carrito",
+    content: "El producto ha sido agregado a tu carrito.",
+    type: "success",
   };
 };
 
-type ProdAndCartHandler = ProductData & {
-  dispatch: (value: Action) => void;
-};
-
-const Product = ({ dispatch, ...product }: ProdAndCartHandler) => {
-  const [message, setMessage] = useState<MessageData | null>(null);
+const Product = (product: ProductData) => {
   const { addProduct } = useCart();
-  const quantityProd = useRef<HTMLSelectElement>(null);
   const { products, setProducts } = useProducts();
-  const handleAddToCart = (
-    addProduct: (product: ProductData) => void,
-    onlyProduct: boolean = false
-  ) => {
-    if (quantityProd.current) {
+  const quantityRef = useRef<HTMLSelectElement>(null);
+  const [message, setMessage] = useState<MessageData | null>(null);
+  const navigate = useNavigate();
 
-      const msg: MessageData = selectProduct(
-        parseInt(quantityProd.current.value),
-        product,
-        onlyProduct,
-        products,
-        addProduct
-      );
-      setMessage(msg);
-      
-      if (onlyProduct) dispatch({ type: "SHOW_CART" });
-      setProducts(
-        products.map((prod) =>
-          prod.id === product.id
-            ? {
-                ...prod,
-                cantidadDisponible:
-                  prod.cantidadDisponible -
-                  parseInt(quantityProd.current!.value),
-              }
-            : prod
-        )
-      );
-    }
+  const handleAddToCart = (buyNow: boolean = false) => {
+    const quantity = parseInt(quantityRef.current?.value || "1");
+    const msg = selectProduct(quantity, product, products, addProduct);
+    setMessage(msg);
+
+    // Actualiza cantidad disponible
+    setProducts(
+      products.map((prod) =>
+        prod.id === product.id
+          ? { ...prod, cantidadDisponible: prod.cantidadDisponible - quantity }
+          : prod
+      )
+    );
+
+    if (buyNow) navigate("/cart");
   };
 
   return (
-    <>
-      <section className="current-selection">
-        {LinksCategorysProduct(product, " - ")}
-        <div className="btnSection-container">
-          <button
-            className="btnSection"
-            onClick={() => {
-              dispatch({ type: "SHOW_CATALOG" });
-            }}
-          >
-            Go back
-          </button>
-        </div>
-      </section>
-      <section className="current-product" id={product.id as string}>
-        <figure className="img-box">
-          <img src={product.img} alt={product.altImg} />
-        </figure>
-        <article className="informationProduct">
-          <h3 className="title">{product.title}</h3>
-          <ProductCost price={product.precio} discount={product.descuento} />
-          <ul>
-            {product.description.map((desc, index) => (
-              <li key={index}>{desc}</li>
-            ))}
-          </ul>
-          <h3>Caracteristicas</h3>
-          <p>
-            <b>Marca:</b> {product.marca}
-          </p>
-          <p>
-            <b>Color:</b> {product.color}
-          </p>
-          <p>
-            <b>Estilo:</b> {product.estilo}
-          </p>
-          <p>
-            <b>Usos:</b> {concatString(product.usos)}
-          </p>
-        </article>
-        <article className="more-about-product">
-          <p>Nuevo:</p>
-          <p>${product.precio}</p>
-          <p>Enviar a 'País Ejemplo'</p>
+    <div className="p-6 max-w-7xl mx-auto">
+      <button
+        className="mb-4 text-sm text-blue-600 underline"
+        onClick={() => goToRoot(navigate)}
+      >
+        Volver al catálogo
+      </button>
 
-          {product.cantidadDisponible ? (
-            <>
-              <p>"Disponible"</p>
-              <p>
-                Cantidad:{" "}
-                <SelectProduct
-                  quantity={product.cantidadDisponible}
-                  refInput={quantityProd}
-                />
-              </p>
-              <button
-                onClick={() => {
-                  handleAddToCart(addProduct);
-                }}
-              >
-                Agregar al carrito
-              </button>
-              <button
-                onClick={() => {
-                  handleAddToCart(addProduct, true);
-                }}
-              >
-                Comprar ahora
-              </button>
-            </>
-          ) : (
-            <>
-              <p>"Agotado"</p>
-              <button
-                onClick={() => {
-                  handleAddToCart(addProduct, true);
-                }}
-              >
-                Agregar a lista de deseos
-              </button>
-            </>
-          )}
-          <p>Enviado desde {product.origenEnvio}</p>
-        </article>
-        {message && (
-          <Message
-            time={message.time}
-            title={message.title}
-            content={message.content}
-            type={message.type}
-          />
-        )}
-      </section>
-    </>
+      <div className="grid md:grid-cols-3 gap-8 items-start">
+        <ProductImage img={product.img} altImg={product.altImg} />
+        <ProductDetails product={product} />
+        <ProductBuyBox
+          product={product}
+          quantityRef={quantityRef}
+          handleAddToCart={handleAddToCart}
+        />
+      </div>
+
+      {message && (
+        <Message
+          time={message.time}
+          title={message.title}
+          content={message.content}
+          type={message.type}
+        />
+      )}
+    </div>
   );
 };
 

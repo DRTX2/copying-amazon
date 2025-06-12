@@ -26,9 +26,11 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
     <>
       <div className="main-menu" id="main-menu" style={SuperiorMenuStyles}>
         <div className="img-container" style={boxImageStyles}>
-          <a href="./">
+          <a href={import.meta.env.BASE_URL}>
             <img
-              src="./assets/img/png-transparent-amazon-dark-hd-logo.png"
+              src={`${
+                import.meta.env.BASE_URL
+              }assets/img/png-transparent-amazon-dark-hd-logo.png`}
               alt="amazon logo"
               style={imgStyle}
             />

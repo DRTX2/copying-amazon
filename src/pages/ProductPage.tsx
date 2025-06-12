@@ -1,20 +1,16 @@
-import { useNavigate } from "react-router-dom";
+// src/components/common.tsx
 import { ProductData } from "../types/products";
-import { Card } from "./Card/Card";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { Card } from "../components/Card/Card";
+
+
 
 interface RenderProps {
   existsCartProducts: boolean;
-  expecifyContent?: string; // puedes usar esto si necesitas cambiar textos más adelante
+  expecifyContent?: string;
 }
-
-export const searchProductById = (
-  id: number,
-  products: ProductData[]
-): ProductData | undefined => {
-  return products.find((prod) => prod.id === id);
-};
 
 export const RenderProductsInBox: React.FC<RenderProps> = ({
   existsCartProducts,
