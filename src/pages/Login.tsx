@@ -9,7 +9,7 @@ export const Login = () => {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="username"
+              htmlFor="username"
             >
               Username
             </label>
@@ -23,7 +23,7 @@ export const Login = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="password"
+              htmlFor="password"
             >
               Password
             </label>
@@ -48,7 +48,7 @@ export const Login = () => {
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
               href="#"
             >
-              Forgot Password?
+              htmlForgot Password?
             </a>
           </div>
         </form>
