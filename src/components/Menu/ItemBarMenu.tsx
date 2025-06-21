@@ -5,6 +5,7 @@ type itemPropertys = {
   link?: string;
   myClass?: string;
   children?: React.ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 };
 
 const ItemBarMenu = ({
@@ -12,10 +13,11 @@ const ItemBarMenu = ({
   link = "#",
   myClass = "item-menu",
   children = null,
+  onClick = () => {},
 }: itemPropertys) => {
   return (
     <li className={myClass}>
-      <a href={link}>
+      <a href={link} onClick={onClick}>
         {title}
         {children}
       </a>

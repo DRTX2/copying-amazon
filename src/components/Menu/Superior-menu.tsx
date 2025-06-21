@@ -1,6 +1,8 @@
 import ItemBarMenu from "./ItemBarMenu";
 import ClickableItemBarMenu from "./ClickableItemBarMenu";
 import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+import { pathRoute } from "../../utils/navigation";
 
 const SuperiorMenuStyles = {
   margin: 0,
@@ -20,7 +22,10 @@ type MenuData = {
 };
 
 const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
+  const nav=useNavigate();
   const { products } = useCart();
+
+  console.log(pathRoute)
 
   return (
     <>
@@ -28,9 +33,7 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
         <div className="img-container" style={boxImageStyles}>
           <a href={import.meta.env.BASE_URL}>
             <img
-              src={`${
-                import.meta.env.BASE_URL
-              }assets/img/png-transparent-amazon-dark-hd-logo.png`}
+              src={`${pathRoute}assets/img/png-transparent-amazon-dark-hd-logo.png`}
               alt="amazon logo"
               style={imgStyle}
             />
@@ -46,7 +49,11 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
             <i className="fas fa-search"></i>
           </ClickableItemBarMenu>
           <ItemBarMenu title="Enviar a Ecuador" />
-          <ItemBarMenu title="Cuenta y Listas" />
+          <ItemBarMenu title="Cuenta y Listas" onClick={(event:React.MouseEvent<HTMLAnchorElement, MouseEvent>)=>{
+            event.preventDefault();
+            nav("/auth/login");
+            return;
+          }}/>
           <ClickableItemBarMenu
             title="Carrito"
             onClick={() => {

@@ -4,7 +4,6 @@ import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { Card } from "../components/Card/Card";
-import './home.css';
 
 
 
