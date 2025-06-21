@@ -2,6 +2,7 @@ import Template from "../layouts/Template";
 import { useCart } from "../context/CartContext";
 import { RenderProductsInBox } from "../components/common";
 import { useNavigate } from "react-router-dom";
+import './home.css';
 
 export default function ShoppingCart() {
   const { totalPrice } = useCart();

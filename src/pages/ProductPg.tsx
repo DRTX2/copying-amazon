@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import Product from "../components/Product/Product";
 import Template from "../layouts/Template";
+import './home.css';
 
 export default function ProductPage() {
   const { id } = useParams();

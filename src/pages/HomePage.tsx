@@ -3,6 +3,7 @@ import Template from '../layouts/Template'
 import { RenderProductsInBox } from '../components/common'
 import { Action, initialState, State } from '../types/reducer';
 import { reducer } from '../hooks/pageHandler';
+import './home.css';
 
 const HomePage = () => {
     const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
