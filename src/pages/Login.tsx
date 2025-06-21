@@ -1,4 +1,3 @@
-import React from "react";
 import Template from "../layouts/Template";
 
 export const Login = () => {
