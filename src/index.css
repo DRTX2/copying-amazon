@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Colores personalizados para Tailwind CSS v4 */
+@theme {
+  --color-primary: rgb(19, 26, 34);
+  --color-secondary: rgb(35, 47, 62);
+  --color-background: #eee;
+  --color-dorade: rgb(255, 224, 147);
+}
+
+@import "./styles/base.css";
+@import "./styles/utilities.css";
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

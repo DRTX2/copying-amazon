@@ -1,5 +1,6 @@
 import React from "react";
 import ItemBarMenu from "./ItemBarMenu";
+import "./item-menu.css";
 
 type ClickableItemBarMenuProps = {
   title: string;

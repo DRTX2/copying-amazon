@@ -43,3 +43,18 @@ Thank you for visiting this project. If you find it useful or interesting, pleas
 ---
 
 > Educational and practice project. Not affiliated with Amazon nor using any real Amazon infrastructure.
+
+
+
+bien, necesito hacer las sigueitnes cosass:
+- quitar o ordenar estilos css
+
+- mejorar la ui
+- organizar archivos y ver su correcta implementacion
+- añadir api
+- añadir seguridad
+- manejo de compras simple
+- buscador
+- recomendacinoes
+- chatbot
+- 

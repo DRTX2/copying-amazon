@@ -2,6 +2,7 @@ import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
 import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import ItemBarMenu from "./Menu/ItemBarMenu";
+import "./Footer.css";
 
 export default function Footer(){
     return <footer>

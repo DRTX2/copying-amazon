@@ -1,0 +1,30 @@
+.card img {
+  height: 25vh;
+  object-fit: cover;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  /* Centra verticalmente el contenido dentro de cada tarjeta */
+  justify-content: center;
+  /* Centra horizontalmente el contenido dentro de cada tarjeta */
+  align-items: center;
+  background-color: #eee;
+  margin: 1vw;
+  padding: 0.25rem;
+  box-shadow: 0 0.25rem 0.3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .card img {
+    height: auto;
+    margin: 0.25rem;
+  }
+  .card {
+    margin: 0;
+    vertical-align: center;
+    font-size: 1.5rem;
+  }
+}

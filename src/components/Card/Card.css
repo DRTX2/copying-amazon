@@ -1,0 +1,19 @@
+/* Estilos para las tarjetas de productos */
+.cards {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(auto-fill, minmax(2rem, 25%));
+  width: 90%;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(5rem, 45%));
+    gap: 1.5rem;
+    height: auto;
+  }
+}

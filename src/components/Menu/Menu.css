@@ -1,0 +1,66 @@
+/* Estilos para el menú principal */
+.main-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 1rem;
+  color: var(--background-color);
+}
+
+.items-main-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.items-main-menu li {
+  margin-left: 1rem;
+  padding: 0.15rem;
+}
+
+.items-main-menu li:hover {
+  outline: thin solid var(--background-color);
+}
+
+.items-main-menu a {
+  color: var(--background-color);
+  padding: 0.5rem 1rem;
+}
+
+.icon-toggle-main-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--background-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.icon-toggle-main-menu.more {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .items-main-menu {
+    flex-direction: column;
+    display: none;
+    width: 100%;
+  }
+
+  .items-main-menu li {
+    margin: 0;
+  }
+
+  .icon-toggle-main-menu {
+    display: block;
+    position: absolute;
+    right: 1rem;
+  }
+
+  .items-main-menu.active {
+    display: flex;
+  }
+}

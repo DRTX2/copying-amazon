@@ -1,60 +1,61 @@
-import Template from "../layouts/Template";
-
 export const Login = () => {
   return (
-    <Template>
-      <div className="w-full max-w-xs">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="w-full max-w-md bg-white border border-gray-300 rounded-sm p-6 shadow-sm">
+        <h1 className="text-lg font-medium mb-4">Inicia sesión o crea una cuenta</h1>
+
+        <form>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="username"
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
             >
-              Username
+              Introduce el número de teléfono móvil o el correo electrónico
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="email"
               type="text"
-              placeholder="Username"
+              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="ejemplo@email.com"
             />
           </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
-              type="password"
-              placeholder="******************"
-            />
-            <p className="text-red-500 text-xs italic">
-              Please choose a password.
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-            >
-              Sign In
-            </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="#"
-            >
-              htmlForgot Password?
-            </a>
-          </div>
+
+          <button
+            type="submit"
+            className="w-full !bg-yellow-400 hover:!bg-yellow-500 text-sm font-medium py-2 rounded-sm mt-2"
+          >
+            Continuar
+          </button>
         </form>
-        <p className="text-center text-gray-500 text-xs">
-          &copy;2020 Acme Corp. All rights reserved.
+
+        <p className="text-xs text-gray-600 mt-4">
+          Al continuar, aceptas las{" "}
+          <a href="#" className="text-blue-600 hover:underline">
+            Condiciones de uso
+          </a>{" "}
+          y el{" "}
+          <a href="#" className="text-blue-600 hover:underline">
+            Aviso de privacidad
+          </a>{" "}
+          de Amazon.
         </p>
+
+        <div className="mt-6 text-sm">
+          <a href="#" className="text-blue-600 hover:underline">
+            ¿Necesitas ayuda?
+          </a>
+        </div>
+
+        <hr className="my-6" />
+
+        <div className="text-sm text-gray-700">
+          <strong>¿Comprando para el trabajo?</strong>
+          <br />
+          <a href="#" className="text-blue-600 hover:underline">
+            Crear una cuenta de empresa gratis
+          </a>
+        </div>
       </div>
-    </Template>
+    </div>
   );
 };

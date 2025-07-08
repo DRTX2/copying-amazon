@@ -1,0 +1,22 @@
+/* 
+App.css - Archivo principal de estilos
+REFACTORIZADO: Los estilos se han separado en archivos modulares:
+
+- src/styles/base.css: Estilos base globales
+- src/styles/utilities.css: Utilidades personalizadas
+- src/components/Menu/Menu.css: Estilos del menú
+- src/components/Card/Card.css: Estilos de las tarjetas
+- src/components/Footer.css: Estilos del footer
+- src/components/SectionRecomendation.css: Estilos de recomendaciones
+
+Para usar Tailwind en los componentes, importa las clases directamente:
+- flex justify-between items-center bg-primary p-4 text-background (en lugar de .main-menu)
+- list-none m-0 p-0 flex (en lugar de .items-main-menu)
+- etc.
+
+Consulta el archivo Menu-tailwind-classes.md para ver las equivalencias.
+*/
+
+.root {
+  border: 3px solid red; /* Mantener si es necesario para debug */
+}

@@ -3,6 +3,7 @@ import ClickableItemBarMenu from "./ClickableItemBarMenu";
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { pathRoute } from "../../utils/navigation";
+import "./Menu.css";
 
 const SuperiorMenuStyles = {
   margin: 0,
@@ -22,10 +23,10 @@ type MenuData = {
 };
 
 const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
-  const nav=useNavigate();
+  const nav = useNavigate();
   const { products } = useCart();
 
-  console.log(pathRoute)
+  console.log(pathRoute);
 
   return (
     <>
@@ -49,11 +50,14 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
             <i className="fas fa-search"></i>
           </ClickableItemBarMenu>
           <ItemBarMenu title="Enviar a Ecuador" />
-          <ItemBarMenu title="Cuenta y Listas" onClick={(event:React.MouseEvent<HTMLAnchorElement, MouseEvent>)=>{
-            event.preventDefault();
-            nav("/auth/login");
-            return;
-          }}/>
+          <ItemBarMenu
+            title="Cuenta y Listas"
+            onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+              event.preventDefault();
+              nav("/auth/login");
+              return;
+            }}
+          />
           <ClickableItemBarMenu
             title="Carrito"
             onClick={() => {

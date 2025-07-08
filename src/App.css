@@ -9,6 +9,8 @@
   --dorade-color: rgb(255, 224, 147);
   --padding: 10px;
 }
+
+
 html {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -38,10 +40,6 @@ a {
   color: inherit;
 }
 
-.card img {
-  height: 25vh;
-  object-fit: cover;
-}
 
 .main-menu {
   /* para poder usar flexbox */
@@ -103,20 +101,7 @@ a {
   margin: 0 auto;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  /* Centra verticalmente el contenido dentro de cada tarjeta */
-  justify-content: center;
-  /* Centra horizontalmente el contenido dentro de cada tarjeta */
-  align-items: center;
-  background-color: #eee;
-  margin: 1vw;
-  padding: 0.25rem;
-  box-shadow: 0 0.25rem 0.3rem rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer;
-}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {
@@ -140,15 +125,7 @@ a {
     display: flex;
   }
 
-  .card img {
-    height: auto;
-    margin: 0.25rem;
-  }
-  .card {
-    margin: 0;
-    vertical-align: center;
-    font-size: 1.5rem;
-  }
+  
 
   .cards {
     display: grid;
@@ -323,6 +300,7 @@ a {
 .configuring {
   background-color: var(--primary-color);
 }
+
 .extra-content {
   display: grid;
   flex-direction: column;
@@ -442,6 +420,7 @@ a {
   display: block;
   z-index: 50;
 }
+
 .main-menu-more {
   width: 35%;
   height: 100vh;

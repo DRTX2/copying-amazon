@@ -3,6 +3,7 @@ import { ProductData } from "../types/products";
 import { Card } from "./Card/Card";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
+import "./Card/Card.css";
 
 interface RenderProps {
   existsCartProducts: boolean;

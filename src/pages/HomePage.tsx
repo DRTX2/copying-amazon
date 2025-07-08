@@ -3,8 +3,6 @@ import Template from '../layouts/Template'
 import { RenderProductsInBox } from '../components/common'
 import { Action, initialState, State } from '../types/reducer';
 import { reducer } from '../hooks/pageHandler';
-import './home.css';
-
 const HomePage = () => {
     const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
         reducer,
@@ -13,8 +11,8 @@ const HomePage = () => {
 
   return (
     <Template>
-        <div className="btnSection-container">
-            <button className="btnSection">
+        <div className="flex justify-end p-2 pr-4">
+            <button className="ml-4">
                 <a href="/cart">Ver Carrito</a>
             </button>
           </div>

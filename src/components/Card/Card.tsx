@@ -1,3 +1,6 @@
+import "./InitialCard.css";
+import "./Card.css";
+
 type CardProps = {
   title: string;
   img: string;

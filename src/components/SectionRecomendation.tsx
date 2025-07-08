@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+import "./SectionRecomendation.css";
 
 const Recomendations: React.FC = () => {
   const { user, logout } = useAuth();
