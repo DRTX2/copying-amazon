@@ -38,15 +38,30 @@ body {
   color: var(--primary-color);
 }
 
-/* Eliminar outline y list-style globalmente */
+/* Eliminar outline y list-style globalmente - Sin !important */
 .no-outline,
 .no-outline:hover,
-.no-outline:focus {
-  outline: none !important;
+.no-outline:focus,
+.no-outline:focus-visible {
+  outline: 0;
+  outline-offset: 0;
 }
 
-li, ul {
-  list-style: none !important;
+/* Eliminar list-style de manera más específica */
+li,
+ul,
+ol {
+  list-style: none;
+  list-style-type: none;
+  list-style-position: outside;
+  list-style-image: none;
+}
+
+/* Resetear padding/margin para listas */
+ul,
+ol {
+  padding: 0;
+  margin: 0;
 }
 
 /* Estilos específicos para el submenu (componente complejo que requiere CSS) */
@@ -115,7 +130,7 @@ li, ul {
   appearance: none;
 }
 
-/* Estilos específicos para botones de producto */
+/* Estilos específicos para botones de producto - Sin !important */
 .product-btn-cart,
 .product-btn-buy {
   all: unset;
@@ -124,24 +139,45 @@ li, ul {
   cursor: pointer;
   box-sizing: border-box;
   width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid;
 }
 
+/* Botón del carrito - Amarillo Amazon */
 .product-btn-cart {
-  background-color: #fde047 !important;
-  color: #000000 !important;
-  border: 1px solid #facc15 !important;
+  background-color: #fde047;
+  color: #000000;
+  border-color: #facc15;
 }
 
 .product-btn-cart:hover {
-  background-color: #facc15 !important;
+  background-color: #facc15;
+  border-color: #eab308;
+  transform: translateY(-1px);
 }
 
+.product-btn-cart:active {
+  background-color: #eab308;
+  transform: translateY(0);
+}
+
+/* Botón de compra - Naranja Amazon */
 .product-btn-buy {
-  background-color: #fb923c !important;
-  color: #ffffff !important;
-  border: 1px solid #f97316 !important;
+  background-color: #fb923c;
+  color: #ffffff;
+  border-color: #f97316;
 }
 
 .product-btn-buy:hover {
-  background-color: #f97316 !important;
+  background-color: #f97316;
+  border-color: #ea580c;
+  transform: translateY(-1px);
+}
+
+.product-btn-buy:active {
+  background-color: #ea580c;
+  transform: translateY(0);
 }

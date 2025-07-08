@@ -79,7 +79,7 @@ const Product = (product: ProductData) => {
           <h1 className="text-2xl font-bold text-gray-900">{product.title}</h1>
         </div>
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 self-start md:self-center"
+          className="ml-4 bg-slate-800 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200 self-start md:self-center"
           onClick={() => goToRoot(navigate)}
         >
           Volver al catálogo
