@@ -1,5 +1,4 @@
 // Componente de prueba para verificar clases Tailwind personalizadas
-import React from 'react';
 
 const TestTailwindColors = () => {
   return (

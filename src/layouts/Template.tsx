@@ -24,36 +24,37 @@ const Template: React.FC<content> = ({ children }: content) => {
     <>
       <header>
         <SuperiorMenu SetMenuIsOpen={SetSearchOpen} />
-        <nav className="main-menu" id="main-menu">
+        <nav className="flex justify-between items-center px-2 sm:px-4 py-2 text-white" style={{ backgroundColor: 'rgb(19, 26, 34)' }}>
+          {/* Botón de menú hamburguesa principal */}
           <button
-            className="icon-toggle-main-menu more"
-            aria-label="Toggle navigation"
-            id="btn-menu-more"
+            className="bg-transparent border-none text-lg sm:text-xl cursor-pointer transition-colors px-2 sm:px-3 py-2 hover:bg-white/10 rounded"
+            style={{ color: 'rgb(255, 224, 147)' }}
+            aria-label="Toggle side menu"
+            id="btn-menu-more-desktop"
             onClick={() => {
               SetMenuIsOpen(!MenuIsOpen);
             }}
           >
-            &#9776;
+            &#9776; <span className="hidden sm:inline">Todo</span>
           </button>
+          
           <SubMenu MenuIsOpen={MenuIsOpen} SetMenuIsOpen={SetMenuIsOpen} />
-          <ul className="items-main-menu" ref={navLinks}>
-            <ItemBarMenu title="Ofertas del dia" />
-            <ItemBarMenu title="Servicio al cliente" />
-            <ItemBarMenu title="Listas" />
-            <ItemBarMenu title="Tarjetas de regalo" />
-            <ItemBarMenu title="Vender" />
-          </ul>
-          <button
-            className="icon-toggle-main-menu"
-            aria-label="Toggle navigation"
-            id="btn-toggle-menu"
-            onClick={() => {
-              navLinks.current?.classList.toggle("active");
-            }}
-          >
-            &#9776;
-          </button>
+          
+          {/* Menú horizontal para desktop */}
+          <div className="hidden md:flex flex-grow justify-end">
+            <ul className="flex items-center space-x-2 lg:space-x-4 list-none m-0 p-0" ref={navLinks} style={{ listStyle: 'none' }}>
+              <ItemBarMenu title="Ofertas del dia" />
+              <ItemBarMenu title="Servicio al cliente" />
+              <ItemBarMenu title="Listas" />
+              <ItemBarMenu title="Tarjetas de regalo" />
+              <ItemBarMenu title="Vender" />
+            </ul>
+          </div>
+          
+          {/* Espacio flexible para centrar en móviles */}
+          <div className="flex-grow md:hidden"></div>
         </nav>
+        
         {isSearchOpen && <SearchField ref={btnSearchField} />}
       </header>
       {children}

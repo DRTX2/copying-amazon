@@ -39,7 +39,7 @@ const inputStyles = {
   },
 };
 
-const SearchField = forwardRef<HTMLInputElement, {}>((props, ref) => {
+const SearchField = forwardRef<HTMLInputElement, {}>((_, ref) => {
   return (
     <div className="container" style={SearchFieldStyles}>
       <form style={searchBarStyles}>

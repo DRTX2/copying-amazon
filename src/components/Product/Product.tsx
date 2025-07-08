@@ -63,12 +63,28 @@ const Product = (product: ProductData) => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <button
-        className="mb-4 text-sm text-blue-600 underline"
-        onClick={() => goToRoot(navigate)}
-      >
-        Volver al catálogo
-      </button>
+      {/* Header with categories and back button */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div className="mb-2 md:mb-0">
+          <div className="text-sm text-gray-600 mb-1">
+            {product.category.map((cat, index) => (
+              <span key={index}>
+                <a href={`/category/${cat}`} className="text-blue-600 hover:text-blue-800 hover:underline">
+                  {cat}
+                </a>
+                {index < product.category.length - 1 && ' > '}
+              </span>
+            ))}
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900">{product.title}</h1>
+        </div>
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 self-start md:self-center"
+          onClick={() => goToRoot(navigate)}
+        >
+          Volver al catálogo
+        </button>
+      </div>
 
       <div className="grid md:grid-cols-3 gap-8 items-start">
         <ProductImage img={product.img} altImg={product.altImg} />

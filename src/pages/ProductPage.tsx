@@ -1,10 +1,8 @@
 // src/components/common.tsx
-import { ProductData } from "../types/products";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { Card } from "../components/Card/Card";
-import "../components/Card/Card.css";
 
 
 
@@ -27,7 +25,7 @@ export const RenderProductsInBox: React.FC<RenderProps> = ({
   );
 
   return (
-    <div className="cards">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-screen-xl mx-auto p-4">
       {filteredProducts.map((card) => (
         <Card
           key={card.id}

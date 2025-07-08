@@ -5,7 +5,13 @@ type Props = {
 
 const ProductImage = ({ img, altImg }: Props) => (
   <div className="w-full">
-    <img src={`../${img}`} alt={altImg} className="w-full rounded shadow-md" />
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <img 
+        src={`../${img}`} 
+        alt={altImg} 
+        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300" 
+      />
+    </div>
   </div>
 );
 

@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import Product from "../components/Product/Product";
 import Template from "../layouts/Template";
-import './home.css';
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -13,7 +12,9 @@ export default function ProductPage() {
   if (!product) {
     return (
       <Template>
-        <p>Producto no encontrado</p>
+        <div className="flex justify-center items-center h-64">
+          <p className="text-xl text-gray-600">Producto no encontrado</p>
+        </div>
       </Template>
     );
   }

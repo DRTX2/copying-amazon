@@ -1,24 +1,49 @@
 import { ProductData } from "../../types/products";
-import { concatString, LinksCategorysProduct } from "../LinksCategorysProduct";
+import { concatString } from "../LinksCategorysProduct";
 import { ProductCost } from "./Product-cost";
 
 const ProductDetails = ({ product }: { product: ProductData }) => (
-  <div>
-    {LinksCategorysProduct(product, " / ")}
-    <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
-    <ProductCost price={product.precio} discount={product.descuento} />
+  <div className="space-y-6">
+    {/* Product cost prominently displayed */}
+    <div className="bg-gray-50 p-4 rounded-lg">
+      <ProductCost price={product.precio} discount={product.descuento} />
+    </div>
 
-    <ul className="mt-4 text-sm list-disc list-inside">
-      {product.description.map((desc, i) => (
-        <li key={i}>{desc}</li>
-      ))}
-    </ul>
+    {/* Product description */}
+    <div>
+      <h3 className="text-lg font-semibold text-gray-900 mb-3">Descripción del producto</h3>
+      <ul className="space-y-2 text-sm text-gray-700">
+        {product.description.map((desc, i) => (
+          <li key={i} className="flex items-start">
+            <span className="text-blue-600 mr-2">•</span>
+            <span>{desc}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
 
-    <h3 className="mt-4 font-semibold">Características</h3>
-    <p><b>Marca:</b> {product.marca}</p>
-    <p><b>Color:</b> {product.color}</p>
-    <p><b>Estilo:</b> {product.estilo}</p>
-    <p><b>Usos:</b> {concatString(product.usos)}</p>
+    {/* Product characteristics */}
+    <div className="bg-gray-50 p-4 rounded-lg">
+      <h3 className="text-lg font-semibold text-gray-900 mb-3">Características</h3>
+      <div className="grid grid-cols-1 gap-2 text-sm">
+        <div className="flex">
+          <span className="font-medium text-gray-700 w-16">Marca:</span>
+          <span className="text-gray-900">{product.marca}</span>
+        </div>
+        <div className="flex">
+          <span className="font-medium text-gray-700 w-16">Color:</span>
+          <span className="text-gray-900">{product.color}</span>
+        </div>
+        <div className="flex">
+          <span className="font-medium text-gray-700 w-16">Estilo:</span>
+          <span className="text-gray-900">{product.estilo}</span>
+        </div>
+        <div className="flex">
+          <span className="font-medium text-gray-700 w-16">Usos:</span>
+          <span className="text-gray-900">{concatString(product.usos)}</span>
+        </div>
+      </div>
+    </div>
   </div>
 );
 

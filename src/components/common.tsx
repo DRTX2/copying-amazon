@@ -3,7 +3,6 @@ import { ProductData } from "../types/products";
 import { Card } from "./Card/Card";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
-import "./Card/Card.css";
 
 interface RenderProps {
   existsCartProducts: boolean;
@@ -31,7 +30,7 @@ export const RenderProductsInBox: React.FC<RenderProps> = ({
   );
 
   return (
-    <div className="cards">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-[90%] mx-auto p-4">
       {filteredProducts.map((card) => (
         <Card
           key={card.id}

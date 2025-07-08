@@ -1,19 +1,13 @@
-import React, { useReducer } from 'react'
 import Template from '../layouts/Template'
 import { RenderProductsInBox } from '../components/common'
-import { Action, initialState, State } from '../types/reducer';
-import { reducer } from '../hooks/pageHandler';
+
 const HomePage = () => {
-    const [state, dispatch] = useReducer<React.Reducer<State, Action>>(
-        reducer,
-        initialState
-      );
 
   return (
     <Template>
         <div className="flex justify-end p-2 pr-4">
-            <button className="ml-4">
-                <a href="/cart">Ver Carrito</a>
+            <button className="ml-4 bg-slate-800 hover:bg-slate-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200">
+                <a href="/cart" className="text-white no-underline">Ver Carrito</a>
             </button>
           </div>
         {RenderProductsInBox({ existsCartProducts:false })}

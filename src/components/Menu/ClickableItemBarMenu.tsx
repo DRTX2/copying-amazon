@@ -1,6 +1,5 @@
 import React from "react";
 import ItemBarMenu from "./ItemBarMenu";
-import "./item-menu.css";
 
 type ClickableItemBarMenuProps = {
   title: string;
@@ -13,13 +12,13 @@ type ClickableItemBarMenuProps = {
 const ClickableItemBarMenu = ({
   title,
   link = "#",
-  myClass = "item-menu",
+  myClass = "",
   children = null,
   onClick = () => {}, // Función predeterminada que no hace nada
 }: ClickableItemBarMenuProps) => {
   // Usamos el componente original y le añadimos un manejador de clics
   return (
-    <div onClick={onClick}>
+    <div onClick={onClick} className="cursor-pointer">
       <ItemBarMenu title={title} link={link} myClass={myClass}>
         {children}
       </ItemBarMenu>
