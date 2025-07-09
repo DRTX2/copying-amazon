@@ -1,5 +1,5 @@
 import ItemBarMenu from "./ItemBarMenu";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../../features/cart";
 import { useNavigate } from "react-router-dom";
 import { pathRoute } from "../../utils/navigation";
 
@@ -9,7 +9,9 @@ type MenuData = {
 
 const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   const nav = useNavigate();
-  const { products } = useCart();
+  const { getItemCount } = useCart();
+
+  const cartItemCount = getItemCount();
 
   console.log(pathRoute);
 
@@ -58,15 +60,19 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
         {/* Carrito - siempre visible */}
         <div className="ml-2 lg:ml-4 p-1 hover:bg-white/10 rounded transition-colors">
           <button
-            className="bg-transparent border-none cursor-pointer px-1 sm:px-2 py-1 text-sm md:text-base"
+            className="bg-transparent border-none cursor-pointer px-1 sm:px-2 py-1 text-sm md:text-base relative"
             style={{ color: 'rgb(255, 224, 147)' }}
             aria-label="Shopping cart"
             onClick={() => {
-              if (!products) return;
               nav("/shopping-cart");
             }}
           >
             <i className="fa-solid fa-cart-shopping"></i>
+            {cartItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center min-w-4">
+                {cartItemCount > 99 ? '99+' : cartItemCount}
+              </span>
+            )}
           </button>
         </div>
         

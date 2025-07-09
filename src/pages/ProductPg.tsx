@@ -1,13 +1,38 @@
 import { useParams } from "react-router-dom";
-import { useProducts } from "../context/ProductContext";
+import { useProduct } from "../features/products/hooks/useProducts";
+import { ProductAdapter } from "../shared/adapters/product.adapter";
 import Product from "../components/Product/Product";
 import Template from "../layouts/Template";
+import LoadingSpinner from "../shared/components/LoadingSpinner";
 
 export default function ProductPage() {
-  const { id } = useParams();
-  const { products } = useProducts();
+  const { id } = useParams<{ id: string }>();
+  const productId = id ? parseInt(id) : 0;
   
-  const product = products.find((p) => p.id === Number(id));
+  const { data: product, isLoading, error } = useProduct(productId);
+
+  if (isLoading) {
+    return (
+      <Template>
+        <div className="flex justify-center items-center h-64">
+          <LoadingSpinner size="lg" />
+        </div>
+      </Template>
+    );
+  }
+
+  if (error) {
+    return (
+      <Template>
+        <div className="flex justify-center items-center h-64">
+          <div className="text-center">
+            <p className="text-xl text-red-600 mb-4">Error al cargar el producto</p>
+            <p className="text-gray-600">{error.message}</p>
+          </div>
+        </div>
+      </Template>
+    );
+  }
 
   if (!product) {
     return (
@@ -19,9 +44,12 @@ export default function ProductPage() {
     );
   }
 
+  // Convertir de Product empresarial a ProductData legacy para el componente existente
+  const legacyProduct = ProductAdapter.toProductData(product);
+
   return (
     <Template>
-      <Product {...product} />
+      <Product {...legacyProduct} />
     </Template>
   );
 }

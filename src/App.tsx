@@ -1,13 +1,14 @@
-import { BrowserRouter as Router} from "react-router-dom";
-import AppProvider from "./components/AppProvider";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppProviders from "./app/providers/AppProviders";
 import AppRoutes from "./routes/AppRoutes";
+
 function App() {
   return (
-    <Router basename="/copying-amazon">
-      <AppProvider>
-        <AppRoutes/>
-      </AppProvider>
-    </Router>
+    <AppProviders>
+      <Router basename="/copying-amazon">
+        <AppRoutes />
+      </Router>
+    </AppProviders>
   );
 }
 

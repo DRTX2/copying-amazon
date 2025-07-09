@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { ProductData } from "../types/products";
 import { Card } from "./Card/Card";
-import { useProducts } from "../context/ProductContext";
-import { useCart } from "../context/CartContext";
+import { useProducts } from "../features/products/hooks/useProducts";
+import { useCart } from "../features/cart";
 
 interface RenderProps {
   existsCartProducts: boolean;
@@ -21,11 +21,12 @@ export const RenderProductsInBox: React.FC<RenderProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const products = existsCartProducts
-    ? useCart().products
-    : useProducts().products;
+  const cartProducts = useCart().getProductsData();
+  const { products } = useProducts();
 
-  const filteredProducts = products.filter(
+  const displayProducts = existsCartProducts ? cartProducts : products;
+
+  const filteredProducts = displayProducts.filter(
     (prod) => prod.cantidadDisponible > 0
   );
 

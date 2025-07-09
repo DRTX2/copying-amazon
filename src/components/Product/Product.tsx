@@ -1,64 +1,47 @@
 import { useRef, useState } from "react";
-import { useCart } from "../../context/CartContext";
-import { useProducts } from "../../context/ProductContext";
+import { useCart } from "../../features/cart";
 import { useNavigate } from "react-router-dom";
 import { ProductData } from "../../types/products";
 import ProductDetails from "./ProductDetails";
 import ProductBuyBox from "./ProductBuyBox";
 import ProductImage from "./ProductImage";
 import Message, { MessageData } from "../Message/Message";
-import { searchProductById } from "../common";
 import { goToRoot } from "../../utils/navigation";
 
-const selectProduct = (
-  quantity: number,
-  product: ProductData,
-  products: ProductData[],
-  addProduct: (product: ProductData) => void
-): MessageData => {
-  const updatedProd = searchProductById(product.id as number, products);
-  if (!updatedProd) {
-    return {
-      time: 20,
-      title: "Producto no disponible",
-      content: "El producto no pudo agregarse a su pedido.",
-      type: "dangerous",
-    };
-  }
-
-  const prod = { ...updatedProd, cantidadDisponible: quantity };
-  addProduct(prod);
-
-  return {
-    time: 20,
-    title: "Producto agregado al carrito",
-    content: "El producto ha sido agregado a tu carrito.",
-    type: "success",
-  };
-};
-
 const Product = (product: ProductData) => {
-  const { addProduct } = useCart();
-  const { products, setProducts } = useProducts();
+  const { addProductData } = useCart();
   const quantityRef = useRef<HTMLSelectElement>(null);
   const [message, setMessage] = useState<MessageData | null>(null);
   const navigate = useNavigate();
 
   const handleAddToCart = (buyNow: boolean = false) => {
     const quantity = parseInt(quantityRef.current?.value || "1");
-    const msg = selectProduct(quantity, product, products, addProduct);
-    setMessage(msg);
+    
+    // Verificar disponibilidad
+    if (product.cantidadDisponible < quantity) {
+      setMessage({
+        time: 20,
+        title: "Stock insuficiente",
+        content: "No hay suficiente stock disponible.",
+        type: "dangerous",
+      });
+      return;
+    }
 
-    // Actualiza cantidad disponible
-    setProducts(
-      products.map((prod) =>
-        prod.id === product.id
-          ? { ...prod, cantidadDisponible: prod.cantidadDisponible - quantity }
-          : prod
-      )
-    );
+    // Agregar al carrito usando el nuevo hook
+    addProductData(product, quantity);
+    
+    setMessage({
+      time: 20,
+      title: "Producto agregado al carrito",
+      content: "El producto ha sido agregado a tu carrito.",
+      type: "success",
+    });
 
-    if (buyNow) navigate("/cart");
+    // Si es "comprar ahora", navegar al carrito
+    if (buyNow) {
+      navigate("/shopping-cart");
+    }
   };
 
   return (
