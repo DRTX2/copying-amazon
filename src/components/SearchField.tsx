@@ -41,6 +41,8 @@ const inputStyles = {
 
 const SearchField = forwardRef<HTMLInputElement, {}>((_, ref) => {
   // Fix: Uso de _ en lugar de props para evitar error TS6133
+
+  
   return (
     <div className="container" style={SearchFieldStyles}>
       <form style={searchBarStyles}>
