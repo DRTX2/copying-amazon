@@ -105,11 +105,14 @@ export const useCartStore = create<CartStore>()(
         
         // Selectores computados
         getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
+
         getItemById: (id) => get().items.find(item => item.id === id),
+        
         getTotalWithDiscount: () => {
           const { totalPrice, discount } = get();
           return totalPrice - (totalPrice * discount / 100);
         },
+        
         isEmpty: () => get().items.length === 0,
       }),
       {

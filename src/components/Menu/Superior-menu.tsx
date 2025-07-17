@@ -16,15 +16,20 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   console.log(pathRoute);
 
   return (
-    <div className="flex justify-between items-center px-2 sm:px-4 py-2" style={{ backgroundColor: 'rgb(19, 26, 34)', color: 'white' }}>
+    <div className="flex justify-between items-center px-2 sm:px-4 py-2" style={
+      { 
+        backgroundColor: 'rgb(19, 26, 34)', 
+        color: 'white' 
+      }
+      }>
       <div className="w-16 sm:w-20 md:w-24 flex-shrink-0">
-        <a href={import.meta.env.BASE_URL}>
+        <button onClick={() => nav("/")}>
           <img
             src={`${pathRoute}assets/img/png-transparent-amazon-dark-hd-logo.png`}
             alt="amazon logo"
             className="w-full h-auto"
           />
-        </a>
+        </button>
       </div>
       
       {/* Elementos principales - siempre visibles */}

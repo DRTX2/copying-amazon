@@ -35,7 +35,7 @@ const Template: React.FC<content> = ({ children }: content) => {
               SetMenuIsOpen(!MenuIsOpen);
             }}
           >
-            &#9776; <span className="hidden sm:inline">Todo</span>
+            &#9776; <span className="hidden sm:inline"></span>
           </button>
           
           <SubMenu MenuIsOpen={MenuIsOpen} SetMenuIsOpen={SetMenuIsOpen} />

@@ -13,12 +13,14 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
+  
   public state: State = {
     hasError: false,
     error: null,
     errorInfo: null,
   };
 
+  // se llama al metodo automaticamente cuando hay un errror en el arbol de componentes en cualquier hijo, cambiando estados para mostrar el error
   public static getDerivedStateFromError(error: Error): State {
     return {
       hasError: true,
@@ -27,6 +29,7 @@ class ErrorBoundary extends Component<Props, State> {
     };
   }
 
+  // similar a try catch, se usa para capturar errores en el ciclo de vida de los componentes hijos
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error,

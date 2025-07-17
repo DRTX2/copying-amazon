@@ -12,7 +12,9 @@ interface AppProvidersProps {
 const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
+      {/* contexto global que requiere react query de forma que ahora podemos usar las querys con esa base dentro de este "arbol" */}
+      <QueryClientProvider client={queryClient}> 
+        {/* espera a que carguen los datos antes de renderizarse, mientras carga muestra el componente señalado */}
         <Suspense fallback={<LoadingSpinner />}>
           {children}
         </Suspense>

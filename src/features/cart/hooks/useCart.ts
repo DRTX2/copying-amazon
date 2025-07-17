@@ -4,7 +4,7 @@ import { Product } from '../../products/types/product.types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 
 /**
- * Hook empresarial para el carrito con funcionalidades avanzadas
+ * Hook para el carrito con funcionalidades avanzadas
  */
 export const useCart = () => {
   const store = useCartStore();
@@ -14,7 +14,7 @@ export const useCart = () => {
     store.addItem(product, quantity);
   };
 
-  // Método para agregar producto desde Product (empresarial)
+  // Método para agregar producto desde Product
   const addProduct = (product: Product, quantity: number = 1) => {
     const productData = ProductAdapter.toProductData(product);
     store.addItem(productData, quantity);

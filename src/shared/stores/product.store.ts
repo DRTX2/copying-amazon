@@ -23,7 +23,7 @@ interface ProductStore {
 }
 
 export const useProductStore = create<ProductStore>()(
-  devtools(
+  devtools(//habilita integración con Redux DevTools para depurar
     (set, get) => ({
       // Estado inicial
       products: [],

@@ -157,20 +157,6 @@ class ProductService {
       return productServiceMock.getBrands();
     }
   }
-
-  // Manejo de errores
-  private handleError(error: any): Error {
-    if (error.response) {
-      // Error de respuesta HTTP
-      return new Error(`Error ${error.response.status}: ${error.response.data?.message || 'Error en la API'}`);
-    } else if (error.request) {
-      // Error de red
-      return new Error('Error de conexión. Verifique su conexión a internet.');
-    } else {
-      // Error en la configuración
-      return new Error('Error en la configuración de la solicitud.');
-    }
-  }
 }
 
 export const productService = new ProductService();

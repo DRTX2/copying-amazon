@@ -18,10 +18,6 @@ export type ProductData = CardData & {
   origenEnvio: string;
 };
 
-
-
-// new types
-
 export interface Category{
   id:number;
   name:string;

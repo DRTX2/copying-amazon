@@ -1,51 +1,43 @@
 import { QueryClient } from '@tanstack/react-query';
 
-// Configuración del QueryClient con opciones empresariales
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // Tiempo de cache por defecto
-      staleTime: 5 * 60 * 1000, // 5 minutos
-      gcTime: 10 * 60 * 1000, // 10 minutos (antes cacheTime)
+      staleTime: 5 * 60 * 1000, // 5 minutos, datos frescos que no se pediran de nuevo
+      gcTime: 10 * 60 * 1000, //  tiempo que React Query mantiene en memoria la data después de que no hay ningún componente usándola.
       
-      // Retry configuration
-      retry: (failureCount, error: any) => {
-        // No reintentar para errores 4xx (excepto 408)
+      retry: (failureCount, error: any) => {// no reintentar errores 400-499 excepto 408, si son otros reintentar hasta 3 veces
         if (error?.status >= 400 && error?.status < 500 && error?.status !== 408) {
           return false;
         }
-        // Máximo 3 reintentos para otros errores
         return failureCount < 3;
       },
       
       // Retry delay exponencial
       retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
       
-      // No refetch automático en focus (configurable por query)
+      // No refetch automático al volver a la pagina
       refetchOnWindowFocus: false,
       
-      // Refetch en reconexión de red
+      // no network, no refetch
       refetchOnReconnect: true,
       
-      // Configuración de errores
+      // avoid throw exceptions, insted of that, return error using onError
       throwOnError: false,
     },
-    mutations: {
-      // Retry para mutaciones críticas
-      retry: 1,
+
+    mutations: {// modifican datos en el servidor
+      retry: 1, // reintentar una vez mas si falla luego de 1 seg, sino lanzar error
       retryDelay: 1000,
-      
-      // Error handling global para mutaciones
       onError: (error: any) => {
-        // Aquí puedes agregar logging global o notificaciones
         console.error('Mutation error:', error);
       },
     },
   },
 });
 
-// Función para invalidar queries relacionadas cuando hay cambios
-export const invalidateRelatedQueries = {
+export const invalidateRelatedQueries = { // datos no confiables, se hace una nueva peticion si se requiere
   products: () => {
     queryClient.invalidateQueries({ queryKey: ['products'] });
   },
@@ -57,10 +49,12 @@ export const invalidateRelatedQueries = {
   },
 };
 
-// Función para prefetch de datos críticos
+// cuando el usuario llegue a cierta pagina ya se encuentren los datos
 export const prefetchCriticalData = async () => {
   // Prefetch productos populares
+  // manualmente se obtiene y guarda la info, sin necesidad de que useQuery esste montado
   await queryClient.prefetchQuery({
+    // guardar query con una clave unica
     queryKey: ['products', 'popular'],
     queryFn: async () => {
       // Aquí llamarías al servicio real
@@ -70,13 +64,12 @@ export const prefetchCriticalData = async () => {
     staleTime: 10 * 60 * 1000,
   });
   
-  // Prefetch categorías
   await queryClient.prefetchQuery({
     queryKey: ['categories'],
     queryFn: async () => {
       const response = await fetch('/api/categories');
       return response.json();
     },
-    staleTime: 30 * 60 * 1000, // Las categorías cambian menos frecuentemente
+    staleTime: 30 * 60 * 1000,
   });
 };
