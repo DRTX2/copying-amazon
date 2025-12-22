@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
+/* Variables CSS para colores del tema Amazon */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: rgb(19, 26, 34);
+  --secondary-color: rgb(35, 47, 62);
+  --background-color: #eee;
+  --dorade-color: rgb(255, 224, 147);
+  --padding: 10px;
+  
+  /* Configuración de fuentes */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Estilos base */
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+/* Eliminar outline y list-style globalmente - Sin !important */
+.no-outline,
+.no-outline:hover,
+.no-outline:focus,
+.no-outline:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+}
+
+/* Eliminar list-style de manera más específica */
+li,
+ul,
+ol {
+  list-style: none;
+  list-style-type: none;
+  list-style-position: outside;
+  list-style-image: none;
+}
+
+/* Resetear padding/margin para listas */
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilos específicos para el submenu (componente complejo que requiere CSS) */
+.submenu {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  overflow: hidden;
+  transition: opacity 400ms ease-in;
+}
+
+.submenu.active {
+  display: block;
+  z-index: 50;
+}
+
+.main-menu-more {
+  width: 35%;
+  height: 100vh;
+  padding-left: 1rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  align-items: center;
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.main-menu-more span {
+  background-color: var(--background-color);
+  padding: 1rem;
+}
+
+.main-menu-more-items {
+  padding-bottom: 1rem;
+  border-bottom: thin solid var(--primary-color);
+}
+
+.main-menu-more-items p {
+  display: block;
+  padding: 0.5rem;
+}
+
+.main-menu-more-items p:hover {
+  background-color: #ccc;
+}
+
+#close-menu-more {
+  position: absolute;
+  left: 37vw;
+  top: 1rem;
+  background-color: transparent;
+  color: var(--dorade-color);
+  background: var(--secondary-color);
+  border: none;
+  padding: 0.3rem 0.4rem;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 2px 0.1rem var(--dorade-color);
+  border-radius: 30%;
+  appearance: none;
+}
+
+/* Estilos específicos para botones de producto - Sin !important */
+.product-btn-cart,
+.product-btn-buy {
+  all: unset;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid;
+}
+
+/* Botón del carrito - Amarillo Amazon */
+.product-btn-cart {
+  background-color: #fde047;
+  color: #000000;
+  border-color: #facc15;
+}
+
+.product-btn-cart:hover {
+  background-color: #facc15;
+  border-color: #eab308;
+  transform: translateY(-1px);
+}
+
+.product-btn-cart:active {
+  background-color: #eab308;
+  transform: translateY(0);
+}
+
+/* Botón de compra - Naranja Amazon */
+.product-btn-buy {
+  background-color: #fb923c;
+  color: #ffffff;
+  border-color: #f97316;
+}
+
+.product-btn-buy:hover {
+  background-color: #f97316;
+  border-color: #ea580c;
+  transform: translateY(-1px);
+}
+
+.product-btn-buy:active {
+  background-color: #ea580c;
+  transform: translateY(0);
 }
