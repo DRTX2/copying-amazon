@@ -8,9 +8,13 @@ import { useCart } from '@/features/cart';
 import { ProductAdapter } from '@/shared/adapters/product.adapter';
 import { Product } from '@/features/products/types/product.types';
 
-export default function HomeClient() {
+interface HomeClientProps {
+  initialProducts?: any;
+}
+
+export default function HomeClient({ initialProducts }: HomeClientProps) {
   const router = useRouter();
-  const { products, isLoading, error } = useProducts();
+  const { products, isLoading, error } = useProducts({}, initialProducts);
   const { getItemCount } = useCart();
   
   const cartItemCount = getItemCount();

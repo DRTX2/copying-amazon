@@ -1,4 +1,4 @@
-import { pathRoute } from "../utils/navigation";
+import Image from "next/image";
 
 const LanguageCurrencies = () => {
   return (
@@ -11,9 +11,11 @@ const LanguageCurrencies = () => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
           {/* Amazon Logo */}
           <div className="flex-shrink-0">
-            <img
+            <Image
               src="/assets/img/png-transparent-amazon-dark-hd-logo.png"
               alt="logo de amazon"
+              width={128}
+              height={36}
               className="h-9 w-auto max-w-32"
             />
           </div>

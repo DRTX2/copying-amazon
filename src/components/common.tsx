@@ -27,12 +27,12 @@ export const RenderProductsInBox: React.FC<RenderProps> = ({
   const displayProducts = existsCartProducts ? cartProducts : products;
 
   const filteredProducts = displayProducts.filter(
-    (prod) => prod.cantidadDisponible > 0
+    (prod: ProductData) => prod.cantidadDisponible > 0
   );
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-[90%] mx-auto p-4">
-      {filteredProducts.map((card) => (
+      {filteredProducts.map((card: ProductData) => (
         <Card
           key={card.id}
           title={card.title}

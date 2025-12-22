@@ -58,5 +58,12 @@ export default async function ProductPage({ params }: Props) {
   const { id } = await params;
   const productId = parseInt(id);
 
-  return <ProductClient productId={productId} />;
+  let initialProduct = null;
+  try {
+    initialProduct = await productService.getProductById(productId);
+  } catch (error) {
+    console.error('Error fetching product on SSR:', error);
+  }
+
+  return <ProductClient productId={productId} initialProduct={initialProduct} />;
 }

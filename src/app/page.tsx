@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
+import { productService } from '@/shared/services/product.service';
 
 export const metadata: Metadata = {
   title: 'Amazon Clone | Inicio - Mejores Ofertas y Productos',
@@ -10,6 +11,14 @@ export const metadata: Metadata = {
   }
 };
 
-export default function HomePage() {
-  return <HomeClient />;
+export default async function HomePage() {
+  let initialProducts = null;
+  
+  try {
+    initialProducts = await productService.getProducts({ limit: 20 });
+  } catch (error) {
+    console.error('Error fetching products on SSR:', error);
+  }
+
+  return <HomeClient initialProducts={initialProducts} />;
 }

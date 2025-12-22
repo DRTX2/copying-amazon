@@ -15,9 +15,11 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Agregar token de autenticación si existe
-    const token = localStorage.getItem('auth_token');
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('accessToken');
+      if (token && config.headers) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     
     // Logging en desarrollo
@@ -76,8 +78,10 @@ api.interceptors.response.use(
     switch (apiError.status) {
       case 401:
         // Token expirado o inválido
-        localStorage.removeItem('auth_token');
-        window.location.href = '/auth/login';
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('accessToken');
+          window.location.href = '/auth/login';
+        }
         break;
       case 403:
         apiError.message = 'No tienes permisos para realizar esta acción';

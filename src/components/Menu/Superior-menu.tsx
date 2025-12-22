@@ -1,6 +1,7 @@
 import ItemBarMenu from "./ItemBarMenu";
 import { useCart } from "../../features/cart";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { pathRoute } from "../../utils/navigation";
 
 type MenuData = {
@@ -24,10 +25,13 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
       }>
       <div className="w-16 sm:w-20 md:w-24 flex-shrink-0">
         <button onClick={() => router.push("/")}>
-          <img
-            src={`${pathRoute}assets/img/png-transparent-amazon-dark-hd-logo.png`}
+          <Image
+            src={`/assets/img/png-transparent-amazon-dark-hd-logo.png`}
             alt="amazon logo"
+            width={100}
+            height={30}
             className="w-full h-auto"
+            priority
           />
         </button>
       </div>

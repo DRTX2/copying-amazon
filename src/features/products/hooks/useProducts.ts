@@ -19,7 +19,7 @@ export const PRODUCT_QUERY_KEYS = {
 };
 
 // Hook principal para productos con filtros
-export const useProducts = (params: ProductSearchParams = {}) => {
+export const useProducts = (params: ProductSearchParams = {}, initialData?: any) => {
   const setProducts = useProductStore(state => state.setProducts);
   const setLoading = useProductStore(state => state.setLoading);
   const setError = useProductStore(state => state.setError);
@@ -27,6 +27,7 @@ export const useProducts = (params: ProductSearchParams = {}) => {
   const query = useQuery({
     queryKey: PRODUCT_QUERY_KEYS.list(params),
     queryFn: () => productService.getProducts(params),
+    initialData,
     staleTime: 5 * 60 * 1000, // 5 minutos
     gcTime: 10 * 60 * 1000, // 10 minutos
   });
@@ -49,7 +50,7 @@ export const useProducts = (params: ProductSearchParams = {}) => {
 };
 
 // Hook para producto individual
-export const useProduct = (id: number, prefetch: boolean = false) => {
+export const useProduct = (id: number, initialData?: any) => {
   const setSelectedProduct = useProductStore(state => state.setSelectedProduct);
   const setError = useProductStore(state => state.setError);
 
@@ -59,7 +60,8 @@ export const useProduct = (id: number, prefetch: boolean = false) => {
       const productData = await productService.getProductById(id);
       return ProductAdapter.toProduct(productData);
     },
-    enabled: !!id && !prefetch,
+    enabled: !!id,
+    initialData,
     staleTime: 5 * 60 * 1000,
   });
 

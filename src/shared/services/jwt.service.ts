@@ -1,5 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import { JWTPayload } from '../../features/auth/types/auth.types';
+import { setCookie, getCookie, deleteCookie } from '../../utils/cookies';
 
 class JWTService {
   decodeToken(token: string): JWTPayload | null {
@@ -72,14 +73,20 @@ class JWTService {
   }
 
   storeTokens(accessToken: string, refreshToken?: string): void {
-    localStorage.setItem('accessToken', accessToken);
-    if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('accessToken', accessToken);
+      setCookie('accessToken', accessToken);
+      
+      if (refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+        setCookie('refreshToken', refreshToken);
+      }
     }
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem('accessToken');
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem('accessToken') || getCookie('accessToken');
   }
 
   getRefreshToken(): string | null {
@@ -87,8 +94,12 @@ class JWTService {
   }
 
   clearTokens(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      deleteCookie('accessToken');
+      deleteCookie('refreshToken');
+    }
   }
 
   getAuthHeader(): string | null {

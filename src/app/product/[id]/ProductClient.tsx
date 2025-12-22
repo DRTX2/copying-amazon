@@ -8,10 +8,14 @@ import Template from '@/layouts/Template';
 
 interface ProductClientProps {
   productId: number;
+  initialProduct?: any;
 }
 
-export default function ProductClient({ productId }: ProductClientProps) {
-  const { data: product, isLoading, error } = useProduct(productId);
+export default function ProductClient({ productId, initialProduct }: ProductClientProps) {
+  // Adaptar el producto inicial si existe (de ProductData legacy a Product empresarial)
+  const adaptedInitialProduct = initialProduct ? ProductAdapter.toProduct(initialProduct) : undefined;
+  
+  const { data: product, isLoading, error } = useProduct(productId, adaptedInitialProduct);
 
   if (isLoading) {
     return (
@@ -29,7 +33,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
         <div className="flex justify-center items-center h-64">
           <div className="text-center">
             <p className="text-xl text-red-600 mb-4">Error al cargar el producto</p>
-            <p className="text-gray-600">{error.message}</p>
+            <p className="text-gray-600">{(error as any).message}</p>
           </div>
         </div>
       </Template>
