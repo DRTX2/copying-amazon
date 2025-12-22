@@ -1,0 +1,46 @@
+import { useRouter } from "next/navigation";
+import { ProductData } from "../types/products";
+import { Card } from "./Card/Card";
+import { useProducts } from "../features/products/hooks/useProducts";
+import { useCart } from "../features/cart";
+
+interface RenderProps {
+  existsCartProducts: boolean;
+  expecifyContent?: string; // puedes usar esto si necesitas cambiar textos más adelante
+}
+
+export const searchProductById = (
+  id: number,
+  products: ProductData[]
+): ProductData | undefined => {
+  return products.find((prod) => prod.id === id);
+};
+
+export const RenderProductsInBox: React.FC<RenderProps> = ({
+  existsCartProducts,
+}) => {
+  const router = useRouter();
+
+  const cartProducts = useCart().getProductsData();
+  const { products } = useProducts();
+
+  const displayProducts = existsCartProducts ? cartProducts : products;
+
+  const filteredProducts = displayProducts.filter(
+    (prod) => prod.cantidadDisponible > 0
+  );
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-[90%] mx-auto p-4">
+      {filteredProducts.map((card) => (
+        <Card
+          key={card.id}
+          title={card.title}
+          img={card.img}
+          altImg={card.altImg}
+          onClick={() => router.push(`/product/${card.id}`)}
+        />
+      ))}
+    </div>
+  );
+};
