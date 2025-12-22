@@ -7,6 +7,7 @@ import ItemBarMenu from "../components/Menu/ItemBarMenu";
 import SearchField from "../components/SearchField";
 import Recomendations from "../components/SectionRecomendation";
 import Footer from "../components/Footer";
+import PageTransition from "../components/PageTransition";
 
 type content = {
   children: React.ReactNode;
@@ -59,7 +60,9 @@ const Template: React.FC<content> = ({ children }: content) => {
         
         {isSearchOpen && <SearchField ref={btnSearchField} />}
       </header>
-      {children}
+      <PageTransition>
+        {children}
+      </PageTransition>
       <Recomendations />
       <Footer />
     </>

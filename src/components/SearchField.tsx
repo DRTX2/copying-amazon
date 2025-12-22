@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SearchFieldStyles = {
   width: "100%",
@@ -34,29 +35,36 @@ const inputStyles = {
   padding: "24px 20px",
   fontSize: "20px",
   color: "#cac7ff",
-  "::placeholder": {
-    color: "transparent", // Hacer el texto del placeholder transparente
-  },
 };
 
 const SearchField = forwardRef<HTMLInputElement, {}>((_, ref) => {
-  // Fix: Uso de _ en lugar de props para evitar error TS6133
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+    }
+  };
+
   return (
     <div className="container" style={SearchFieldStyles}>
-      <form style={searchBarStyles}>
+      <form style={searchBarStyles} onSubmit={handleSearch}>
         <input
           ref={ref}
           type="text"
-          placeholder="search anything"
+          placeholder="¿Qué estás buscando hoy?"
           name="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           style={inputStyles}
         />
         <button
           type="submit"
-          onClick={(event) => event.preventDefault()}
           className="searchBtn"
         >
-          <i className="fas fa-search"></i>
+          <i className="fas fa-search text-white text-xl"></i>
         </button>
       </form>
     </div>
