@@ -7,7 +7,7 @@ import {
   AuthResponse,
 } from "../types/auth.types";
 
-const AUTH_API_BASE = "http://localhost:8080/api/auth"; // esto luego se cambiara por axios
+const AUTH_API_BASE = "http://localhost:8080/api/v1/auth"; // esto luego se cambiara por axios
 
 // Query keys para autenticación
 export const AUTH_QUERY_KEYS = {
