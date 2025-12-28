@@ -1,3 +1,5 @@
+'use client';
+import { useState, useEffect } from "react";
 import ItemBarMenu from "./ItemBarMenu";
 import { useCart } from "../../features/cart";
 import { useRouter } from "next/navigation";
@@ -11,6 +13,11 @@ type MenuData = {
 const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   const router = useRouter();
   const { getItemCount } = useCart();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const cartItemCount = getItemCount();
 
@@ -77,7 +84,7 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
             }}
           >
             <i className="fa-solid fa-cart-shopping"></i>
-            {cartItemCount > 0 && (
+            {mounted && cartItemCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center min-w-4">
                 {cartItemCount > 99 ? '99+' : cartItemCount}
               </span>
