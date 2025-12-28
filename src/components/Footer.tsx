@@ -23,20 +23,28 @@ export default function Footer(){
         {/* Footer services and announcements */}
         <div className="text-white" style={{ backgroundColor: '#131a22' }}>
           <MoreServices />
-          <div className="pb-20 md:pb-8">
-            <div className="flex justify-center items-center gap-2 w-full max-w-full mx-auto py-8 overflow-x-auto" style={{ fontSize: '8px', whiteSpace: 'nowrap' }}>
-              <ItemBarMenu title="Condiciones de uso" myClass="" />
-              <ItemBarMenu title="Aviso de privacidad" myClass="" />
-              <ItemBarMenu
-                title="Aviso de Privacidad de Datos de Salud del Consumidor"
-                myClass=""
-              />
-              <ItemBarMenu
-                title="Tus opciones de privacidad de los anuncios"
-                myClass=""
-              />
+          <div className="pb-8">
+            <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 w-full max-w-6xl mx-auto py-6 px-4">
+              <div className="text-xs sm:text-sm">
+                <ItemBarMenu title="Condiciones de uso" myClass="" />
+              </div>
+              <div className="text-xs sm:text-sm">
+                <ItemBarMenu title="Aviso de privacidad" myClass="" />
+              </div>
+              <div className="text-xs sm:text-sm whitespace-normal sm:whitespace-nowrap">
+                <ItemBarMenu
+                  title="Aviso de Privacidad de Datos de Salud del Consumidor"
+                  myClass=""
+                />
+              </div>
+              <div className="text-xs sm:text-sm whitespace-normal sm:whitespace-nowrap">
+                <ItemBarMenu
+                  title="Tus opciones de privacidad de los anuncios"
+                  myClass=""
+                />
+              </div>
             </div>
-            <div className="text-center text-xs text-gray-400 pb-8">
+            <div className="text-center text-xs text-gray-400 pb-8 px-4">
               <span>© 1996-2024 Amazon.com, Inc. o sus afiliados</span>
             </div>
           </div>
