@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import Template from '@/layouts/Template';
 import { useCart } from '@/features/cart';
 import { ProductGrid } from '@/features/products/components/ProductGrid';
@@ -9,9 +10,29 @@ import { Product } from '@/features/products/types/product.types';
 export default function ShoppingCart() {
   const router = useRouter();
   const { getProducts, getCartStats } = useCart();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const cartProducts = getProducts();
   const { totalItems, totalPrice, isEmpty } = getCartStats();
+
+  if (!mounted) {
+    return (
+      <Template>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Carrito de Compras</h1>
+          </div>
+          <div className="text-center py-16">
+            <p className="text-gray-600">Cargando carrito...</p>
+          </div>
+        </div>
+      </Template>
+    );
+  }
 
   return (
     <Template>

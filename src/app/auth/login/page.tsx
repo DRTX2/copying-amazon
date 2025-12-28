@@ -1,33 +1,42 @@
 'use client';
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useLogin } from "@/features/auth";
 import { useGuestGuard } from "@/hooks/useAuthGuards";
 
+const loginSchema = z.object({
+  email: z.string().email("Por favor ingresa un email válido"),
+  password: z.string().min(1, "La contraseña es requerida"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
-
-  // Redirigir si ya está autenticado
   const { isGuest } = useGuestGuard();
-
   const loginMutation = useLogin();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
 
+  const onSubmit = async (data: LoginFormData) => {
     try {
-      await loginMutation.mutateAsync({ email, password });
+      await loginMutation.mutateAsync(data);
       router.push("/");
     } catch (error) {
-      // El error ya se maneja en el mutation
       console.error("Login failed:", error);
     }
   };
 
-  // No renderizar si no es guest (está autenticado)
   if (!isGuest) {
     return null;
   }
@@ -39,7 +48,7 @@ export default function LoginPage() {
           Inicia sesión o crea una cuenta
         </h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -50,12 +59,15 @@ export default function LoginPage() {
             <input
               id="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("email")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.email ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="ejemplo@email.com"
-              required
             />
+            {errors.email && (
+              <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -68,12 +80,15 @@ export default function LoginPage() {
             <input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("password")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.password ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="Introduce tu contraseña"
-              required
             />
+            {errors.password && (
+              <p className="text-red-600 text-xs mt-1">{errors.password.message}</p>
+            )}
           </div>
 
           {loginMutation.error && (
@@ -119,10 +134,19 @@ export default function LoginPage() {
           </a>
         </div>
 
-        <div className="mt-4 text-xs text-gray-500">
-          <p>Demo: Usa cualquier email y contraseña para iniciar sesión</p>
+        <hr className="my-6" />
+
+        <div className="text-sm text-center">
+          <span className="text-gray-700">¿No tienes una cuenta? </span>
+          <Link
+            href="/auth/register"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Crea una ahora
+          </Link>
         </div>
       </div>
     </div>
   );
 }
+

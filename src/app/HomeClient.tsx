@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import Template from '@/layouts/Template';
 import { ProductGrid } from '@/features/products/components/ProductGrid';
 import { useProducts } from '@/features/products/hooks/useProducts';
@@ -16,6 +17,11 @@ export default function HomeClient({ initialProducts }: HomeClientProps) {
   const router = useRouter();
   const { products, isLoading, error } = useProducts({}, initialProducts);
   const { getItemCount } = useCart();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   const cartItemCount = getItemCount();
 
@@ -32,7 +38,7 @@ export default function HomeClient({ initialProducts }: HomeClientProps) {
           onClick={() => router.push('/shopping-cart')}
         >
           Ver Carrito
-          {cartItemCount > 0 && (
+          {mounted && cartItemCount > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               {cartItemCount}
             </span>

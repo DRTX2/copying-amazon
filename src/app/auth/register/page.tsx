@@ -1,46 +1,56 @@
 'use client';
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useRegister } from "@/features/auth";
+import { useGuestGuard } from "@/hooks/useAuthGuards";
+
+const registerSchema = z.object({
+  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  email: z.string().email("Por favor ingresa un email válido"),
+  phone: z.string().min(10, "El teléfono debe tener al menos 10 dígitos"),
+  address: z.string().min(5, "La dirección debe tener al menos 5 caracteres"),
+  password: z
+    .string()
+    .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .regex(/[A-Z]/, "La contraseña debe contener al menos una mayúscula")
+    .regex(/[0-9]/, "La contraseña debe contener al menos un número"),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Las contraseñas no coinciden",
+  path: ["confirmPassword"],
+});
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    address: "",
-    phone: ""
-  });
-  
   const router = useRouter();
+  const { isGuest } = useGuestGuard();
   const registerMutation = useRegister();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
-
+  const onSubmit = async (data: RegisterFormData) => {
     try {
-      await registerMutation.mutateAsync(formData);
+      await registerMutation.mutateAsync(data);
       router.push("/auth/login");
     } catch (error) {
       console.error("Registration failed:", error);
     }
   };
+
+  if (!isGuest) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-8">
@@ -49,7 +59,7 @@ export default function RegisterPage() {
           Crear nueva cuenta
         </h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* Name Field */}
           <div className="mb-4">
             <label
@@ -60,14 +70,16 @@ export default function RegisterPage() {
             </label>
             <input
               id="name"
-              name="name"
               type="text"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("name")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.name ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="Nombre y apellido"
-              required
             />
+            {errors.name && (
+              <p className="text-red-600 text-xs mt-1">{errors.name.message}</p>
+            )}
           </div>
 
           {/* Email Field */}
@@ -80,14 +92,16 @@ export default function RegisterPage() {
             </label>
             <input
               id="email"
-              name="email"
               type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("email")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.email ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="ejemplo@email.com"
-              required
             />
+            {errors.email && (
+              <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           {/* Phone Field */}
@@ -100,14 +114,16 @@ export default function RegisterPage() {
             </label>
             <input
               id="phone"
-              name="phone"
               type="tel"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("phone")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.phone ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="+1 234 567 8900"
-              required
             />
+            {errors.phone && (
+              <p className="text-red-600 text-xs mt-1">{errors.phone.message}</p>
+            )}
           </div>
 
           {/* Address Field */}
@@ -120,14 +136,16 @@ export default function RegisterPage() {
             </label>
             <input
               id="address"
-              name="address"
               type="text"
-              value={formData.address}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("address")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.address ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="Calle, número, ciudad, código postal"
-              required
             />
+            {errors.address && (
+              <p className="text-red-600 text-xs mt-1">{errors.address.message}</p>
+            )}
           </div>
 
           {/* Password Field */}
@@ -140,15 +158,19 @@ export default function RegisterPage() {
             </label>
             <input
               id="password"
-              name="password"
               type="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              placeholder="Al menos 6 caracteres"
-              minLength={6}
-              required
+              {...register("password")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.password ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
+              placeholder="Al menos 8 caracteres, 1 mayúscula y 1 número"
             />
+            {errors.password && (
+              <p className="text-red-600 text-xs mt-1">{errors.password.message}</p>
+            )}
+            <p className="text-xs text-gray-500 mt-1">
+              Mínimo 8 caracteres, debe incluir una mayúscula y un número
+            </p>
           </div>
 
           {/* Confirm Password Field */}
@@ -161,15 +183,16 @@ export default function RegisterPage() {
             </label>
             <input
               id="confirmPassword"
-              name="confirmPassword"
               type="password"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              {...register("confirmPassword")}
+              className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
+                errors.confirmPassword ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+              }`}
               placeholder="Confirma tu contraseña"
-              minLength={6}
-              required
             />
+            {errors.confirmPassword && (
+              <p className="text-red-600 text-xs mt-1">{errors.confirmPassword.message}</p>
+            )}
           </div>
 
           {registerMutation.error && (
@@ -203,16 +226,12 @@ export default function RegisterPage() {
 
         <div className="text-sm text-center">
           <span className="text-gray-700">¿Ya tienes una cuenta? </span>
-          <button
-            onClick={() => router.push("/auth/login")}
-            className="text-blue-600 hover:underline"
+          <Link
+            href="/auth/login"
+            className="text-blue-600 hover:underline font-medium"
           >
             Inicia sesión
-          </button>
-        </div>
-
-        <div className="mt-4 text-xs text-gray-500">
-          <p>Demo: Todos los campos son requeridos para el registro</p>
+          </Link>
         </div>
       </div>
     </div>
