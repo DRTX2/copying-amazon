@@ -19,6 +19,7 @@ const registerSchema = z.object({
     .regex(/[A-Z]/, "La contraseña debe contener al menos una mayúscula")
     .regex(/[0-9]/, "La contraseña debe contener al menos un número"),
   confirmPassword: z.string(),
+  role: z.enum(["USER", "SELLER"]).optional().default("USER"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Las contraseñas no coinciden",
   path: ["confirmPassword"],
@@ -146,6 +147,27 @@ export default function RegisterPage() {
             {errors.address && (
               <p className="text-red-600 text-xs mt-1">{errors.address.message}</p>
             )}
+          </div>
+
+          {/* Role Selection */}
+          <div className="mb-4">
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Tipo de cuenta
+            </label>
+            <select
+              id="role"
+              {...register("role")}
+              className="mt-1 block w-full border border-gray-400 rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            >
+              <option value="USER">Comprador</option>
+              <option value="SELLER">Vendedor</option>
+            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              Selecciona "Vendedor" si deseas vender productos en la plataforma
+            </p>
           </div>
 
           {/* Password Field */}

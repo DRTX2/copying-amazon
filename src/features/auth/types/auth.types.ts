@@ -3,7 +3,7 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-  role: 'USER' | 'ADMIN' | 'MODERATOR';
+  role: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
   authorities?: string[]; // Para los roles/authorities de Spring Security
   preferences?: {
     language: string;
@@ -37,7 +37,7 @@ export interface RegisterRequest {
   confirmPassword: string;
   address: string;
   phone: string;
-  role?: 'USER' | 'ADMIN' | 'MODERATOR'; // Optional, default to USER
+  role?: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER'; // Optional, default to USER
 }
 
 export interface AuthResponse {
