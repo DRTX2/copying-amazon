@@ -18,7 +18,7 @@ export class ProductAdapter {
       category: productData.category,
       cantidadDisponible: productData.cantidadDisponible,
       description: productData.description?.join(' ') || '',
-      rating: 0, // Default rating
+      rating: undefined,
       brand: productData.marca,
       discount: productData.descuento,
       tags: productData.usos,

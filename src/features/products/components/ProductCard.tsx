@@ -88,7 +88,7 @@ export const ProductCard = memo<ProductCardProps>(({
         </h3>
 
         {/* Rating */}
-        {product.rating && (
+        {product.rating && product.rating > 0 && (
           <div className="flex items-center mb-2">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
