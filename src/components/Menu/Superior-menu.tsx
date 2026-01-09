@@ -5,6 +5,7 @@ import { useCart } from "../../features/cart";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { pathRoute } from "../../utils/navigation";
+import UserDropdown from "../UserDropdown";
 
 type MenuData = {
   SetMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,8 +21,6 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
   }, []);
 
   const cartItemCount = getItemCount();
-
-  console.log(pathRoute);
 
   return (
     <div className="flex justify-between items-center px-2 sm:px-4 py-2" style={
@@ -62,15 +61,11 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
         {/* Elementos del menú - ocultos en móviles pequeños */}
         <div className="hidden sm:flex items-center space-x-2 md:space-x-4">
           <ItemBarMenu title="Enviar a Ecuador" />
-          
-          <ItemBarMenu
-            title="Cuenta y Listas"
-            onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-              event.preventDefault();
-              router.push("/auth/login");
-              return;
-            }}
-          />
+        </div>
+        
+        {/* User Dropdown - reemplaza el item de Cuenta y Listas */}
+        <div className="hidden sm:block">
+          <UserDropdown />
         </div>
         
         {/* Carrito - siempre visible */}
@@ -94,13 +89,7 @@ const SuperiorMenu = ({ SetMenuIsOpen }: MenuData) => {
         
         {/* Menú móvil para elementos ocultos */}
         <div className="block sm:hidden">
-          <ItemBarMenu 
-            title="⋮" 
-            onClick={(event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-              event.preventDefault();
-              router.push("/auth/login");
-            }}
-          />
+          <UserDropdown />
         </div>
       </div>
     </div>
