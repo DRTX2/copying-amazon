@@ -31,9 +31,13 @@ const apiCall = async (endpoint: string, options: RequestInit = {}) => {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(
-      errorData.message || `HTTP error! status: ${response.status}`
-    );
+    const errorMessage = 
+      errorData.detail || 
+      errorData.message || 
+      errorData.title || 
+      `HTTP error! status: ${response.status}`;
+      
+    throw new Error(errorMessage);
   }
 
   return response.json();

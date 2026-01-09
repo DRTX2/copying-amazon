@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -44,9 +44,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-md bg-white border border-gray-300 rounded-sm p-6 shadow-sm">
-        <h1 className="text-lg font-medium mb-4">
-          Inicia sesión o crea una cuenta
-        </h1>
+        <h1 className="text-lg font-medium mb-4">Inicia sesión</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
@@ -54,19 +52,23 @@ export default function LoginPage() {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Introduce el número de teléfono móvil o el correo electrónico
+              Número de teléfono móvil o el correo electrónico
             </label>
             <input
               id="email"
               type="email"
               {...register("email")}
               className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
-                errors.email ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+                errors.email
+                  ? "border-red-400 focus:ring-red-500"
+                  : "border-gray-400 focus:ring-yellow-500"
               }`}
               placeholder="ejemplo@email.com"
             />
             {errors.email && (
-              <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>
+              <p className="text-red-600 text-xs mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -82,12 +84,16 @@ export default function LoginPage() {
               type="password"
               {...register("password")}
               className={`mt-1 block w-full border rounded-sm px-3 py-2 text-sm shadow-inner focus:outline-none focus:ring-2 ${
-                errors.password ? "border-red-400 focus:ring-red-500" : "border-gray-400 focus:ring-yellow-500"
+                errors.password
+                  ? "border-red-400 focus:ring-red-500"
+                  : "border-gray-400 focus:ring-yellow-500"
               }`}
               placeholder="Introduce tu contraseña"
             />
             {errors.password && (
-              <p className="text-red-600 text-xs mt-1">{errors.password.message}</p>
+              <p className="text-red-600 text-xs mt-1">
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -118,35 +124,31 @@ export default function LoginPage() {
           de Amazon.
         </p>
 
-        <div className="mt-6 text-sm">
-          <a href="#" className="text-blue-600 hover:underline">
-            ¿Necesitas ayuda?
-          </a>
-        </div>
-
         <hr className="my-6" />
 
-        <div className="text-sm text-gray-700">
-          <strong>¿Comprando para el trabajo?</strong>
-          <br />
-          <a href="#" className="text-blue-600 hover:underline">
-            Crear una cuenta de empresa gratis
-          </a>
-        </div>
+        <div className="text-sm text-center text-gray-700">
+          <p>
+            <strong>¿No tienes una cuenta?</strong>
+          </p>
 
-        <hr className="my-6" />
-
-        <div className="text-sm text-center">
-          <span className="text-gray-700">¿No tienes una cuenta? </span>
           <Link
             href="/auth/register"
             className="text-blue-600 hover:underline font-medium"
           >
             Crea una ahora
           </Link>
+
+          <p className="mt-2">
+            ¿Comprando para el trabajo?{" "}
+            <Link
+              href="/auth/register?type=business"
+              className="text-blue-600 hover:underline"
+            >
+              Crear una cuenta de empresa gratis
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
 }
-

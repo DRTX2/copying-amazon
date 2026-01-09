@@ -19,13 +19,16 @@ const registerSchema = z.object({
     .regex(/[A-Z]/, "La contraseña debe contener al menos una mayúscula")
     .regex(/[0-9]/, "La contraseña debe contener al menos un número"),
   confirmPassword: z.string(),
-  role: z.enum(["USER", "SELLER"]).optional().default("USER"),
+  role: z.enum(["USER", "SELLER"]).default("USER"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Las contraseñas no coinciden",
   path: ["confirmPassword"],
+}).refine((data) => !data.password.toLowerCase().includes(data.email.toLowerCase()), {
+  message: "La contraseña no puede contener el correo electrónico",
+  path: ["password"],
 });
 
-type RegisterFormData = z.infer<typeof registerSchema>;
+type RegisterFormData = z.input<typeof registerSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();

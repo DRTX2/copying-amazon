@@ -4,6 +4,8 @@ export interface UploadImagesResponse {
   imageUrls: string[];
 }
 
+export type ProductStatus = 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'ARCHIVED';
+
 export interface CreateProductRequest {
   name: string;
   description: string;
@@ -11,6 +13,10 @@ export interface CreateProductRequest {
   categoryId: number;
   averageRating: number;
   images: string[];
+  sku?: string;
+  stockQuantity?: number;
+  status?: ProductStatus;
+  slug?: string;
 }
 
 export interface ProductResponse {
@@ -21,9 +27,16 @@ export interface ProductResponse {
   category: {
     id: number;
     name: string;
+    description?: string;
   };
   averageRating: number;
   images: string[];
+  sku?: string;
+  stockQuantity?: number;
+  status?: ProductStatus;
+  slug?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 class ProductService {

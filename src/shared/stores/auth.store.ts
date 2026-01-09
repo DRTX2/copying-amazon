@@ -8,7 +8,7 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-  role: 'USER' | 'ADMIN' | 'MODERATOR';
+  role: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
   authorities?: string[];
   preferences?: {
     language: string;
