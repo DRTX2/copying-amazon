@@ -211,7 +211,7 @@ Este proyecto es un clon educativo de Amazon con fines de aprendizaje.
 
 ## 👨‍💻 Autor
 
-Tu nombre - [@tu_usuario](https://github.com/tu_usuario)
+David Manjarres - [@DRTX2](https://github.com/DRTX2)
 
 ---
 
