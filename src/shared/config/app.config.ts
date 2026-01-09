@@ -1,7 +1,7 @@
 // Configuración del entorno
 export const APP_CONFIG = {
-  // Cambiar a true para usar datos locales (JSON)
-  USE_MOCK_DATA: process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true' || process.env.NODE_ENV === 'development',
+  // Cambiar a true para usar datos locales (JSON) - false para usar API real
+  USE_MOCK_DATA: process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true',
   
   // URL base de la API
   API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.yourdomain.com',
