@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import DataPrefetcher from "@/components/DataPrefetcher";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -57,8 +58,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* Pre-carga datos esenciales al iniciar la app */}
+          <DataPrefetcher />
+          {children}
+        </Providers>
       </body>
     </html>
   );
 }
+
