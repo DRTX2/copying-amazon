@@ -1,148 +1,75 @@
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+// Re-exportar desde Redux Toolkit slices para mantener compatibilidad
+import { useAppDispatch, useAppSelector } from './hooks';
+import { 
+  login, 
+  logout, 
+  updateUser, 
+  setLoading, 
+  setError, 
+  clearError,
+} from './slices/authSlice';
+import type { User, AuthTokens } from './slices/authSlice';
 import { jwtService } from '../services/jwt.service';
 
-// Tipos para el usuario
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatar?: string;
-  role: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
-  authorities?: string[];
-  preferences?: {
-    language: string;
-    currency: string;
-    notifications: boolean;
+// Re-exportar tipos
+export type { User, AuthTokens };
+
+// Hook compatible con la API anterior de Zustand
+export const useAuthStore = () => {
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.auth);
+  
+  return {
+    // Estado
+    ...state,
+    
+    // Acciones adaptadas
+    login: (user: User, tokens: AuthTokens) => {
+      dispatch(login({ user, tokens }));
+    },
+    
+    logout: () => {
+      dispatch(logout());
+    },
+    
+    updateUser: (updates: Partial<User>) => {
+      dispatch(updateUser(updates));
+    },
+    
+    setLoading: (loading: boolean) => {
+      dispatch(setLoading(loading));
+    },
+    
+    setError: (error: string | null) => {
+      dispatch(setError(error));
+    },
+    
+    clearError: () => {
+      dispatch(clearError());
+    },
+    
+    // Selectores computados
+    hasPermission: (permission: string): boolean => {
+      if (!state.user || !state.tokens?.accessToken) return false;
+      
+      if (!jwtService.isValidToken(state.tokens.accessToken)) return false;
+      
+      if (state.user.role === 'ADMIN') return true;
+      
+      const authorities = jwtService.getAuthorities(state.tokens.accessToken);
+      return authorities.includes(permission) || authorities.includes(`ROLE_${permission}`);
+    },
+    
+    isTokenValid: (): boolean => {
+      if (!state.tokens?.accessToken) return false;
+      return jwtService.isValidToken(state.tokens.accessToken);
+    },
+    
+    getDisplayName: (): string => {
+      return state.user?.name || 'Usuario';
+    },
   };
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-}
-
-// Tipos para la autenticación
-export interface AuthTokens {
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: number;
-  tokenType?: string;
-}
-
-// Estado del store de autenticación
-interface AuthStore {
-  // Estado
-  user: User | null;
-  tokens: AuthTokens | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-  
-  // Acciones
-  login: (user: User, tokens: AuthTokens) => void;
-  logout: () => void;
-  updateUser: (updates: Partial<User>) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  clearError: () => void;
-  
-  // Selectores computados
-  hasPermission: (permission: string) => boolean;
-  isTokenValid: () => boolean;
-  getDisplayName: () => string;
-}
-
-export const useAuthStore = create<AuthStore>()(
-  devtools(
-    persist(
-      (set, get) => ({
-        // Estado inicial
-        user: null,
-        tokens: null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null,
-        
-        // Acciones
-        login: (user, tokens) => {
-          // Almacenar tokens en localStorage
-          jwtService.storeTokens(tokens.accessToken, tokens.refreshToken);
-          
-          set({
-            user,
-            tokens,
-            isAuthenticated: true,
-            isLoading: false,
-            error: null,
-          });
-        },
-        
-        logout: () => {
-          // Limpiar tokens del localStorage
-          jwtService.clearTokens();
-          
-          set({
-            user: null,
-            tokens: null,
-            isAuthenticated: false,
-            isLoading: false,
-            error: null,
-          });
-        },
-        
-        updateUser: (updates) => {
-          const { user } = get();
-          if (user) {
-            set({ user: { ...user, ...updates } });
-          }
-        },
-        
-        setLoading: (loading) => set({ isLoading: loading }),
-        setError: (error) => set({ error }),
-        clearError: () => set({ error: null }),
-        
-        // Selectores computados
-        hasPermission: (permission: string) => {
-          const { user, tokens } = get();
-          if (!user || !tokens?.accessToken) return false;
-          
-          // Verificar si el token es válido
-          if (!jwtService.isValidToken(tokens.accessToken)) return false;
-          
-          // Lógica básica de permisos
-          if (user.role === 'ADMIN') return true;
-          
-          // Verificar authorities específicas del JWT
-          const authorities = jwtService.getAuthorities(tokens.accessToken);
-          return authorities.includes(permission) || authorities.includes(`ROLE_${permission}`);
-        },
-        
-        isTokenValid: () => {
-          const { tokens } = get();
-          if (!tokens?.accessToken) return false;
-          
-          return jwtService.isValidToken(tokens.accessToken);
-        },
-        
-        getDisplayName: () => {
-          const { user } = get();
-          return user?.name || 'Usuario';
-        },
-      }),
-      {
-        name: 'auth-storage',
-        partialize: (state) => ({
-          user: state.user,
-          tokens: state.tokens,
-          isAuthenticated: state.isAuthenticated,
-        }),
-      }
-    ),
-    {
-      name: 'auth-store',
-    }
-  )
-);
+};
 
 // Hook conveniente para usar el store
 export const useAuth = () => {

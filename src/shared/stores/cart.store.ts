@@ -1,131 +1,80 @@
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+// Re-exportar desde Redux Toolkit slices para mantener compatibilidad
+import { useAppDispatch, useAppSelector } from './hooks';
+import { 
+  addItem as addItemAction, 
+  removeItem as removeItemAction, 
+  updateQuantity as updateQuantityAction, 
+  clearCart as clearCartAction, 
+  setDiscount as setDiscountAction,
+} from './slices/cartSlice';
+import type { CartItem } from './slices/cartSlice';
 import { ProductData } from '../../types/products';
 
-// Tipos del carrito
-export interface CartItem extends ProductData {
-  quantity: number;
-}
+// Re-exportar tipos
+export type { CartItem };
 
-interface CartStore {
-  // Estado
-  items: CartItem[];
-  totalPrice: number;
-  discount: number;
-  currency: string;
+// Hook interno
+const useCartStoreInternal = () => {
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.cart);
   
-  // Acciones
-  addItem: (product: ProductData, quantity?: number) => void;
-  removeItem: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
-  clearCart: () => void;
-  setDiscount: (discount: number) => void;
-  calculateTotal: () => void;
+  return {
+    // Estado
+    ...state,
+    
+    // Acciones adaptadas
+    addItem: (product: ProductData, quantity: number = 1) => {
+      dispatch(addItemAction({ product, quantity }));
+    },
+    
+    removeItem: (productId: number) => {
+      dispatch(removeItemAction(productId));
+    },
+    
+    updateQuantity: (productId: number, quantity: number) => {
+      dispatch(updateQuantityAction({ productId, quantity }));
+    },
+    
+    clearCart: () => {
+      dispatch(clearCartAction());
+    },
+    
+    setDiscount: (discount: number) => {
+      dispatch(setDiscountAction(discount));
+    },
+    
+    calculateTotal: () => {
+      // El total se calcula automáticamente en el reducer
+    },
+    
+    // Selectores computados
+    getItemCount: (): number => {
+      return state.items.reduce((count, item) => count + item.quantity, 0);
+    },
+    
+    getItemById: (id: number): CartItem | undefined => {
+      return state.items.find(item => item.id === id);
+    },
+    
+    getTotalWithDiscount: (): number => {
+      return state.totalPrice - (state.totalPrice * state.discount / 100);
+    },
+    
+    isEmpty: (): boolean => {
+      return state.items.length === 0;
+    },
+  };
+};
+
+// Hook compatible con la API anterior de Zustand (con selector)
+export function useCartStore(): ReturnType<typeof useCartStoreInternal>;
+export function useCartStore<T>(selector: (state: ReturnType<typeof useCartStoreInternal>) => T): T;
+export function useCartStore<T>(selector?: (state: ReturnType<typeof useCartStoreInternal>) => T) {
+  const store = useCartStoreInternal();
   
-  // Selectores computados
-  getItemCount: () => number;
-  getItemById: (id: number) => CartItem | undefined;
-  getTotalWithDiscount: () => number;
-  isEmpty: () => boolean;
+  if (selector) {
+    return selector(store);
+  }
+  
+  return store;
 }
-
-export const useCartStore = create<CartStore>()(
-  devtools(
-    persist(
-      (set, get) => ({
-        // Estado inicial
-        items: [],
-        totalPrice: 0,
-        discount: 0,
-        currency: 'USD',
-        
-        // Acciones
-        addItem: (product, quantity = 1) => {
-          const { items } = get();
-          const existingItem = items.find(item => item.id === product.id);
-          
-          if (existingItem) {
-            // Actualizar cantidad si ya existe
-            set({
-              items: items.map(item =>
-                item.id === product.id
-                  ? { ...item, quantity: item.quantity + quantity }
-                  : item
-              )
-            });
-          } else {
-            // Agregar nuevo item
-            set({
-              items: [...items, { ...product, quantity, cantidadDisponible: quantity }]
-            });
-          }
-          
-          // Recalcular total
-          get().calculateTotal();
-        },
-        
-        removeItem: (productId) => {
-          set({
-            items: get().items.filter(item => item.id !== productId)
-          });
-          get().calculateTotal();
-        },
-        
-        updateQuantity: (productId, quantity) => {
-          if (quantity <= 0) {
-            get().removeItem(productId);
-            return;
-          }
-          
-          set({
-            items: get().items.map(item =>
-              item.id === productId
-                ? { ...item, quantity, cantidadDisponible: quantity }
-                : item
-            )
-          });
-          get().calculateTotal();
-        },
-        
-        clearCart: () => {
-          set({ items: [], totalPrice: 0, discount: 0 });
-        },
-        
-        setDiscount: (discount) => {
-          set({ discount });
-          get().calculateTotal();
-        },
-        
-        // Métodos privados
-        calculateTotal: () => {
-          const { items } = get();
-          const total = items.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
-          set({ totalPrice: total });
-        },
-        
-        // Selectores computados
-        getItemCount: () => get().items.reduce((count, item) => count + item.quantity, 0),
-
-        getItemById: (id) => get().items.find(item => item.id === id),
-        
-        getTotalWithDiscount: () => {
-          const { totalPrice, discount } = get();
-          return totalPrice - (totalPrice * discount / 100);
-        },
-        
-        isEmpty: () => get().items.length === 0,
-      }),
-      {
-        name: 'cart-storage', // Clave para localStorage
-        partialize: (state) => ({
-          items: state.items,
-          discount: state.discount,
-          currency: state.currency,
-        }),
-      }
-    ),
-    {
-      name: 'cart-store',
-    }
-  )
-);

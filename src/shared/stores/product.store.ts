@@ -1,51 +1,63 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+// Re-exportar desde Redux Toolkit slices para mantener compatibilidad
+import { useAppDispatch, useAppSelector } from './hooks';
+import { 
+  setProducts as setProductsAction, 
+  setLoading as setLoadingAction, 
+  setError as setErrorAction, 
+  setSelectedProduct as setSelectedProductAction,
+} from './slices/productSlice';
 import { ProductData } from '../../types/products';
 
-// Tipos del store
-interface ProductStore {
-  // Estado
-  products: ProductData[];
-  loading: boolean;
-  error: string | null;
-  selectedProduct: ProductData | null;
+// Hook interno
+const useProductStoreInternal = () => {
+  const dispatch = useAppDispatch();
+  const state = useAppSelector((state) => state.product);
   
-  // Acciones
-  setProducts: (products: ProductData[]) => void;
-  setLoading: (loading: boolean) => void;
-  setError: (error: string | null) => void;
-  setSelectedProduct: (product: ProductData | null) => void;
-  
-  // Selectores computados
-  getProductById: (id: number) => ProductData | undefined;
-  getProductsByCategory: (category: string) => ProductData[];
-  getAvailableProducts: () => ProductData[];
-}
+  return {
+    // Estado
+    ...state,
+    
+    // Acciones adaptadas
+    setProducts: (products: ProductData[]) => {
+      dispatch(setProductsAction(products));
+    },
+    
+    setLoading: (loading: boolean) => {
+      dispatch(setLoadingAction(loading));
+    },
+    
+    setError: (error: string | null) => {
+      dispatch(setErrorAction(error));
+    },
+    
+    setSelectedProduct: (product: ProductData | null) => {
+      dispatch(setSelectedProductAction(product));
+    },
+    
+    // Selectores computados
+    getProductById: (id: number): ProductData | undefined => {
+      return state.products.find(p => p.id === id);
+    },
+    
+    getProductsByCategory: (category: string): ProductData[] => {
+      return state.products.filter(p => p.category.includes(category));
+    },
+    
+    getAvailableProducts: (): ProductData[] => {
+      return state.products.filter(p => p.cantidadDisponible > 0);
+    },
+  };
+};
 
-export const useProductStore = create<ProductStore>()(
-  devtools(//habilita integración con Redux DevTools para depurar
-    (set, get) => ({
-      // Estado inicial
-      products: [],
-      loading: false,
-      error: null,
-      selectedProduct: null,
-      
-      // Acciones
-      setProducts: (products) => set({ products }),
-      setLoading: (loading) => set({ loading }),
-      setError: (error) => set({ error }),
-      setSelectedProduct: (selectedProduct) => set({ selectedProduct }),
-      
-      // Selectores computados
-      getProductById: (id) => get().products.find(p => p.id === id),
-      getProductsByCategory: (category) => 
-        get().products.filter(p => p.category.includes(category)),
-      getAvailableProducts: () => 
-        get().products.filter(p => p.cantidadDisponible > 0),
-    }),
-    {
-      name: 'product-store', // Para DevTools
-    }
-  )
-);
+// Hook compatible con la API anterior de Zustand (con selector)
+export function useProductStore(): ReturnType<typeof useProductStoreInternal>;
+export function useProductStore<T>(selector: (state: ReturnType<typeof useProductStoreInternal>) => T): T;
+export function useProductStore<T>(selector?: (state: ReturnType<typeof useProductStoreInternal>) => T) {
+  const store = useProductStoreInternal();
+  
+  if (selector) {
+    return selector(store);
+  }
+  
+  return store;
+}

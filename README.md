@@ -2,21 +2,6 @@
 
 Un clon de Amazon e-commerce construido con Next.js 16, TypeScript, Tailwind CSS y React Query.
 
-## 🚀 Estado de la migración
-
-Este proyecto está siendo migrado de **Vite + React Router** a **Next.js App Router**.
-
-### ✅ Paso 1: COMPLETADO
-- Proyecto Next.js configurado
-- Código reutilizable migrado
-- Build exitoso
-- [Ver detalles completos](./MIGRACION_PASO_1.md)
-
-### ⏳ Paso 2: PENDIENTE
-- Migración de routing
-- Creación de páginas
-- Ver guía en `MIGRACION_PASO_1.md`
-
 ---
 
 ## 🛠️ Stack Tecnológico
@@ -29,7 +14,7 @@ Este proyecto está siendo migrado de **Vite + React Router** a **Next.js App Ro
 
 ### State Management & Data Fetching
 - **React Query** - Server state management
-- **Zustand** - Client state management
+- **Redux Toolkit** - Client state management
 - **Axios** - HTTP client
 
 ### Forms & Validation
@@ -165,44 +150,6 @@ npx tsc --noEmit
 
 ---
 
-## 📚 Documentación adicional
-
-- [Guía de migración - Paso 1](./MIGRACION_PASO_1.md)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Query Documentation](https://tanstack.com/query/latest)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
----
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📝 Notas de migración
-
-### Diferencias clave Vite vs Next.js
-
-| Aspecto | Vite | Next.js |
-|---------|------|---------|
-| Variables de entorno | `VITE_*` | `NEXT_PUBLIC_*` |
-| Acceso a env | `import.meta.env` | `process.env` |
-| Routing | React Router | File-based routing |
-| SSR | No | Sí (por defecto) |
-
-### Componentes Client vs Server
-
-En Next.js App Router:
-- **Server Components** (por defecto): Componentes estáticos, sin hooks
-- **Client Components** (`"use client"`): Componentes con hooks, eventos, Context
-
----
-
 ## 📄 Licencia
 
 Este proyecto es un clon educativo de Amazon con fines de aprendizaje.
@@ -212,12 +159,3 @@ Este proyecto es un clon educativo de Amazon con fines de aprendizaje.
 ## 👨‍💻 Autor
 
 David Manjarres - [@DRTX2](https://github.com/DRTX2)
-
----
-
-## 🙏 Agradecimientos
-
-- [Next.js](https://nextjs.org/)
-- [Vercel](https://vercel.com/)
-- [TanStack Query](https://tanstack.com/query)
-- [Tailwind CSS](https://tailwindcss.com/)
