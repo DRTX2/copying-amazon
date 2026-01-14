@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker
   output: 'standalone',
@@ -27,28 +29,59 @@ const nextConfig: NextConfig = {
   // Compiler options
   compiler: {
     // Remove console.log in production
-    removeConsole: process.env.NODE_ENV === 'production' ? {
-      exclude: ['error', 'warn'],
-    } : false,
+    removeConsole: isProd
+      ? { exclude: ["warn", "error"] }
+      : false,
   },
   
   // Headers for security
-  async headers() {
+    async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
+          // Prevent clickjacking
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
+
+          // Disable MIME sniffing
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
+
+          // Control referrer information
           {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin',
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+
+          // Enforce HTTPS (only in prod)
+          ...(isProd
+            ? [
+                {
+                  key: "Strict-Transport-Security",
+                  value: "max-age=63072000; includeSubDomains; preload",
+                },
+              ]
+            : []),
+
+          // Limit browser features
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+
+          // Basic CSP (safe starter)
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; " +
+              "img-src 'self' https: data:; " +
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+              "style-src 'self' 'unsafe-inline';",
           },
         ],
       },

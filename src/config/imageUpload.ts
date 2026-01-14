@@ -1,25 +1,74 @@
-// Configuración de límites para carga de imágenes de productos
+const MB = 1024 * 1024;
+
+const bytesToMB = (bytes: number): string => (bytes / MB).toFixed(1);
+
 export const PRODUCT_IMAGE_CONFIG = {
-  // Límites basados en el backend (.env)
-  MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB por archivo
-  MAX_FILES_COUNT: 5, // Máximo 5 archivos
-  MAX_TOTAL_SIZE: 20 * 1024 * 1024, // 20MB total
-  ALLOWED_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
-  ALLOWED_EXTENSIONS: ['.jpg', '.jpeg', '.png', '.webp'],
-  
+  // Límites de archivos
+  limits: {
+    maxFileSize: 5 * MB,
+    maxFilesCount: 5,
+    maxTotalSize: 20 * MB,
+    maxDimension: 2048,
+  },
+
+  // Formatos permitidos
+  formats: {
+    mimeTypes: [
+      'image/jpeg',
+      'image/png',
+      'image/webp',
+      'image/gif',
+    ] as const,
+
+    extensions: [
+      '.jpg',
+      '.jpeg',
+      '.png',
+      '.webp',
+      '.gif',
+    ] as const,
+  },
+
   // Configuración de compresión
-  COMPRESSION_QUALITY: 0.85,
-  MAX_DIMENSION: 2048, // Máxima dimensión (ancho o alto)
+  compression: {
+    quality: 0.85,
+  },
+
+  // ============ Aliases para compatibilidad (acceso plano) ============
+  /** @deprecated Usar limits.maxFilesCount */
+  get MAX_FILES_COUNT() {
+    return this.limits.maxFilesCount;
+  },
+  /** @deprecated Usar limits.maxFileSize */
+  get MAX_FILE_SIZE() {
+    return this.limits.maxFileSize;
+  },
+  /** @deprecated Usar limits.maxTotalSize */
+  get MAX_TOTAL_SIZE() {
+    return this.limits.maxTotalSize;
+  },
+  /** @deprecated Usar formats.mimeTypes */
+  get ALLOWED_TYPES() {
+    return this.formats.mimeTypes;
+  },
 } as const;
 
-// Mensajes de error
+export type AllowedImageMimeType =
+  typeof PRODUCT_IMAGE_CONFIG.formats.mimeTypes[number];
+
 export const IMAGE_UPLOAD_ERRORS = {
-  FILE_TOO_LARGE: (size: number) => 
-    `El archivo es demasiado grande. Tamaño máximo: ${(size / 1024 / 1024).toFixed(1)}MB`,
-  TOO_MANY_FILES: (max: number) => 
+  fileTooLarge: (maxBytes: number) =>
+    `El archivo es demasiado grande. Máximo: ${bytesToMB(maxBytes)}MB`,
+
+  tooManyFiles: (max: number) =>
     `Demasiados archivos. Máximo permitido: ${max}`,
-  TOTAL_SIZE_EXCEEDED: (max: number) => 
-    `El tamaño total excede el límite. Máximo: ${(max / 1024 / 1024).toFixed(1)}MB`,
-  INVALID_TYPE: 'Tipo de archivo no válido. Use: JPG, PNG o WEBP',
-  UPLOAD_FAILED: 'Error al cargar la imagen. Intente nuevamente.',
+
+  totalSizeExceeded: (maxBytes: number) =>
+    `El tamaño total excede el límite. Máximo: ${bytesToMB(maxBytes)}MB`,
+
+  invalidType:
+    'Tipo de archivo no válido. Use: JPG, PNG, WEBP o GIF',
+
+  uploadFailed:
+    'Error al cargar la imagen. Intente nuevamente.',
 } as const;

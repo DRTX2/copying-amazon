@@ -1,18 +1,22 @@
-import { PRODUCT_IMAGE_CONFIG, IMAGE_UPLOAD_ERRORS } from '@/config/imageUpload';
+import {
+  PRODUCT_IMAGE_CONFIG,
+  IMAGE_UPLOAD_ERRORS,
+} from '@/config/imageUpload';
 
 /**
  * Valida un archivo de imagen
  */
 export const validateImageFile = (file: File): string | null => {
-  // Validar tipo
-  const allowedTypes = PRODUCT_IMAGE_CONFIG.ALLOWED_TYPES as readonly string[];
-  if (!allowedTypes.includes(file.type)) {
-    return IMAGE_UPLOAD_ERRORS.INVALID_TYPE;
+  const { formats, limits } = PRODUCT_IMAGE_CONFIG;
+
+  // Validar tipo MIME
+  if (!formats.mimeTypes.includes(file.type as any)) {
+    return IMAGE_UPLOAD_ERRORS.invalidType;
   }
 
   // Validar tamaño individual
-  if (file.size > PRODUCT_IMAGE_CONFIG.MAX_FILE_SIZE) {
-    return IMAGE_UPLOAD_ERRORS.FILE_TOO_LARGE(PRODUCT_IMAGE_CONFIG.MAX_FILE_SIZE);
+  if (file.size > limits.maxFileSize) {
+    return IMAGE_UPLOAD_ERRORS.fileTooLarge(limits.maxFileSize);
   }
 
   return null;
@@ -22,9 +26,11 @@ export const validateImageFile = (file: File): string | null => {
  * Valida un conjunto de archivos de imagen
  */
 export const validateImageFiles = (files: File[]): string | null => {
+  const { limits } = PRODUCT_IMAGE_CONFIG;
+
   // Validar cantidad
-  if (files.length > PRODUCT_IMAGE_CONFIG.MAX_FILES_COUNT) {
-    return IMAGE_UPLOAD_ERRORS.TOO_MANY_FILES(PRODUCT_IMAGE_CONFIG.MAX_FILES_COUNT);
+  if (files.length > limits.maxFilesCount) {
+    return IMAGE_UPLOAD_ERRORS.tooManyFiles(limits.maxFilesCount);
   }
 
   // Validar cada archivo
@@ -35,8 +41,8 @@ export const validateImageFiles = (files: File[]): string | null => {
 
   // Validar tamaño total
   const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-  if (totalSize > PRODUCT_IMAGE_CONFIG.MAX_TOTAL_SIZE) {
-    return IMAGE_UPLOAD_ERRORS.TOTAL_SIZE_EXCEEDED(PRODUCT_IMAGE_CONFIG.MAX_TOTAL_SIZE);
+  if (totalSize > limits.maxTotalSize) {
+    return IMAGE_UPLOAD_ERRORS.totalSizeExceeded(limits.maxTotalSize);
   }
 
   return null;
@@ -47,8 +53,10 @@ export const validateImageFiles = (files: File[]): string | null => {
  */
 export const compressImage = async (
   file: File,
-  quality: number = PRODUCT_IMAGE_CONFIG.COMPRESSION_QUALITY
+  quality: number = PRODUCT_IMAGE_CONFIG.compression.quality
 ): Promise<File> => {
+  const { maxDimension } = PRODUCT_IMAGE_CONFIG.limits;
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -61,15 +69,14 @@ export const compressImage = async (
         const canvas = document.createElement('canvas');
         let { width, height } = img;
 
-        // Redimensionar si excede las dimensiones máximas
-        const maxDim = PRODUCT_IMAGE_CONFIG.MAX_DIMENSION;
-        if (width > maxDim || height > maxDim) {
+        // Redimensionar si excede dimensiones máximas
+        if (width > maxDimension || height > maxDimension) {
           if (width > height) {
-            height = (height / width) * maxDim;
-            width = maxDim;
+            height = (height / width) * maxDimension;
+            width = maxDimension;
           } else {
-            width = (width / height) * maxDim;
-            height = maxDim;
+            width = (width / height) * maxDimension;
+            height = maxDimension;
           }
         }
 
@@ -91,12 +98,12 @@ export const compressImage = async (
               return;
             }
 
-            const compressedFile = new File([blob], file.name, {
-              type: file.type,
-              lastModified: Date.now(),
-            });
-
-            resolve(compressedFile);
+            resolve(
+              new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now(),
+              })
+            );
           },
           file.type,
           quality

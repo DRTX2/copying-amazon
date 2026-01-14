@@ -3,5 +3,4 @@ export enum OrderState {
   SHIPPED = 'SHIPPED',
   DELIVERED = 'DELIVERED',
   CANCELLED = 'CANCELLED',
-  // añade según tus enums de Java
 }

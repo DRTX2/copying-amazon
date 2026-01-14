@@ -253,7 +253,7 @@ export default function CreateProductPage() {
             <ImageUpload
               images={images}
               onChange={setImages}
-              maxFiles={PRODUCT_IMAGE_CONFIG.MAX_FILES_COUNT}
+              maxFiles={PRODUCT_IMAGE_CONFIG.limits.maxFilesCount}
               disabled={isSubmitting}
             />
           </div>

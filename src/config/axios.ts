@@ -3,7 +3,7 @@ import { jwtService } from '../shared/services/jwt.service';
 import { AuthResponse, AuthTokens } from '../features/auth';
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -44,7 +44,7 @@ api.interceptors.response.use(
         try {
           // Intentar refrescar el token
           const response = await axios.post<AuthResponse>(
-            `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api'}/auth/refresh`,
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
             { refreshToken }
           );
           

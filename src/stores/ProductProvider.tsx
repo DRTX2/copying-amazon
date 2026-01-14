@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ProductData } from "../types/products";
 import { ProductsContext } from "./ProductContext";
-import productsPetition from "../data/products.json";
+import productsPetition from "../__mocks__/products.mock.json";
 
 export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

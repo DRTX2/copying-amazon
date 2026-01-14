@@ -2,9 +2,9 @@
   {
     "id": 1,
     "title": "Chaqueta",
-    "img": "./assets/img/chaqueta.jpg",
+    "img": "/assets/img/products/chaqueta.jpg",
     "altImg": "Producto en oferta",
-    "category":["clothes"],
+    "category": ["clothes"],
     "description": [
       "Material: poliéster",
       "ligero, cortavientos, transpirable.",
@@ -25,9 +25,9 @@
   {
     "id": 2,
     "title": "Chaqueta de cuero",
-    "img": "./assets/img/chaqueta-cuero.jpeg",
+    "img": "/assets/img/products/chaqueta-cuero.jpeg",
     "altImg": "Producto en oferta",
-    "category":["clothes"],
+    "category": ["clothes"],
     "description": [
       "Material: cuero",
       "Resistente y duradero",
@@ -47,9 +47,9 @@
   {
     "id": 3,
     "title": "Equipo de entrenamiento",
-    "img": "./assets/img/equipo.jpeg",
+    "img": "/assets/img/products/equipo.jpeg",
     "altImg": "Producto en oferta",
-    "category":["sports", "health"],
+    "category": ["sports", "health"],
     "description": [
       "Material: acero inoxidable y plástico",
       "Incluye: mancuernas, bandas de resistencia, y esterilla de yoga",
@@ -68,9 +68,9 @@
   {
     "id": 4,
     "title": "Laptop ASUS",
-    "img": "./assets/img/laptop.jpeg",
+    "img": "/assets/img/products/laptop.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology", "laptop","best seller"],
+    "category": ["technology", "laptop", "best seller"],
     "description": [
       "Procesador: Intel Core i7",
       "Pantalla: 15.6 pulgadas Full HD",
@@ -90,9 +90,9 @@
   {
     "id": 5,
     "title": "Laptop HP",
-    "img": "./assets/img/laptop2.jpeg",
+    "img": "/assets/img/products/laptop2.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology", "laptop","best seller"],
+    "category": ["technology", "laptop", "best seller"],
     "description": [
       "Procesador: AMD Ryzen 5",
       "Pantalla: 14 pulgadas Full HD",
@@ -112,9 +112,9 @@
   {
     "id": 6,
     "title": "Libros interesantes",
-    "img": "./assets/img/new-books.jpeg",
+    "img": "/assets/img/products/new-books.jpeg",
     "altImg": "Producto en oferta",
-    "category":["books","entertaiment"],
+    "category": ["books", "entertainment"],
     "description": [
       "Variedad de títulos y géneros",
       "Incluye: novelas, ciencia ficción, autoayuda",
@@ -132,9 +132,9 @@
   {
     "id": 7,
     "title": "Libros en oferta",
-    "img": "./assets/img/offert-book.jpeg",
+    "img": "/assets/img/products/offert-book.jpeg",
     "altImg": "Producto en oferta",
-    "category":["books","entertaiment"],
+    "category": ["books", "entertainment"],
     "description": [
       "Colección de libros en descuento",
       "Incluye: bestsellers, clásicos, novedades",
@@ -152,9 +152,9 @@
   {
     "id": 8,
     "title": "Pantalón dama",
-    "img": "./assets/img/pantalon.jpeg",
+    "img": "/assets/img/products/pantalon.jpeg",
     "altImg": "Producto en oferta",
-    "category":["clothes","girls"],
+    "category": ["clothes", "girls"],
     "description": [
       "Material: mezclilla",
       "Características: cintura alta, ajuste ceñido",
@@ -172,9 +172,9 @@
   {
     "id": 9,
     "title": "Tablet",
-    "img": "./assets/img/talbet.jpg",
+    "img": "/assets/img/products/talbet.jpg",
     "altImg": "Producto en oferta",
-    "category":["technology","entertaiment", "education", "tablet"],
+    "category": ["technology", "entertainment", "education", "tablet"],
     "description": [
       "Pantalla: 10.1 pulgadas",
       "Almacenamiento: 64GB",
@@ -193,9 +193,9 @@
   {
     "id": 10,
     "title": "Libro: Liberando la bestia",
-    "img": "./assets/img/training-book.jpeg",
+    "img": "/assets/img/products/training-book.jpeg",
     "altImg": "Producto en oferta",
-    "category":["book","entertaiment", "health", "sport", "excercise"],
+    "category": ["book", "entertainment", "health", "sport", "exercise"],
     "description": [
       "Autor: John Doe",
       "Género: Motivacional",
@@ -214,9 +214,9 @@
   {
     "id": 11,
     "title": "Xbox 360",
-    "img": "./assets/img/xbox.jpeg",
+    "img": "/assets/img/products/xbox.jpeg",
     "altImg": "Producto en oferta",
-    "category":["technology","entertaiment", "console"],
+    "category": ["technology", "entertainment", "console"],
     "description": [
       "Incluye: consola, 2 controles, 1 juego",
       "Características: gráficos HD, conexión a internet",

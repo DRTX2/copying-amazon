@@ -1,6 +1,6 @@
 import { ProductData } from '../../types/products';
 import { PaginatedResponse } from '../types/api.types';
-import productsJson from '../../data/products.json';
+import productsJson from '../../__mocks__/products.mock.json';
 
 // Tipos específicos del servicio
 interface GetProductsParams {

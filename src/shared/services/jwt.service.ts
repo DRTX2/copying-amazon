@@ -2,7 +2,14 @@ import { jwtDecode } from 'jwt-decode';
 import { JWTPayload } from '../../features/auth/types/auth.types';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookies';
 
+const TOKEN_KEYS = {
+  ACCESS: 'accessToken',
+  REFRESH: 'refreshToken',
+} as const;
+
 class JWTService {
+  private readonly isClient = typeof window !== 'undefined';
+
   decodeToken(token: string): JWTPayload | null {
     try {
       return jwtDecode<JWTPayload>(token);
@@ -15,10 +22,7 @@ class JWTService {
   isTokenExpired(token: string): boolean {
     try {
       const payload = this.decodeToken(token);
-      if (!payload || !payload.exp) {
-        return true;
-      }
-
+      if (!payload?.exp) return true;
       // exp -> segs, Date.now() -> ms
       return payload.exp * 1000 < Date.now();
     } catch {
@@ -61,50 +65,53 @@ class JWTService {
 
   isValidToken(token: string): boolean {
     if (!token) return false;
-    
-    try {
-      const payload = this.decodeToken(token);
-      if (!payload) return false;
-      
-      return !this.isTokenExpired(token);
-    } catch {
-      return false;
-    }
+    const payload = this.decodeToken(token);
+    return payload !== null && !this.isTokenExpired(token);
   }
 
+  // ============ Token Storage Management ============
+
   storeTokens(accessToken: string, refreshToken?: string): void {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('accessToken', accessToken);
-      setCookie('accessToken', accessToken);
-      
-      if (refreshToken) {
-        localStorage.setItem('refreshToken', refreshToken);
-        setCookie('refreshToken', refreshToken);
-      }
+    if (!this.isClient) return;
+    
+    this.setToken(TOKEN_KEYS.ACCESS, accessToken);
+    if (refreshToken) {
+      this.setToken(TOKEN_KEYS.REFRESH, refreshToken);
     }
   }
 
   getAccessToken(): string | null {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem('accessToken') || getCookie('accessToken');
+    if (!this.isClient) return null;
+    return localStorage.getItem(TOKEN_KEYS.ACCESS) || getCookie(TOKEN_KEYS.ACCESS);
   }
 
   getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
+    if (!this.isClient) return null;
+    return localStorage.getItem(TOKEN_KEYS.REFRESH) || getCookie(TOKEN_KEYS.REFRESH);
   }
 
   clearTokens(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      deleteCookie('accessToken');
-      deleteCookie('refreshToken');
-    }
+    if (!this.isClient) return;
+    
+    this.removeToken(TOKEN_KEYS.ACCESS);
+    this.removeToken(TOKEN_KEYS.REFRESH);
   }
 
   getAuthHeader(): string | null {
     const token = this.getAccessToken();
     return token ? `Bearer ${token}` : null;
+  }
+
+  // ============ Private Helpers ============
+
+  private setToken(key: string, value: string): void {
+    localStorage.setItem(key, value);
+    setCookie(key, value);
+  }
+
+  private removeToken(key: string): void {
+    localStorage.removeItem(key);
+    deleteCookie(key);
   }
 }
 
