@@ -1,4 +1,4 @@
-import { useAuth } from "../shared/stores/auth.store";
+import { useAuth } from "../stores/auth.store";
 import { useRouter } from "next/navigation";
 
 const Recomendations: React.FC = () => {

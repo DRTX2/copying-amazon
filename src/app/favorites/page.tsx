@@ -16,7 +16,7 @@ import {
 import Template from '@/layouts/Template';
 import { useFavorites, useRemoveFavorite } from '@/features/favorites/hooks/useFavorites';
 import { useCart } from '@/features/cart';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 
 export default function FavoritesPage() {
   const router = useRouter();

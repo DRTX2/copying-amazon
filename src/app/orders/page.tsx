@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import Template from '@/layouts/Template';
 import { useOrders, orderService, OrderResponse, OrderState } from '@/features/orders/hooks/useOrders';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 
 function OrderStateBadge({ state }: { state: OrderState }) {
   const stateConfig: Record<OrderState, { color: string; icon: React.ReactNode; label: string }> = {

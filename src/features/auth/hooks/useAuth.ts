@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../../../shared/stores/auth.store";
-import { jwtService } from "../../../shared/services/jwt.service";
+import { useAuth } from "../../../stores/auth.store";
+import { jwtService } from "../../../services/jwt.service";
 import {
   LoginRequest,
   RegisterRequest,

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useCartStore } from '../../../shared/stores/cart.store';
+import { useCartStore } from '../../../stores/cart.store';
 import { usePrefetchProduct } from '../hooks/useProducts';
 import { ProductCardProps } from '../types/product.types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';

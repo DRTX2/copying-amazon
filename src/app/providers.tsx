@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import { ReduxProvider } from "@/shared/stores/ReduxProvider";
+import { ReduxProvider } from "@/stores/ReduxProvider";
 
 /**
  * Configuración optimizada de cache para React Query

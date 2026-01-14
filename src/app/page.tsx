@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
-import { productService } from '@/shared/services/product.service';
+import { productService } from '@/services/product.service';
 
 export const metadata: Metadata = {
   title: 'Amazon Clone | Inicio - Mejores Ofertas y Productos',

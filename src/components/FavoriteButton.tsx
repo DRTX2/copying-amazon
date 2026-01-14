@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Heart, Loader2 } from 'lucide-react';
 import { useFavorites, useAddFavorite, useRemoveFavorite } from '@/features/favorites/hooks/useFavorites';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 import { useRouter } from 'next/navigation';
 
 interface FavoriteButtonProps {

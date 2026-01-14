@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { productService } from '@/shared/services/product.service';
+import { productService } from '@/services/product.service';
 import ProductClient from './ProductClient';
 
 interface Props {

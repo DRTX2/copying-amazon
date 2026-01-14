@@ -22,7 +22,7 @@ import {
 import { ProductData } from "@/types/products";
 import { useCart } from "@/features/cart";
 import { useAddFavorite, useRemoveFavorite, useFavorites } from "@/features/favorites/hooks/useFavorites";
-import { useAuth } from "@/shared/stores/auth.store";
+import { useAuth } from "@/stores/auth.store";
 import Message, { MessageData } from "@/components/Message/Message";
 import SelectProduct from "./selectQuantityProduct";
 

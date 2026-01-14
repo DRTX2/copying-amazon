@@ -3,8 +3,8 @@ export const APP_CONFIG = {
   // Cambiar a true para usar datos locales (JSON) - false para usar API real
   USE_MOCK_DATA: process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true',
   
-  // URL base de la API
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.yourdomain.com',
+  // URL base de la API (usada por axios)
+  API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1',
   
   // Configuración específica para productos
   PRODUCTS: {
@@ -16,8 +16,9 @@ export const APP_CONFIG = {
   
   // Configuración de la aplicación
   APP: {
-    NAME: 'Amazon Clone',
-    VERSION: '1.0.0',
+    NAME: process.env.NEXT_PUBLIC_APP_NAME || 'Amazon Clone',
+    VERSION: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
+    URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
     ENVIRONMENT: process.env.NODE_ENV || 'development',
   }
 };

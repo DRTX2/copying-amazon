@@ -17,6 +17,7 @@ const LanguageCurrencies = () => {
               width={128}
               height={36}
               className="h-9 w-auto max-w-32"
+              style={{ width: 'auto' }}
             />
           </div>
           

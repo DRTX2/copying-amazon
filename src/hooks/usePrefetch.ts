@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
-import { productService } from '@/shared/services/product.service';
+import { productService } from '@/services/product.service';
 import { categoryService } from '@/services/category.service';
 import { PRODUCT_QUERY_KEYS } from '@/features/products/hooks/useProducts';
 import { CATEGORY_QUERY_KEYS } from '@/features/categories/hooks/useCategories';

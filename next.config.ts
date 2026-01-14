@@ -79,9 +79,11 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value:
               "default-src 'self'; " +
+              "connect-src 'self' http://localhost:8080; " +
               "img-src 'self' https: data:; " +
+              "font-src 'self' https://cdnjs.cloudflare.com; " +
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
-              "style-src 'self' 'unsafe-inline';",
+              "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;",
           },
         ],
       },

@@ -2,4 +2,4 @@
 export { useCart } from './hooks/useCart';
 
 // Re-export useful types
-export type { CartItem } from '../../shared/stores/cart.store';
+export type { CartItem } from '../../stores/cart.store';

@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
-import { JWTPayload } from '../../features/auth/types/auth.types';
-import { setCookie, getCookie, deleteCookie } from '../../utils/cookies';
+import { JWTPayload } from '../features/auth/types/auth.types';
+import { setCookie, getCookie, deleteCookie } from '../utils/cookies';
 
 const TOKEN_KEYS = {
   ACCESS: 'accessToken',

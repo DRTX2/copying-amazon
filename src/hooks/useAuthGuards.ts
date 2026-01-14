@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '../shared/stores/auth.store';
+import { useAuth } from '../stores/auth.store';
 
 export const useAuthGuard = (redirectTo: string = '/login') => {
   const { isAuthenticated, isTokenValid } = useAuth();

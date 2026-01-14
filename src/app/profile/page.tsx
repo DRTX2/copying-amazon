@@ -31,7 +31,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import Template from '@/layouts/Template';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 import { useLogout } from '@/features/auth/hooks/useAuth';
 import { useUpdateUser } from '@/features/users/hooks/useUsers';
 

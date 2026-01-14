@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 
 /**
  * Hook personalizado para proteger rutas de administrador

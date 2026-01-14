@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { jwtService } from '../shared/services/jwt.service';
+import { jwtService } from '../services/jwt.service';
 import { AuthResponse, AuthTokens } from '../features/auth';
 
 export const api = axios.create({

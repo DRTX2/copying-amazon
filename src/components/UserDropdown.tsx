@@ -15,7 +15,7 @@ import {
   Heart,
   Shield,
 } from 'lucide-react';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 import { useLogout } from '@/features/auth/hooks/useAuth';
 
 export default function UserDropdown() {

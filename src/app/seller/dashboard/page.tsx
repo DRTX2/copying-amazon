@@ -98,7 +98,7 @@ export default function SellerDashboardPage() {
     return null;
   }
 
-  const activeProducts = products.filter((p) => p.status === 'ACTIVE' || !p.status).length;
+  const activeProducts = products.filter((p: any) => p.status === 'ACTIVE' || !p.status).length;
   const totalProducts = products.length;
 
   const handleDeleteProduct = async (id: number) => {
@@ -280,7 +280,7 @@ export default function SellerDashboardPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {products.slice(0, 5).map((product) => (
+                    {products.slice(0, 5).map((product: any) => (
                       <tr key={product.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-4">

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Template from '@/layouts/Template';
 import { useCart } from '@/features/cart';
-import { useAuth } from '@/shared/stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 
 export default function CheckoutClient() {
   const router = useRouter();
@@ -136,18 +136,20 @@ export default function CheckoutClient() {
                   <span className="mr-2">3</span> Revisar productos
                 </h2>
                 <div className="space-y-4">
-                  {cartProducts.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4 border-b pb-4 last:border-0">
+                  {cartProducts.map((item, index) => {
+                    const product = item as any; // CartItem extends ProductData which has these properties
+                    return (
+                    <div key={index} className="flex items-center space-x-4 border-b pb-4 last:border-0">
                       <div className="h-16 w-16 bg-gray-50 flex-shrink-0 flex items-center justify-center rounded">
-                        <img src={item.img} alt={item.title} className="max-h-full max-w-full object-contain" />
+                        <img src={product.img} alt={product.title} className="max-h-full max-w-full object-contain" />
                       </div>
                       <div className="flex-grow">
-                        <h3 className="text-sm font-medium text-gray-900">{item.title}</h3>
+                        <h3 className="text-sm font-medium text-gray-900">{product.title}</h3>
                         <p className="text-sm text-gray-500">Cantidad: {item.quantity}</p>
                       </div>
-                      <p className="text-sm font-bold text-gray-900">${(item.precio * item.quantity).toFixed(2)}</p>
+                      <p className="text-sm font-bold text-gray-900">${(product.precio * item.quantity).toFixed(2)}</p>
                     </div>
-                  ))}
+                  )})}
                 </div>
               </div>
             </div>
