@@ -99,27 +99,3 @@ export interface ApiCartRequest {
   userId: number;
   items: ApiCartItemDto[];
 }
-
-// ============ Aliases para compatibilidad (deprecated) ============
-/** @deprecated Usar ApiCategory */
-export type BackendCategory = ApiCategory;
-/** @deprecated Usar ApiProductResponse */
-export type BackendProductResponse = ApiProductResponse;
-/** @deprecated Usar ApiProductRequest */
-export type BackendProductRequest = ApiProductRequest;
-/** @deprecated Usar ApiFavoriteResponse */
-export type BackendFavoriteResponse = ApiFavoriteResponse;
-/** @deprecated Usar ApiCategoryResponse */
-export type BackendCategoryResponse = ApiCategoryResponse;
-/** @deprecated Usar ApiOrderItemDto */
-export type BackendOrderItemDto = ApiOrderItemDto;
-/** @deprecated Usar ApiOrderResponse */
-export type BackendOrderResponse = ApiOrderResponse;
-/** @deprecated Usar ApiOrderRequest */
-export type BackendOrderRequest = ApiOrderRequest;
-/** @deprecated Usar ApiCartItemDto */
-export type BackendCartItemDto = ApiCartItemDto;
-/** @deprecated Usar ApiCartResponse */
-export type BackendCartResponse = ApiCartResponse;
-/** @deprecated Usar ApiCartRequest */
-export type BackendCartRequest = ApiCartRequest;

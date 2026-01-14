@@ -3,7 +3,7 @@ import { ProductData } from '../../types/products';
 import { PaginatedResponse } from '../types/api.types';
 import { productServiceMock } from './product.service.mock';
 import { APP_CONFIG } from '../config/app.config';
-import { BackendProductResponse } from '../../types/backend.types';
+import { ApiProductResponse } from '../../types/api.types';
 import { BackendProductAdapter } from '../adapters/backend-product.adapter';
 
 // Tipos específicos del servicio
@@ -44,7 +44,7 @@ class ProductService {
 
     try {
       // El backend devuelve un array directo, no un objeto paginado
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl, { params });
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl, { params });
       const backendProducts = response.data;
       
       // Convertir al formato del frontend
@@ -80,7 +80,7 @@ class ProductService {
 
     try {
       // El backend devuelve el producto directamente
-      const response = await api.get<BackendProductResponse>(`${this.baseUrl}/${id}`);
+      const response = await api.get<ApiProductResponse>(`${this.baseUrl}/${id}`);
       return BackendProductAdapter.toProductData(response.data);
     } catch (error) {
       console.warn('API failed, falling back to mock data:', error);
@@ -98,7 +98,7 @@ class ProductService {
 
     try {
       // Usar el endpoint de productos con filtro de búsqueda
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl);
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
       const products = response.data;
       
       // Filtrar localmente por nombre o descripción
@@ -123,7 +123,7 @@ class ProductService {
     }
 
     try {
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl);
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
       const products = response.data;
       
       // Filtrar por categoría
@@ -147,7 +147,7 @@ class ProductService {
     }
 
     try {
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl);
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
       const products = response.data;
       
       // Ordenar por rating y limitar
@@ -171,7 +171,7 @@ class ProductService {
     }
 
     try {
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl);
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
       const products = response.data;
       
       // Obtener los 6 más baratos como "ofertas"
@@ -230,11 +230,11 @@ class ProductService {
 
     try {
       // Obtener el producto actual para saber su categoría
-      const currentProduct = await api.get<BackendProductResponse>(`${this.baseUrl}/${productId}`);
+      const currentProduct = await api.get<ApiProductResponse>(`${this.baseUrl}/${productId}`);
       const categoryName = currentProduct.data.category?.name;
 
       // Obtener todos los productos y filtrar por categoría
-      const response = await api.get<BackendProductResponse[]>(this.baseUrl);
+      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
       const related = response.data
         .filter(p => p.id !== productId && p.category?.name === categoryName)
         .slice(0, limit);

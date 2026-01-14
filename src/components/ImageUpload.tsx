@@ -26,7 +26,7 @@ interface ImageUploadProps {
 export default function ImageUpload({
   images,
   onChange,
-  maxFiles = PRODUCT_IMAGE_CONFIG.MAX_FILES_COUNT,
+  maxFiles = PRODUCT_IMAGE_CONFIG.limits.maxFilesCount,
   disabled = false,
 }: ImageUploadProps) {
   const [error, setError] = useState<string | null>(null);
@@ -143,7 +143,7 @@ export default function ImageUpload({
           ref={fileInputRef}
           type="file"
           multiple
-          accept={PRODUCT_IMAGE_CONFIG.ALLOWED_TYPES.join(',')}
+          accept={PRODUCT_IMAGE_CONFIG.formats.mimeTypes.join(',')}
           onChange={handleInputChange}
           disabled={disabled || images.length >= maxFiles}
           className="hidden"
@@ -163,12 +163,12 @@ export default function ImageUpload({
         </p>
         
         <p className="text-xs text-gray-500">
-          PNG, JPG o WEBP (máx. {formatFileSize(PRODUCT_IMAGE_CONFIG.MAX_FILE_SIZE)})
+          PNG, JPG o WEBP (máx. {formatFileSize(PRODUCT_IMAGE_CONFIG.limits.maxFileSize)})
         </p>
         
         <p className="text-xs text-gray-500 mt-1">
           {images.length}/{maxFiles} imágenes • {formatFileSize(totalSize)}/
-          {formatFileSize(PRODUCT_IMAGE_CONFIG.MAX_TOTAL_SIZE)}
+          {formatFileSize(PRODUCT_IMAGE_CONFIG.limits.maxTotalSize)}
         </p>
       </div>
 

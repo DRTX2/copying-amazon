@@ -119,8 +119,8 @@ export default function EnhancedProduct({
           text: `Mira este producto: ${product.title}`,
           url: window.location.href,
         });
-      } catch (error) {
-        console.log('Error sharing:', error);
+      } catch {
+        // Cancel share is expected, no action needed
       }
     } else {
       navigator.clipboard.writeText(window.location.href);

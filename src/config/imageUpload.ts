@@ -33,24 +33,6 @@ export const PRODUCT_IMAGE_CONFIG = {
   compression: {
     quality: 0.85,
   },
-
-  // ============ Aliases para compatibilidad (acceso plano) ============
-  /** @deprecated Usar limits.maxFilesCount */
-  get MAX_FILES_COUNT() {
-    return this.limits.maxFilesCount;
-  },
-  /** @deprecated Usar limits.maxFileSize */
-  get MAX_FILE_SIZE() {
-    return this.limits.maxFileSize;
-  },
-  /** @deprecated Usar limits.maxTotalSize */
-  get MAX_TOTAL_SIZE() {
-    return this.limits.maxTotalSize;
-  },
-  /** @deprecated Usar formats.mimeTypes */
-  get ALLOWED_TYPES() {
-    return this.formats.mimeTypes;
-  },
 } as const;
 
 export type AllowedImageMimeType =

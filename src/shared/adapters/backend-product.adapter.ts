@@ -1,4 +1,4 @@
-import { BackendProductResponse } from '../../types/backend.types';
+import { ApiProductResponse } from '../../types/api.types';
 import { ProductData } from '../../types/products';
 import { Product } from '../../features/products/types/product.types';
 
@@ -7,9 +7,9 @@ import { Product } from '../../features/products/types/product.types';
  */
 export class BackendProductAdapter {
   /**
-   * Convierte BackendProductResponse a ProductData (formato legacy del frontend)
+   * Convierte ApiProductResponse a ProductData (formato legacy del frontend)
    */
-  static toProductData(backendProduct: BackendProductResponse): ProductData {
+  static toProductData(backendProduct: ApiProductResponse): ProductData {
     return {
       id: backendProduct.id,
       title: backendProduct.name,
@@ -29,9 +29,9 @@ export class BackendProductAdapter {
   }
 
   /**
-   * Convierte BackendProductResponse a Product (formato empresarial)
+   * Convierte ApiProductResponse a Product (formato empresarial)
    */
-  static toProduct(backendProduct: BackendProductResponse): Product {
+  static toProduct(backendProduct: ApiProductResponse): Product {
     return {
       id: backendProduct.id,
       title: backendProduct.name,
@@ -51,16 +51,16 @@ export class BackendProductAdapter {
   }
 
   /**
-   * Convierte array de BackendProductResponse a array de ProductData
+   * Convierte array de ApiProductResponse a array de ProductData
    */
-  static toProductDataArray(backendProducts: BackendProductResponse[]): ProductData[] {
+  static toProductDataArray(backendProducts: ApiProductResponse[]): ProductData[] {
     return backendProducts.map(this.toProductData);
   }
 
   /**
-   * Convierte array de BackendProductResponse a array de Product
+   * Convierte array de ApiProductResponse a array de Product
    */
-  static toProducts(backendProducts: BackendProductResponse[]): Product[] {
+  static toProducts(backendProducts: ApiProductResponse[]): Product[] {
     return backendProducts.map(this.toProduct);
   }
 

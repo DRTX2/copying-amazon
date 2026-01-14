@@ -1,5 +1,4 @@
 import { api } from '@/config/axios';
-import { BackendCategoryResponse } from '@/types/backend.types';
 
 export interface CategoryResponse {
   id: number;

@@ -148,7 +148,7 @@ export default function EditProductPage() {
   };
 
   const isSubmitting = updateProductMutation.isPending;
-  const remainingSlots = PRODUCT_IMAGE_CONFIG.MAX_FILES_COUNT - existingImages.length;
+  const remainingSlots = PRODUCT_IMAGE_CONFIG.limits.maxFilesCount - existingImages.length;
 
   if (loadingProduct) {
     return (
