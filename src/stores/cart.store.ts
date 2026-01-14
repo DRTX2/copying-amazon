@@ -8,7 +8,7 @@ import {
   setDiscount as setDiscountAction,
 } from './slices/cartSlice';
 import type { CartItem } from './slices/cartSlice';
-import { ProductData } from '../../types/products';
+import { ProductData } from '@/types/products';
 
 // Re-exportar tipos
 export type { CartItem };

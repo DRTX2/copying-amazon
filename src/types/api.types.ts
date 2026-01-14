@@ -14,9 +14,9 @@ export interface ApiCategory {
 export interface ApiProductResponse {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   price: number;
-  category: ApiCategory;
+  category?: ApiCategory;
   averageRating: number;
   images: string[];
   sku?: string;

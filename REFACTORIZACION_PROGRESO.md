@@ -103,20 +103,21 @@ npm run lint
 - [x] Barrel exports creados
 - [x] Sin duplicación de hooks
 - [x] Commit realizado (b1d28e7)
-- [ ] Build exitoso (error pre-existente no relacionado)
+- [x] Build exitoso ✅ (corregido error pre-existente)
 - [ ] Tests pasando (pendiente)
 - [ ] Lint sin errores (pendiente)
 
-### ⚠️ Error Pre-existente Detectado
+### ✅ Error Pre-existente Resuelto
 
-Durante el build se detectó un error de TypeScript **NO relacionado con esta refactorización**:
+El error de TypeScript que bloqueaba el build ha sido corregido exitosamente.
 
-**Archivo:** `/src/app/seller/products/edit/[id]/page.tsx:94`  
-**Error:** `Property 'name' does not exist on type 'ProductData'`
+**Cambios realizados:**
+- Actualizado el servicio y los hooks de seller para usar `ProductResponse` (tipo nativo del backend) evitando conversiones a tipos legacy incompletos.
+- Estandarizados los imports de `ProductData` en todo el proyecto usando el alias `@/types/products`.
+- Corregidos tipos en el store del carrito (`CartItem`) y en el hook `useCart` para garantizar type-safety.
+- Ajustado el schema de productos para manejar opcionalidad en campos que el backend no siempre envía.
 
-**Causa:** El hook `useSellerProduct` retorna un tipo `ProductData` (legacy) pero el código espera propiedades del tipo nuevo `Product` (name, description, price, etc.).
-
-**Solución recomendada:** Actualizar `useSellerProduct` para retornar el tipo correcto o usar un adaptador. Este error existía antes de la refactorización y debe ser corregido en una tarea separada.
+**Resultado:** El comando `npm run build` se ejecuta correctamente.
 
 ---
 

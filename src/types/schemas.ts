@@ -131,8 +131,8 @@ export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): T {
     return schema.parse(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error('Validation error:', error.errors);
-      throw new Error(`Validation failed: ${error.errors.map(e => e.message).join(', ')}`);
+      console.error('Validation error:', error.issues);
+      throw new Error(`Validation failed: ${error.issues.map(e => e.message).join(', ')}`);
     }
     throw error;
   }

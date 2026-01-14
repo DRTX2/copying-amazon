@@ -1,6 +1,6 @@
 import { api } from '../config/axios';
-import { ProductData } from '../types/products';
-import { PaginatedResponse } from '../types/api.types';
+import { ProductData } from '@/types/products';
+import { PaginatedResponse } from '../shared/types/api-response.types';
 import { productServiceMock } from './product.service.mock';
 import { APP_CONFIG } from '../config/shared/app.config';
 import { ApiProductResponse } from '../types/api.types';
@@ -131,6 +131,20 @@ class ProductService {
     } catch (error) {
       console.warn('API failed, falling back to mock data:', error);
       return productServiceMock.getProductById(id);
+    }
+  }
+
+  /**
+   * Obtener producto por ID (formato ProductResponse sin conversión)
+   * Útil para formularios de edición que necesitan el formato del backend
+   */
+  async getProductByIdRaw(id: number): Promise<ProductResponse> {
+    try {
+      const response = await api.get<ProductResponse>(`${this.baseUrl}/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      throw error;
     }
   }
 
@@ -356,6 +370,20 @@ class ProductService {
    */
   async deleteProduct(id: number): Promise<void> {
     await api.delete(`${this.baseUrl}/${id}`);
+  }
+
+  /**
+   * Obtener todos los productos (formato ProductResponse sin conversión)
+   * Útil para listados de administración/seller
+   */
+  async getAllProductsRaw(): Promise<ProductResponse[]> {
+    try {
+      const response = await api.get<ProductResponse[]>(this.baseUrl);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      throw error;
+    }
   }
 }
 

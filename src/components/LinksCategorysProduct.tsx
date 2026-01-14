@@ -1,4 +1,4 @@
-import { ProductData } from "../types/products";
+import { ProductData } from "@/types/products";
 
 export const concatString = (array: string[], separator = ", "): string => {
   const concatArray: string = array.join(separator);

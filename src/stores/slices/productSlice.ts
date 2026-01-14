@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductData } from '../../../types/products';
+import { ProductData } from '@/types/products';
 
 // Tipos del store
 interface ProductState {

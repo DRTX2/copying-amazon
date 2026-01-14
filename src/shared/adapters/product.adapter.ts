@@ -1,4 +1,4 @@
-import { ProductData } from '../../types/products';
+import { ProductData } from '@/types/products';
 import { Product } from '../../features/products/types/product.types';
 
 /**

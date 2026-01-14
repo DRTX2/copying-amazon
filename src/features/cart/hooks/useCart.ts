@@ -1,5 +1,5 @@
 import { useCartStore } from '../../../stores/cart.store';
-import { ProductData } from '../../../types/products';
+import { ProductData } from '@/types/products';
 import { Product } from '../../products/types/product.types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 
@@ -22,30 +22,13 @@ export const useCart = () => {
 
   // Obtener productos del carrito como Product[]
   const getProducts = (): Product[] => {
-    return store.items.map((item) => ({
-      id: typeof item.id === 'number' ? item.id : parseInt(item.id?.toString() || '0'),
-      title: item.title,
-      precio: item.precio,
-      img: item.img,
-      altImg: item.altImg,
-      category: item.category,
-      cantidadDisponible: item.quantity,
-      description: item.description?.join(' ') || '',
-      rating: 0,
-      brand: item.marca,
-      discount: item.descuento,
-      tags: item.usos,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }));
+    return store.items.map((item) => ProductAdapter.toProduct(item as unknown as ProductData));
   };
 
   // Obtener productos del carrito como ProductData[]
   const getProductsData = (): ProductData[] => {
-    return store.items.map((item) => ({
-      ...item,
-      cantidadDisponible: item.quantity,
-    }));
+    // CartItem extiende ProductData, así que podemos hacer cast directo
+    return store.items as unknown as ProductData[];
   };
 
   // Verificar si un producto está en el carrito

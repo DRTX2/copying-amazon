@@ -1,4 +1,4 @@
-import { ProductData } from "../../types/products";
+import { ProductData } from "@/types/products";
 import SelectProduct from "./selectQuantityProduct";
 import { RefObject } from "react";
 

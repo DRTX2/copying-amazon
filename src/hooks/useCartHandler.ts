@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProductData } from "../types/products";
+import { ProductData } from "@/types/products";
 
 export interface CartData {
   to: string;

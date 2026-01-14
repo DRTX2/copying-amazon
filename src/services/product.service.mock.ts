@@ -1,5 +1,5 @@
-import { ProductData } from '../types/products';
-import { PaginatedResponse } from '../types/api.types';
+import { ProductData } from '@/types/products';
+import { PaginatedResponse } from '../shared/types/api-response.types';
 import productsJson from '../__mocks__/products.mock.json';
 
 // Tipos específicos del servicio

@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductData } from '../../../types/products';
+import { ProductData } from '@/types/products';
 
 // Tipos del carrito
 export interface CartItem extends ProductData {
+  id: number; // Override: id es requerido en el carrito
   quantity: number;
 }
 
@@ -68,13 +69,18 @@ const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<{ product: ProductData; quantity?: number }>) => {
       const { product, quantity = 1 } = action.payload;
-      const existingItem = state.items.find(item => item.id === product.id);
+      const productId = typeof product.id === 'string' ? parseInt(product.id) : product.id;
+      
+      if (productId === undefined) return;
+
+      const existingItem = state.items.find(item => item.id === productId);
       
       if (existingItem) {
         existingItem.quantity += quantity;
       } else {
         state.items.push({ 
           ...product, 
+          id: productId as number,
           quantity, 
           cantidadDisponible: quantity 
         });

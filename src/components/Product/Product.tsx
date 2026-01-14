@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useCart } from "../../features/cart";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ProductData } from "../../types/products";
+import { ProductData } from "@/types/products";
 import ProductDetails from "./ProductDetails";
 import ProductBuyBox from "./ProductBuyBox";
 import ProductImage from "./ProductImage";

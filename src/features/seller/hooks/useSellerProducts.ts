@@ -11,23 +11,25 @@ export const SELLER_QUERY_KEYS = {
 };
 
 /**
- * Hook para obtener todos los productos del vendedor
+ * Hook para obtener todos los productos del vendedor (formato ProductResponse)
+ * Retorna productos en el formato del backend, útil para listados de administración
  */
 export function useSellerProducts() {
   return useQuery({
     queryKey: SELLER_QUERY_KEYS.products(),
-    queryFn: () => productService.getAllProducts(),
+    queryFn: () => productService.getAllProductsRaw(),
     staleTime: 5 * 60 * 1000, // 5 minutos
   });
 }
 
 /**
- * Hook para obtener un producto específico
+ * Hook para obtener un producto específico (formato ProductResponse)
+ * Retorna el producto en el formato del backend, útil para formularios de edición
  */
 export function useSellerProduct(id: number) {
   return useQuery({
     queryKey: SELLER_QUERY_KEYS.product(id),
-    queryFn: () => productService.getProductById(id),
+    queryFn: () => productService.getProductByIdRaw(id),
     enabled: !!id,
   });
 }

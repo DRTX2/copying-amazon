@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { ProductData } from "../types/products";
+import { ProductData } from "@/types/products";
 import { Card } from "./Card/Card";
 import { useProducts } from "../features/products/hooks/useProducts";
 import { useCart } from "../features/cart";

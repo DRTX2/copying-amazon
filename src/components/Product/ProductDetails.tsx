@@ -1,4 +1,4 @@
-import { ProductData } from "../../types/products";
+import { ProductData } from "@/types/products";
 import { concatString } from "../LinksCategorysProduct";
 import { ProductCost } from "./Product-cost";
 

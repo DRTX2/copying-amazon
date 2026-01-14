@@ -6,7 +6,7 @@ import {
   setError as setErrorAction, 
   setSelectedProduct as setSelectedProductAction,
 } from './slices/productSlice';
-import { ProductData } from '../../types/products';
+import { ProductData } from '@/types/products';
 
 // Hook interno
 const useProductStoreInternal = () => {
