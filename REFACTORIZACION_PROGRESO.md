@@ -102,9 +102,21 @@ npm run lint
 - [x] Imports estandarizados con alias @/
 - [x] Barrel exports creados
 - [x] Sin duplicación de hooks
-- [ ] Build exitoso
-- [ ] Tests pasando
-- [ ] Lint sin errores
+- [x] Commit realizado (b1d28e7)
+- [ ] Build exitoso (error pre-existente no relacionado)
+- [ ] Tests pasando (pendiente)
+- [ ] Lint sin errores (pendiente)
+
+### ⚠️ Error Pre-existente Detectado
+
+Durante el build se detectó un error de TypeScript **NO relacionado con esta refactorización**:
+
+**Archivo:** `/src/app/seller/products/edit/[id]/page.tsx:94`  
+**Error:** `Property 'name' does not exist on type 'ProductData'`
+
+**Causa:** El hook `useSellerProduct` retorna un tipo `ProductData` (legacy) pero el código espera propiedades del tipo nuevo `Product` (name, description, price, etc.).
+
+**Solución recomendada:** Actualizar `useSellerProduct` para retornar el tipo correcto o usar un adaptador. Este error existía antes de la refactorización y debe ser corregido en una tarea separada.
 
 ---
 
