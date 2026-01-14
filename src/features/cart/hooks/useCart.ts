@@ -1,6 +1,6 @@
 import { useCartStore } from '../../../stores/cart.store';
 import { ProductData } from '@/types/products';
-import { Product } from '../../products/types/product.types';
+import { Product } from '@/features/products/types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 
 /**

@@ -1,7 +1,9 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { orderService, OrderResponse, CreateOrderRequest, OrderState } from '@/services/order.service';
+import { orderService } from '@/services/order.service';
+import { ApiOrderResponse as OrderResponse, ApiOrderRequest as CreateOrderRequest, OrderState } from '@/types/api.types';
+import { Order } from '../types';
 
 export const ORDER_QUERY_KEYS = {
   all: ['orders'] as const,

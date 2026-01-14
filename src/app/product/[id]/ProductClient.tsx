@@ -2,7 +2,7 @@
 
 import { useProduct } from '@/features/products/hooks/useProducts';
 import { ProductAdapter } from '@/shared/adapters/product.adapter';
-import EnhancedProduct from '@/components/Product/EnhancedProduct';
+import EnhancedProduct from '@/features/products/components/EnhancedProduct';
 import LoadingSpinner from '@/shared/components/LoadingSpinner';
 import Template from '@/layouts/Template';
 import Link from 'next/link';

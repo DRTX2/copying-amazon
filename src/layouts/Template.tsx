@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import SuperiorMenu from "../components/Menu/Superior-menu";
-import SubMenu from "../components/Menu/SubMenu";
-import ItemBarMenu from "../components/Menu/ItemBarMenu";
-import SearchField from "../components/SearchField";
-import Recomendations from "../components/SectionRecomendation";
-import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
+import SuperiorMenu from "@/shared/components/Menu/Superior-menu";
+import SubMenu from "@/shared/components/Menu/SubMenu";
+import ItemBarMenu from "@/shared/components/Menu/ItemBarMenu";
+import SearchField from "@/shared/components/SearchField";
+import Recomendations from "@/features/products/components/SectionRecommendation";
+import Footer from "@/shared/components/Footer";
+import PageTransition from "@/shared/components/PageTransition";
 
 type content = {
   children: React.ReactNode;

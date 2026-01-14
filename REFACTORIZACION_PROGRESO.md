@@ -66,20 +66,25 @@ import { productService } from '@/services/product.service';
 
 ## 🎯 Próximos Pasos
 
-### Fase 2: Reorganización de Tipos (Pendiente)
-- [ ] Consolidar tipos de productos
-- [ ] Crear estructura de tipos por dominio
-- [ ] Actualizar imports
+### Fase 2: Reorganización de Tipos 🟢
+- [x] Consolidar tipos de productos (`Product` vs `ProductData` vs `ApiProductResponse`).
+- [x] Crear estructura de tipos por dominio en cada feature (`src/features/*/types`).
+- [x] Unificar tipos de API en `src/types/api.types.ts`.
+- [x] Eliminar archivos de tipos redundantes en `src/types/`.
+- [x] Actualizar imports para usar alias `@/` y rutas consolidadas.
 
-### Fase 3: Componentes (Pendiente)
-- [ ] Mover componentes a features
-- [ ] Organizar por tipo
-- [ ] Actualizar imports
+### Fase 3: Componentes y Hooks 🟢
+- [x] Mover componentes a features (`src/components/` → `src/features/*/components/`).
+- [x] Organizar componentes por tipo y feature.
+- [x] Mover hooks de infraestructura a `src/shared/hooks/`.
+- [x] Consolidar hooks de dominio en sus respectivas features.
+- [x] Implementar `AuthInitializer` para manejo global de sesión.
+- [x] Actualizar todos los imports para usar alias `@/` y nuevas rutas.
 
 ### Fase 4: Estado (Opcional - Pendiente)
-- [ ] Decidir estrategia de estado
-- [ ] Eliminar compatibility layers
-- [ ] Actualizar componentes
+- [ ] Decidir estrategia de estado (Zustand vs Redux vs React Query).
+- [ ] Eliminar compatibility layers.
+- [ ] Centralizar lógica de negocio en hooks de dominio.
 
 ---
 
@@ -102,8 +107,9 @@ npm run lint
 - [x] Imports estandarizados con alias @/
 - [x] Barrel exports creados
 - [x] Sin duplicación de hooks
-- [x] Commit realizado (b1d28e7)
-- [x] Build exitoso ✅ (corregido error pre-existente)
+- [x] Commit realizado
+- [x] Build exitoso ✅ (re-validado después de reorganización)
+- [x] Componentes movidos a features siguiendo arquitectura atómica y funcional
 - [ ] Tests pasando (pendiente)
 - [ ] Lint sin errores (pendiente)
 
@@ -130,4 +136,4 @@ El error de TypeScript que bloqueaba el build ha sido corregido exitosamente.
 
 ---
 
-**Última actualización:** 2026-01-14 00:40:00
+**Última actualización:** 2026-01-14 02:45:00

@@ -2,10 +2,10 @@
  * Legacy Product Types
  * 
  * Estos tipos representan la estructura de datos original del frontend.
- * Se mantienen para compatibilidad con componentes existentes.
+ * Se mantienen para compatibilidad con el store de carrito y componentes antiguos.
  * 
- * Para nuevos desarrollos, preferir usar:
- * - Product de '@/features/products/types/product.types'
+ * Para nuevos desarrollos, usar:
+ * - Product de '@/features/products/types' para lógica de UI
  * - ApiProductResponse de '@/types/api.types' para datos del backend
  */
 
@@ -17,7 +17,7 @@ export interface CardData {
 }
 
 /**
- * @deprecated Usar Product de '@/features/products/types/product.types' para nuevos componentes
+ * @deprecated Usar Product de '@/features/products/types' para nuevos componentes
  */
 export interface ProductData extends CardData {
   category: string[];
@@ -30,37 +30,4 @@ export interface ProductData extends CardData {
   cantidadDisponible: number;
   origenEnvio: string;
   usos: string[];
-}
-
-// ============ Tipos actualizados alineados con el backend ============
-
-export interface Category {
-  id: number;
-  name: string;
-  description?: string;
-}
-
-export interface ProductImage {
-  id: number;
-  url: string;
-  alt?: string;
-}
-
-/**
- * Tipo de producto alineado con la respuesta del backend
- * Considerar migrar a ApiProductResponse de '@/types/api.types'
- */
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  category: Category;
-  averageRating: number;
-  images: ProductImage[];
-  status?: 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'ARCHIVED';
-  slug?: string;
-  createdAt?: string;
-  updatedAt?: string;
 }

@@ -1,12 +1,8 @@
-// Types
-export interface UserData {
-  id: number;
-  name: string;
-  email: string;
-  role: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
-  address?: string;
-  phone?: string;
-}
-
 // Hooks
 export * from './hooks/useUsers';
+
+// Components
+export { default as UserDropdown } from './components/UserDropdown';
+
+// Types
+export * from './types';

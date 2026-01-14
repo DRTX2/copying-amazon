@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePrefetch } from '@/hooks/usePrefetch';
+import { usePrefetch } from '@/shared/hooks/usePrefetch';
 
 /**
  * Componente que pre-carga datos esenciales al iniciar la aplicación

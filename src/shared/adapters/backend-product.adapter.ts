@@ -1,6 +1,6 @@
 import { ApiProductResponse } from '../../types/api.types';
 import { ProductData } from '@/types/products';
-import { Product } from '../../features/products/types/product.types';
+import { Product } from '@/features/products/types';
 
 /**
  * Adapter para convertir productos del backend al formato del frontend

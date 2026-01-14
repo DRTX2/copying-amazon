@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRegister } from "@/features/auth";
-import { useGuestGuard } from "@/hooks/useAuthGuards";
+import { useGuestGuard } from "@/features/auth/hooks/useAuthGuards";
 
 const registerSchema = z.object({
   name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),

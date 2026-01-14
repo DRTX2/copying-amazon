@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import DataPrefetcher from "@/components/DataPrefetcher";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
+import DataPrefetcher from "@/shared/components/DataPrefetcher";
+import ErrorBoundary from "@/shared/components/ErrorBoundary";
+import { AuthInitializer } from "@/features/auth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,9 +62,11 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <ErrorBoundary>
           <Providers>
-            {/* Pre-carga datos esenciales al iniciar la app */}
-            <DataPrefetcher />
-            {children}
+            <AuthInitializer>
+              {/* Pre-carga datos esenciales al iniciar la app */}
+              <DataPrefetcher />
+              {children}
+            </AuthInitializer>
           </Providers>
         </ErrorBoundary>
       </body>

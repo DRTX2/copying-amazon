@@ -5,7 +5,7 @@ import { useSearchProducts } from '@/features/products/hooks/useProducts';
 import Template from '@/layouts/Template';
 import { ProductGrid } from '@/features/products/components/ProductGrid';
 import { ProductAdapter } from '@/shared/adapters/product.adapter';
-import { Product } from '@/features/products/types/product.types';
+import { Product } from '@/features/products/types';
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
 

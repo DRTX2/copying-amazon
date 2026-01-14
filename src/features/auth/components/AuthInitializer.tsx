@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect } from 'react';
-import { useInitializeAuth } from '../features/auth/hooks/useAuth';
+import { useInitializeAuth } from '../hooks/useAuth';
 
 /**
  * Componente que inicializa la autenticación desde tokens almacenados

@@ -18,7 +18,7 @@ import {
   FolderOpen,
 } from 'lucide-react';
 import Template from '@/layouts/Template';
-import { useAdminGuard } from '@/hooks/useAdminGuard';
+import { useAdminGuard } from '@/features/auth/hooks/useAdminGuard';
 import { 
   useCategories, 
   useCreateCategory, 

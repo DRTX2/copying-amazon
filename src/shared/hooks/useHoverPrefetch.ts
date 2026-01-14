@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
-import { usePrefetch } from '@/hooks/usePrefetch';
+import { usePrefetch } from '@/shared/hooks/usePrefetch';
 
 interface UseHoverPrefetchOptions {
   delay?: number; // Delay antes de hacer prefetch (ms)

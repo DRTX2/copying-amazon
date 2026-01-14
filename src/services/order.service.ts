@@ -1,29 +1,9 @@
 import { api } from '@/config/axios';
-
-export type OrderState = 'PENDING' | 'CONFIRMED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-
-export interface OrderItemDto {
-  productId: number;
-  quantity: number;
-  price: number;
-}
-
-export interface OrderResponse {
-  id: number;
-  items: OrderItemDto[];
-  total: number;
-  orderState: OrderState;
-  createdAt: string;
-  deliveredAt?: string;
-}
-
-export interface CreateOrderRequest {
-  items: {
-    productId: number;
-    quantity: number;
-    price: number;
-  }[];
-}
+import { 
+  OrderState, 
+  ApiOrderResponse as OrderResponse, 
+  ApiOrderRequest as CreateOrderRequest 
+} from '@/types/api.types';
 
 class OrderService {
   private readonly BASE_URL = '/orders';

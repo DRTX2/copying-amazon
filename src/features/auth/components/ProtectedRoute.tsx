@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuthGuard } from '../hooks/useAuthGuards';
-import { useAuth } from '../stores/auth.store';
+import { useAuth } from '@/stores/auth.store';
 
 /**
  * Componente wrapper para proteger rutas que requieren autenticación

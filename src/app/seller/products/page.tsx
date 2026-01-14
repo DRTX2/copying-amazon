@@ -20,7 +20,7 @@ import {
   LayoutGrid,
   List,
 } from 'lucide-react';
-import { useSellerGuard } from '@/hooks/useSellerGuard';
+import { useSellerGuard } from '@/features/auth/hooks/useSellerGuard';
 import { useSellerProducts, useDeleteProduct } from '@/features/seller/hooks/useSellerProducts';
 import Template from '@/layouts/Template';
 

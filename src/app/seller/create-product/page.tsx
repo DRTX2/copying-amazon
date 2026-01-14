@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Package, DollarSign, FileText, Tag, Save, ArrowLeft } from 'lucide-react';
-import ImageUpload from '@/components/ImageUpload';
+import ImageUpload from '@/shared/components/ImageUpload';
 import { productService } from '@/services/product.service';
 import { PRODUCT_IMAGE_CONFIG } from '@/config/imageUpload';
-import { useSellerGuard } from '@/hooks/useSellerGuard';
+import { useSellerGuard } from '@/features/auth/hooks/useSellerGuard';
 import { api } from '@/config/axios';
 
 // Esquema de validación
@@ -88,14 +88,14 @@ export default function CreateProductPage() {
 
     try {
       // 1. Subir imágenes primero
-      const imageUrls = await productService.uploadProductImages(
+      const uploadResponse = await productService.uploadImages(
         images.map((img) => img.file)
       );
 
       // 2. Crear producto con las URLs de las imágenes
       await createProductMutation.mutateAsync({
         ...data,
-        images: imageUrls,
+        images: uploadResponse.imageUrls,
       });
     } catch (error: any) {
       setUploadError(

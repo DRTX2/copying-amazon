@@ -1,11 +1,11 @@
 'use client';
 import { useState, useEffect } from "react";
 import ItemBarMenu from "./ItemBarMenu";
-import { useCart } from "../../features/cart";
+import { useCart } from "@/features/cart";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { pathRoute } from "../../utils/navigation";
-import UserDropdown from "../UserDropdown";
+import { pathRoute } from "@/utils/navigation";
+import UserDropdown from "@/features/users/components/UserDropdown";
 
 type MenuData = {
   SetMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

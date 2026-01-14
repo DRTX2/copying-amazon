@@ -1,19 +1,5 @@
 import { api } from '@/config/axios';
-
-export interface CartItemDto {
-  productId: number;
-  quantity: number;
-}
-
-export interface CartResponse {
-  id: number;
-  items: CartItemDto[];
-}
-
-export interface CreateCartRequest {
-  userId: number;
-  items: CartItemDto[];
-}
+import { ApiCartResponse, ApiCartRequest, ApiCartItemResponse } from '@/types/api.types';
 
 class BackendCartService {
   private readonly BASE_URL = '/carts';
@@ -21,8 +7,8 @@ class BackendCartService {
   /**
    * Obtiene los carritos del usuario
    */
-  async getUserCarts(userId: number): Promise<CartResponse[]> {
-    const { data } = await api.get<CartResponse[]>(this.BASE_URL, {
+  async getUserCarts(userId: number): Promise<ApiCartResponse[]> {
+    const { data } = await api.get<ApiCartResponse[]>(this.BASE_URL, {
       params: { userId }
     });
     return data;
@@ -31,24 +17,24 @@ class BackendCartService {
   /**
    * Obtiene un carrito por ID
    */
-  async getCartById(id: number): Promise<CartResponse> {
-    const { data } = await api.get<CartResponse>(`${this.BASE_URL}/${id}`);
+  async getCartById(id: number): Promise<ApiCartResponse> {
+    const { data } = await api.get<ApiCartResponse>(`${this.BASE_URL}/${id}`);
     return data;
   }
 
   /**
    * Crea un nuevo carrito
    */
-  async createCart(cartData: CreateCartRequest): Promise<CartResponse> {
-    const { data } = await api.post<CartResponse>(this.BASE_URL, cartData);
+  async createCart(cartData: ApiCartRequest): Promise<ApiCartResponse> {
+    const { data } = await api.post<ApiCartResponse>(this.BASE_URL, cartData);
     return data;
   }
 
   /**
    * Actualiza un carrito
    */
-  async updateCart(id: number, cartData: CreateCartRequest): Promise<CartResponse> {
-    const { data } = await api.put<CartResponse>(`${this.BASE_URL}/${id}`, cartData);
+  async updateCart(id: number, cartData: ApiCartRequest): Promise<ApiCartResponse> {
+    const { data } = await api.put<ApiCartResponse>(`${this.BASE_URL}/${id}`, cartData);
     return data;
   }
 
@@ -62,7 +48,7 @@ class BackendCartService {
   /**
    * Sincroniza el carrito local con el backend
    */
-  async syncCart(userId: number, items: CartItemDto[]): Promise<CartResponse> {
+  async syncCart(userId: number, items: ApiCartItemResponse[]): Promise<ApiCartResponse> {
     const carts = await this.getUserCarts(userId);
     
     if (carts.length > 0) {

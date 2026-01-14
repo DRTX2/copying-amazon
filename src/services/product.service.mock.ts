@@ -1,18 +1,7 @@
 import { ProductData } from '@/types/products';
 import { PaginatedResponse } from '../shared/types/api-response.types';
+import { ApiProductQueryParams as GetProductsParams } from '@/types/api.types';
 import productsJson from '../__mocks__/products.mock.json';
-
-// Tipos específicos del servicio
-interface GetProductsParams {
-  page?: number;
-  limit?: number;
-  category?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  search?: string;
-  sortBy?: 'price' | 'name' | 'rating' | 'createdAt';
-  sortOrder?: 'asc' | 'desc';
-}
 
 /**
  * Mock service para productos usando JSON local

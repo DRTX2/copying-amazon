@@ -7,11 +7,8 @@ import {
   clearCart as clearCartAction, 
   setDiscount as setDiscountAction,
 } from './slices/cartSlice';
-import type { CartItem } from './slices/cartSlice';
+import { CartItem } from '@/features/cart/types';
 import { ProductData } from '@/types/products';
-
-// Re-exportar tipos
-export type { CartItem };
 
 // Hook interno
 const useCartStoreInternal = () => {

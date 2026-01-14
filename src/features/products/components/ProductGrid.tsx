@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { ProductCard } from './ProductCard';
-import { ProductGridProps } from '../types/product.types';
+import { ProductGridProps } from '../types';
 import ErrorBoundary from '../../../shared/components/ErrorBoundary';
 
 export const ProductGrid = memo<ProductGridProps>(({

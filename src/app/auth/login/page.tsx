@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useLogin } from "@/features/auth";
-import { useGuestGuard } from "@/hooks/useAuthGuards";
+import { useGuestGuard } from "@/features/auth/hooks/useAuthGuards";
 
 const loginSchema = z.object({
   email: z.string().email("Por favor ingresa un email válido"),

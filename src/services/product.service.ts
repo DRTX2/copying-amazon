@@ -1,119 +1,46 @@
-import { api } from '../config/axios';
+import { api } from '@/config/axios';
 import { ProductData } from '@/types/products';
 import { PaginatedResponse } from '../shared/types/api-response.types';
 import { productServiceMock } from './product.service.mock';
 import { APP_CONFIG } from '../config/shared/app.config';
-import { ApiProductResponse } from '../types/api.types';
-import { BackendProductAdapter } from '../shared/adapters/backend-product.adapter';
-import { ApiProductListSchema, ApiProductSchema, validateData } from '../types/schemas';
+import { 
+  ApiProductResponse as ProductResponse, 
+  ApiProductRequest as CreateProductRequest,
+  ApiUploadImagesResponse as UploadImagesResponse,
+  ApiProductQueryParams as GetProductsParams,
+  ApiProductFilters as ProductFilters,
+  ProductStatus
+} from '@/types/api.types';
 
-// Tipos específicos del servicio
-export interface GetProductsParams {
-  page?: number;
-  limit?: number;
-  category?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  search?: string;
-  sortBy?: 'price' | 'name' | 'rating' | 'createdAt';
-  sortOrder?: 'asc' | 'desc';
-}
 
-export interface ProductFilters {
-  category?: string[];
-  brand?: string[];
-  priceRange?: [number, number];
-  rating?: number;
-  inStock?: boolean;
-}
-
-export interface UploadImagesResponse {
-  imageUrls: string[];
-}
-
-export type ProductStatus = 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'ARCHIVED';
-
-export interface CreateProductRequest {
-  name: string;
-  description: string;
-  price: number;
-  categoryId: number;
-  averageRating: number;
-  images: string[];
-  sku?: string;
-  stockQuantity?: number;
-  status?: ProductStatus;
-  slug?: string;
-}
-
-export interface ProductResponse {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: {
-    id: number;
-    name: string;
-    description?: string;
-  };
-  averageRating: number;
-  images: string[];
-  sku?: string;
-  stockQuantity?: number;
-  status?: ProductStatus;
-  slug?: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-/**
- * Servicio principal de productos que usa API real del backend
- * con fallback a datos mock si falla
- */
 class ProductService {
   private readonly baseUrl = '/products';
 
   /**
-   * Obtener productos con filtros y paginación
-   * El backend devuelve un array directo de ProductResponse
+   * Obtiene una lista paginada de productos con filtros
    */
   async getProducts(params: GetProductsParams = {}): Promise<PaginatedResponse<ProductData>> {
+    // Si estamos en modo mock, devolver datos mock
     if (APP_CONFIG.USE_MOCK_DATA) {
       return productServiceMock.getProducts(params);
     }
 
     try {
-      // El backend devuelve un array directo, no un objeto paginado
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl, { params });
-      
-      // Validar respuesta con Zod para garantizar type-safety en runtime
-      const validatedProducts = validateData(ApiProductListSchema, response.data);
-      
-      // Convertir al formato del frontend
-      const products = BackendProductAdapter.toProductDataArray(validatedProducts);
-      
-      // Crear respuesta paginada (el backend no tiene paginación por ahora)
-      return {
-        data: products,
-        pagination: {
-          page: params.page || 1,
-          limit: params.limit || products.length,
-          total: products.length,
-          totalPages: 1,
-          hasNext: false,
-          hasPrev: false,
-        },
-        message: 'OK',
-        status: 200,
-      };
+      const response = await api.get<PaginatedResponse<ProductData>>(this.baseUrl, { params });
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getProducts(params);
+      console.error('Error fetching products:', error);
+      // Fallback a mock en caso de error de conexión si estamos en desarrollo
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Fallback to mock data due to API error');
+        return productServiceMock.getProducts(params);
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener producto por ID
+   * Obtiene un producto por su ID
    */
   async getProductById(id: number): Promise<ProductData> {
     if (APP_CONFIG.USE_MOCK_DATA) {
@@ -121,35 +48,83 @@ class ProductService {
     }
 
     try {
-      // El backend devuelve el producto directamente
-      const response = await api.get<ApiProductResponse>(`${this.baseUrl}/${id}`);
-      
-      // Validar respuesta con Zod
-      const validatedProduct = validateData(ApiProductSchema, response.data);
-      
-      return BackendProductAdapter.toProductData(validatedProduct);
+      const response = await api.get<ProductData>(`${this.baseUrl}/${id}`);
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getProductById(id);
+      console.error('Error fetching product by id:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.getProductById(id);
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener producto por ID (formato ProductResponse sin conversión)
-   * Útil para formularios de edición que necesitan el formato del backend
+   * Obtiene un producto por su ID en formato Raw (ProductResponse)
    */
   async getProductByIdRaw(id: number): Promise<ProductResponse> {
     try {
       const response = await api.get<ProductResponse>(`${this.baseUrl}/${id}`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching product:', error);
+      console.error('Error fetching product raw:', error);
       throw error;
     }
   }
 
   /**
-   * Buscar productos
+   * Obtiene todos los productos en formato Raw (ProductResponse[])
+   */
+  async getAllProductsRaw(): Promise<ProductResponse[]> {
+    try {
+      const response = await api.get<ProductResponse[]>(this.baseUrl);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching all products raw:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Crea un nuevo producto (requiere rol de vendedor o admin)
+   */
+  async createProduct(product: CreateProductRequest): Promise<ProductResponse> {
+    try {
+      const response = await api.post<ProductResponse>(this.baseUrl, product);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Actualiza un producto existente
+   */
+  async updateProduct(id: number, product: Partial<CreateProductRequest>): Promise<ProductResponse> {
+    try {
+      const response = await api.patch<ProductResponse>(`${this.baseUrl}/${id}`, product);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Elimina un producto
+   */
+  async deleteProduct(id: number): Promise<void> {
+    try {
+      await api.delete(`${this.baseUrl}/${id}`);
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Busca productos por coincidencia de texto
    */
   async searchProducts(query: string, filters?: ProductFilters): Promise<ProductData[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
@@ -157,25 +132,21 @@ class ProductService {
     }
 
     try {
-      // Usar el endpoint de productos con filtro de búsqueda
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
-      const products = response.data;
-      
-      // Filtrar localmente por nombre o descripción
-      const filtered = products.filter(p => 
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.description?.toLowerCase().includes(query.toLowerCase())
-      );
-      
-      return BackendProductAdapter.toProductDataArray(filtered);
+      const response = await api.get<ProductData[]>(`${this.baseUrl}/search`, {
+        params: { query, ...filters }
+      });
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.searchProducts(query);
+      console.error('Error searching products:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.searchProducts(query);
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener productos por categoría
+   * Obtiene productos por categoría
    */
   async getProductsByCategory(category: string): Promise<ProductData[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
@@ -183,23 +154,19 @@ class ProductService {
     }
 
     try {
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
-      const products = response.data;
-      
-      // Filtrar por categoría
-      const filtered = products.filter(p => 
-        p.category?.name?.toLowerCase() === category.toLowerCase()
-      );
-      
-      return BackendProductAdapter.toProductDataArray(filtered);
+      const response = await api.get<ProductData[]>(`${this.baseUrl}/category/${category}`);
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getProductsByCategory(category);
+      console.error('Error fetching products by category:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.getProductsByCategory(category);
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener productos populares (ordenados por rating)
+   * Obtiene productos populares
    */
   async getPopularProducts(limit: number = 10): Promise<ProductData[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
@@ -207,181 +174,94 @@ class ProductService {
     }
 
     try {
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
-      const products = response.data;
-      
-      // Ordenar por rating y limitar
-      const sorted = [...products]
-        .sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))
-        .slice(0, limit);
-      
-      return BackendProductAdapter.toProductDataArray(sorted);
+      const response = await api.get<ProductData[]>(`${this.baseUrl}/popular`, {
+        params: { limit }
+      });
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getPopularProducts(limit);
+      console.error('Error fetching popular products:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.getPopularProducts(limit);
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener productos en oferta (los más baratos por ahora)
+   * Obtiene productos en oferta
    */
-  async getDealsProducts(): Promise<ProductData[]> {
+  async getDeals(): Promise<ProductData[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
       return productServiceMock.getDealsProducts();
     }
 
     try {
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
-      const products = response.data;
-      
-      // Obtener los 6 más baratos como "ofertas"
-      const deals = [...products]
-        .sort((a, b) => a.price - b.price)
-        .slice(0, 6);
-      
-      return BackendProductAdapter.toProductDataArray(deals);
+      const response = await api.get<ProductData[]>(`${this.baseUrl}/deals`);
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getDealsProducts();
+      console.error('Error fetching deals:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.getDealsProducts();
+      }
+      throw error;
     }
   }
 
   /**
-   * Obtener categorías disponibles
+   * Obtiene productos relacionados
    */
-  async getCategories(): Promise<string[]> {
+  async getRelatedProducts(productId: number, limit: number = 4): Promise<ProductData[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
-      return productServiceMock.getCategories();
+      return (await productServiceMock.getProducts({ limit })).data;
     }
 
     try {
-      // Obtener categorías del endpoint de categorías
-      const response = await api.get<{ id: number; name: string }[]>('/categories');
-      return response.data.map(c => c.name);
+      const response = await api.get<ProductData[]>(`${this.baseUrl}/${productId}/related`, {
+        params: { limit }
+      });
+      return response.data;
     } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      return productServiceMock.getCategories();
+      console.error('Error fetching related products:', error);
+      throw error;
     }
   }
 
   /**
-   * Obtener marcas disponibles
+   * Sube imágenes de productos
+   */
+  async uploadImages(files: File[]): Promise<UploadImagesResponse> {
+    const formData = new FormData();
+    files.forEach(file => formData.append('files', file));
+
+    try {
+      const response = await api.post<UploadImagesResponse>(`${this.baseUrl}/images/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Obtiene todas las marcas disponibles
    */
   async getBrands(): Promise<string[]> {
     if (APP_CONFIG.USE_MOCK_DATA) {
       return productServiceMock.getBrands();
     }
 
-    // El backend no tiene marcas, devolver array vacío
-    return [];
-  }
-
-  /**
-   * Obtener productos relacionados
-   */
-  async getRelatedProducts(productId: number, limit: number = 5): Promise<ProductData[]> {
-    if (APP_CONFIG.USE_MOCK_DATA) {
-      const product = await productServiceMock.getProductById(productId);
-      const allProducts = await productServiceMock.getProducts({ limit: 50 });
-      return allProducts.data
-        .filter(p => p.id !== productId && p.category.some(cat => product.category.includes(cat)))
-        .slice(0, limit);
-    }
-
     try {
-      // Obtener el producto actual para saber su categoría
-      const currentProduct = await api.get<ApiProductResponse>(`${this.baseUrl}/${productId}`);
-      const categoryName = currentProduct.data.category?.name;
-
-      // Obtener todos los productos y filtrar por categoría
-      const response = await api.get<ApiProductResponse[]>(this.baseUrl);
-      const related = response.data
-        .filter(p => p.id !== productId && p.category?.name === categoryName)
-        .slice(0, limit);
-
-      return BackendProductAdapter.toProductDataArray(related);
-    } catch (error) {
-      console.warn('API failed, falling back to mock data:', error);
-      const product = await productServiceMock.getProductById(productId);
-      const allProducts = await productServiceMock.getProducts({ limit: 50 });
-      return allProducts.data
-        .filter(p => p.id !== productId && p.category.some(cat => product.category.includes(cat)))
-        .slice(0, limit);
-    }
-  }
-
-  /**
-   * Alias para getDealsProducts (compatibilidad)
-   */
-  async getDeals(): Promise<ProductData[]> {
-    return this.getDealsProducts();
-  }
-
-  /**
-   * Sube imágenes de producto (solo SELLER)
-   * @param files Array de archivos de imagen (1-5 archivos)
-   * @returns Promise con las URLs de las imágenes subidas
-   */
-  async uploadProductImages(files: File[]): Promise<string[]> {
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('files', file);
-    });
-
-    const { data } = await api.post<UploadImagesResponse>(
-      `${this.baseUrl}/images`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-
-    return data.imageUrls;
-  }
-
-  /**
-   * Crea un nuevo producto
-   * @param product Datos del producto a crear
-   * @returns Promise con el producto creado
-   */
-  async createProduct(product: CreateProductRequest): Promise<ProductResponse> {
-    const { data } = await api.post<ProductResponse>(
-      this.baseUrl,
-      product
-    );
-    return data;
-  }
-
-  /**
-   * Actualiza un producto
-   */
-  async updateProduct(id: number, product: CreateProductRequest): Promise<ProductResponse> {
-    const { data } = await api.put<ProductResponse>(
-      `${this.baseUrl}/${id}`,
-      product
-    );
-    return data;
-  }
-
-  /**
-   * Elimina un producto
-   */
-  async deleteProduct(id: number): Promise<void> {
-    await api.delete(`${this.baseUrl}/${id}`);
-  }
-
-  /**
-   * Obtener todos los productos (formato ProductResponse sin conversión)
-   * Útil para listados de administración/seller
-   */
-  async getAllProductsRaw(): Promise<ProductResponse[]> {
-    try {
-      const response = await api.get<ProductResponse[]>(this.baseUrl);
+      const response = await api.get<string[]>(`${this.baseUrl}/brands`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('Error fetching brands:', error);
+      if (process.env.NODE_ENV === 'development') {
+        return productServiceMock.getBrands();
+      }
       throw error;
     }
   }

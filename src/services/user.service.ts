@@ -1,29 +1,5 @@
 import { api } from '@/config/axios';
-
-export interface UserResponse {
-  id: number;
-  name: string;
-  email: string;
-  role: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
-  address: string | null;
-  phone: string | null;
-}
-
-export interface UpdateUserRequest {
-  name: string;
-  email: string;
-  role?: 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
-  address: string;
-  phone: string;
-  password?: string;
-}
-
-export interface SellerStats {
-  totalProducts: number;
-  activeProducts: number;
-  totalSales: number;
-  pendingOrders: number;
-}
+import { ApiUserResponse, ApiUpdateUserRequest, ApiSellerStats } from '@/types/api.types';
 
 class UserService {
   private readonly BASE_URL = '/users';
@@ -31,24 +7,24 @@ class UserService {
   /**
    * Obtiene todos los usuarios (solo ADMIN)
    */
-  async getAllUsers(): Promise<UserResponse[]> {
-    const { data } = await api.get<UserResponse[]>(this.BASE_URL);
+  async getAllUsers(): Promise<ApiUserResponse[]> {
+    const { data } = await api.get<ApiUserResponse[]>(this.BASE_URL);
     return data;
   }
 
   /**
    * Obtiene un usuario por ID
    */
-  async getUserById(id: number): Promise<UserResponse> {
-    const { data } = await api.get<UserResponse>(`${this.BASE_URL}/${id}`);
+  async getUserById(id: number): Promise<ApiUserResponse> {
+    const { data } = await api.get<ApiUserResponse>(`${this.BASE_URL}/${id}`);
     return data;
   }
 
   /**
    * Actualiza un usuario
    */
-  async updateUser(id: number, userData: UpdateUserRequest): Promise<UserResponse> {
-    const { data } = await api.put<UserResponse>(`${this.BASE_URL}/${id}`, userData);
+  async updateUser(id: number, userData: ApiUpdateUserRequest): Promise<ApiUserResponse> {
+    const { data } = await api.put<ApiUserResponse>(`${this.BASE_URL}/${id}`, userData);
     return data;
   }
 
@@ -62,9 +38,9 @@ class UserService {
   /**
    * Obtiene estadísticas del vendedor
    */
-  async getSellerStats(): Promise<SellerStats> {
+  async getSellerStats(): Promise<ApiSellerStats> {
     try {
-      const { data } = await api.get<SellerStats>(`${this.BASE_URL}/seller/stats`);
+      const { data } = await api.get<ApiSellerStats>(`${this.BASE_URL}/seller/stats`);
       return data;
     } catch {
       // Si el endpoint no existe, devolvemos stats vacías

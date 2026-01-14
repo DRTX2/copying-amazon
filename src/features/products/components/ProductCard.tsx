@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useCartStore } from '../../../stores/cart.store';
 import { usePrefetchProduct } from '../hooks/useProducts';
-import { ProductCardProps } from '../types/product.types';
+import { ProductCardProps } from '../types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 
 export const ProductCard = memo<ProductCardProps>(({ 

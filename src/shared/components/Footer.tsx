@@ -1,4 +1,4 @@
-import ColumnsFooterOtherProducts from "./ColumnsFooterOtherProducts";
+import ColumnsFooterOtherProducts from "@/features/products/components/ColumnsFooterOtherProducts";
 import LanguageCurrencies from "./SectionLanguageCurrencies";
 import MoreServices from "./MoreServices";
 import ItemBarMenu from "./Menu/ItemBarMenu";

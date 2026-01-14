@@ -19,10 +19,10 @@ import {
   Hash,
   Layers,
 } from 'lucide-react';
-import ImageUpload from '@/components/ImageUpload';
+import ImageUpload from '@/shared/components/ImageUpload';
 import { productService } from '@/services/product.service';
 import { PRODUCT_IMAGE_CONFIG } from '@/config/imageUpload';
-import { useSellerGuard } from '@/hooks/useSellerGuard';
+import { useSellerGuard } from '@/features/auth/hooks/useSellerGuard';
 import { useSellerProduct, useUpdateProduct } from '@/features/seller/hooks/useSellerProducts';
 import { api } from '@/config/axios';
 import Template from '@/layouts/Template';
@@ -119,10 +119,10 @@ export default function EditProductPage() {
 
       // Subir nuevas imágenes si las hay
       if (newImages.length > 0) {
-        const newImageUrls = await productService.uploadProductImages(
+        const uploadResponse = await productService.uploadImages(
           newImages.map((img) => img.file)
         );
-        imageUrls = [...imageUrls, ...newImageUrls];
+        imageUrls = [...imageUrls, ...uploadResponse.imageUrls];
       }
 
       await updateProductMutation.mutateAsync({

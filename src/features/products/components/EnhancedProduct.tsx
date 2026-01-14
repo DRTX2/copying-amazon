@@ -23,7 +23,7 @@ import { ProductData } from "@/types/products";
 import { useCart } from "@/features/cart";
 import { useAddFavorite, useRemoveFavorite, useFavorites } from "@/features/favorites/hooks/useFavorites";
 import { useAuth } from "@/stores/auth.store";
-import Message, { MessageData } from "@/components/Message/Message";
+import Message, { MessageData } from "@/shared/components/Message/Message";
 import SelectProduct from "./selectQuantityProduct";
 
 interface EnhancedProductProps {

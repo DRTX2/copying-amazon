@@ -21,7 +21,7 @@ import {
   CheckCircle,
   XCircle,
 } from 'lucide-react';
-import { useAdminGuard } from '@/hooks/useAdminGuard';
+import { useAdminGuard } from '@/features/auth/hooks/useAdminGuard';
 import { useUsers, useDeleteUser } from '@/features/users/hooks/useUsers';
 import Template from '@/layouts/Template';
 

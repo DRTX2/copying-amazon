@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Template from '@/layouts/Template';
 import { useCart } from '@/features/cart';
 import { ProductGrid } from '@/features/products/components/ProductGrid';
-import { Product } from '@/features/products/types/product.types';
+import { Product } from '@/features/products/types';
 
 export default function ShoppingCart() {
   const router = useRouter();

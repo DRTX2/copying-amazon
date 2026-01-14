@@ -7,7 +7,7 @@ import { ProductGrid } from '@/features/products/components/ProductGrid';
 import { useProducts } from '@/features/products/hooks/useProducts';
 import { useCart } from '@/features/cart';
 import { ProductAdapter } from '@/shared/adapters/product.adapter';
-import { Product } from '@/features/products/types/product.types';
+import { Product } from '@/features/products/types';
 
 interface HomeClientProps {
   initialProducts?: any;

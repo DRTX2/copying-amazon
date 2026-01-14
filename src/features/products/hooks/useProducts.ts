@@ -1,7 +1,8 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useProductStore } from '../../../stores/product.store';
 import { productService } from '@/services/product.service';
-import { ProductSearchParams, ProductFilters } from '../types/product.types';
+import { ApiProductQueryParams as ProductSearchParams, ApiProductResponse as ProductResponse } from '@/types/api.types';
+import { ProductFilters } from '../types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 
 // Query keys para este feature

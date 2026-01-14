@@ -3,20 +3,55 @@
  * Estos tipos reflejan exactamente la estructura de las respuestas y requests del backend
  */
 
+// ============ Shared / Auth ============
+export type UserRole = 'USER' | 'ADMIN' | 'MODERATOR' | 'SELLER';
+
+export interface ApiUserResponse {
+  id: number;
+  name: string;
+  email: string;
+  role: UserRole;
+  address?: string | null;
+  phone?: string | null;
+}
+
+export interface ApiUpdateUserRequest {
+  name: string;
+  email: string;
+  role?: UserRole;
+  address?: string;
+  phone?: string;
+  password?: string;
+}
+
+export interface ApiSellerStats {
+  totalProducts: number;
+  activeProducts: number;
+  totalSales: number;
+  pendingOrders: number;
+}
+
 // ============ Category ============
-export interface ApiCategory {
+export interface ApiCategoryResponse {
   id: number;
   name: string;
   description?: string;
 }
 
+export interface ApiCreateCategoryRequest {
+  name: string;
+  description?: string;
+}
+
 // ============ Product ============
+export type ProductStatus = 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'ARCHIVED';
+
 export interface ApiProductResponse {
   id: number;
   name: string;
   description?: string;
   price: number;
-  category?: ApiCategory;
+  category?: ApiCategoryResponse;
   averageRating: number;
   images: string[];
   sku?: string;
@@ -40,7 +75,29 @@ export interface ApiProductRequest {
   slug?: string;
 }
 
-export type ProductStatus = 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'ARCHIVED';
+export interface ApiUploadImagesResponse {
+  imageUrls: string[];
+}
+
+export interface ApiProductQueryParams {
+  page?: number;
+  limit?: number;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  search?: string;
+  sortBy?: 'price' | 'name' | 'rating' | 'createdAt';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface ApiProductFilters {
+  category?: string[];
+  brand?: string[];
+  priceRange?: [number, number];
+  rating?: number;
+  inStock?: boolean;
+  discount?: boolean;
+}
 
 // ============ Favorites ============
 export interface ApiFavoriteResponse {
@@ -55,47 +112,49 @@ export interface ApiFavoriteResponse {
   createdAt: string;
 }
 
-// ============ Category Response ============
-export interface ApiCategoryResponse {
-  id: number;
-  name: string;
-  description?: string;
-}
-
 // ============ Orders ============
-export interface ApiOrderItemDto {
+export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+
+export interface ApiOrderItemResponse {
+  id: number;
   productId: number;
   quantity: number;
   price: number;
+  product?: ApiProductResponse;
 }
 
 export interface ApiOrderResponse {
   id: number;
-  items: ApiOrderItemDto[];
+  user?: ApiUserResponse;
+  items: ApiOrderItemResponse[];
   total: number;
-  orderState: OrderState;
+  orderState: OrderStatus;
   createdAt: string;
   deliveredAt?: string;
+  paymentType?: string;
 }
 
 export interface ApiOrderRequest {
-  items: ApiOrderItemDto[];
+  items: Array<{
+    productId: number;
+    quantity: number;
+    price: number;
+  }>;
 }
 
-export type OrderState = 'PENDING' | 'CONFIRMED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
-
 // ============ Cart ============
-export interface ApiCartItemDto {
+export interface ApiCartItemResponse {
   productId: number;
   quantity: number;
 }
 
 export interface ApiCartResponse {
   id: number;
-  items: ApiCartItemDto[];
+  userId?: number;
+  items: ApiCartItemResponse[];
 }
 
 export interface ApiCartRequest {
   userId: number;
-  items: ApiCartItemDto[];
+  items: ApiCartItemResponse[];
 }

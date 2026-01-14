@@ -1,17 +1,5 @@
 import { api } from '@/config/axios';
-import { ProductResponse } from './product.service';
-
-export interface FavoriteResponse {
-  id: number;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-  };
-  product: ProductResponse;
-  createdAt: string;
-}
+import { ApiFavoriteResponse, ApiProductResponse } from '@/types/api.types';
 
 class FavoriteService {
   private readonly BASE_URL = '/favorites';
@@ -19,16 +7,16 @@ class FavoriteService {
   /**
    * Obtiene los favoritos del usuario autenticado
    */
-  async getUserFavorites(): Promise<ProductResponse[]> {
-    const { data } = await api.get<ProductResponse[]>(this.BASE_URL);
+  async getUserFavorites(): Promise<ApiProductResponse[]> {
+    const { data } = await api.get<ApiProductResponse[]>(this.BASE_URL);
     return data;
   }
 
   /**
    * Agrega un producto a favoritos
    */
-  async addFavorite(productId: number): Promise<FavoriteResponse> {
-    const { data } = await api.post<FavoriteResponse>(`${this.BASE_URL}/product/${productId}`);
+  async addFavorite(productId: number): Promise<ApiFavoriteResponse> {
+    const { data } = await api.post<ApiFavoriteResponse>(`${this.BASE_URL}/product/${productId}`);
     return data;
   }
 

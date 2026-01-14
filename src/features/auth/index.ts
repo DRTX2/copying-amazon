@@ -1,4 +1,9 @@
-// Barrel export para el feature de autenticación
-export { useLogin, useRegister, useLogout, useAuthCheck, useProfile } from './hooks/useAuth';
-export { useAuth } from '../../stores/auth.store';
-export type { User, AuthTokens, LoginRequest, RegisterRequest, AuthResponse } from './types/auth.types';
+// Hooks
+export * from './hooks/useAuth';
+
+// Components
+export { ProtectedRoute } from './components/ProtectedRoute';
+export { AuthInitializer } from './components/AuthInitializer';
+
+// Types
+export * from './types/auth.types';

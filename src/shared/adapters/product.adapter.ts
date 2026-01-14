@@ -1,5 +1,5 @@
 import { ProductData } from '@/types/products';
-import { Product } from '../../features/products/types/product.types';
+import { Product } from '@/features/products/types';
 
 /**
  * Adapter para convertir entre tipos de producto legacy y nuevos tipos empresariales

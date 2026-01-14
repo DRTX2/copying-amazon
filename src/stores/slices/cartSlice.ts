@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProductData } from '@/types/products';
-
-// Tipos del carrito
-export interface CartItem extends ProductData {
-  id: number; // Override: id es requerido en el carrito
-  quantity: number;
-}
+import { CartItem } from '@/features/cart/types';
 
 interface CartState {
   items: CartItem[];
