@@ -9,7 +9,7 @@ import {
   clearError,
 } from './slices/authSlice';
 import type { User, AuthTokens } from './slices/authSlice';
-import { jwtService } from '../services/jwt.service';
+import { jwtService } from '@/services/jwt.service';
 
 // Re-exportar tipos
 export type { User, AuthTokens };

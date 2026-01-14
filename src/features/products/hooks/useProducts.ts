@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useProductStore } from '../../../stores/product.store';
-import { productService } from '../../../services/product.service';
+import { productService } from '@/services/product.service';
 import { ProductSearchParams, ProductFilters } from '../types/product.types';
 import { ProductAdapter } from '../../../shared/adapters/product.adapter';
 

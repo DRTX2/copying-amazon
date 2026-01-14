@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { jwtService } from '../../services/jwt.service';
+import { jwtService } from '@/services/jwt.service';
 
 // Tipos para el usuario
 export interface User {
